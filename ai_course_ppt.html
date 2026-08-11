@@ -561,7 +561,7 @@ body {
 .sc-card-mini h4 { font-size: 12.5px; font-weight: 800; color: var(--text); margin-bottom: 2px; }
 .sc-card-mini p { font-size: 11px; color: var(--sub); line-height: 1.55; }
 
-/* 第 22 页与第 23 页切片与 RAG 专页样式 */
+/* 第 22、23、24 页知识库与开源模型专页样式 */
 .kb-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 12px; }
 .kb-pane-card { background: var(--card-bg); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow-card); }
 .kb-pane-card h4 { font-size: 13.5px; font-weight: 800; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
@@ -569,6 +569,152 @@ body {
 .kb-pane-card li { font-size: 11.5px; color: var(--sub); line-height: 1.6; background: rgba(0,0,0,0.03); padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border); }
 .kb-pane-card li b { color: var(--text); font-weight: 800; }
 .kb-pane-card li code { font-family: monospace; background: rgba(79,123,255,0.08); color: var(--accent); padding: 1px 4px; border-radius: 3px; }
+
+/* 24页专用：三件套检查器样式 */
+.oc-checker {
+  background: var(--card-bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow-card);
+  padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;
+}
+.oc-modes { display: flex; gap: 8px; margin-bottom: 10px; }
+.oc-mode {
+  flex: 1; border: 1.5px solid var(--border); background: var(--card-bg);
+  border-radius: var(--radius-sm); padding: 6px 10px;
+  font-size: 12px; font-weight: 800; color: var(--sub);
+  cursor: pointer; font-family: inherit; transition: all 0.15s; text-align: center;
+}
+.oc-mode:hover { border-color: rgba(79,123,255,0.4); }
+.oc-mode.on { border-color: var(--accent); background: rgba(79,123,255,0.05); color: var(--accent); }
+.oc-items { display: flex; flex-direction: column; gap: 8px; }
+.oc-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 8px 12px; border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border); background: rgba(0,0,0,0.015);
+  opacity: 0.55; transition: all 0.4s;
+}
+.oc-item.lit {
+  opacity: 1; border-color: rgba(22,163,74,0.4); background: rgba(22,163,74,0.05);
+}
+.oc-item .oc-lamp {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800;
+  background: rgba(0,0,0,0.07); color: var(--sub);
+  transition: all 0.4s; margin-top: 1px;
+}
+.oc-item.lit .oc-lamp { background: var(--success); color: #fff; }
+.oc-item h4 { font-size: 12.5px; font-weight: 800; color: var(--text); }
+.oc-item .oc-note { font-size: 11px; color: var(--sub); line-height: 1.5; margin-top: 1px; }
+.oc-item.lit .oc-note b { color: var(--success); }
+.oc-item .oc-note b { color: var(--danger); }
+.oc-verdict {
+  margin-top: 8px; border-top: 1.5px dashed var(--border); padding-top: 8px;
+  font-size: 11.5px; font-weight: 700; color: var(--sub); line-height: 1.55;
+  opacity: 0; transition: opacity 0.4s;
+}
+.oc-verdict.show { opacity: 1; }
+.oc-verdict b { color: var(--accent); }
+
+/* 24页专用：满血 vs 蒸馏播放对比 */
+.dist-wrap {
+  background: var(--card-bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow-card);
+  padding: 14px 16px; display: flex; flex-direction: column; justify-content: space-between;
+}
+.dist-play {
+  border: 1.5px solid var(--accent); background: rgba(79,123,255,0.05);
+  color: var(--accent); border-radius: 999px; padding: 5px 18px;
+  font-size: 12px; font-weight: 800; cursor: pointer; font-family: inherit;
+  transition: all 0.15s; margin-bottom: 10px; width: fit-content;
+}
+.dist-play:hover { background: rgba(79,123,255,0.1); }
+.dist-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dist-card {
+  border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+.dist-card.full { border-color: rgba(124,58,237,0.35); background: rgba(124,58,237,0.03); }
+.dist-card.mini { border-color: rgba(8,145,178,0.35); background: rgba(8,145,178,0.03); }
+.dist-card h4 { font-size: 13px; font-weight: 800; color: var(--text); }
+.dist-card .dist-sub { font-size: 10.5px; color: var(--sub); margin: 1px 0 6px; }
+.dist-bar-label {
+  display: flex; justify-content: space-between;
+  font-size: 10.5px; font-weight: 800; color: var(--sub); margin-bottom: 2px;
+}
+.dist-bar-label .dist-val { color: var(--text); }
+.dist-bar {
+  height: 7px; border-radius: 999px; background: rgba(0,0,0,0.06);
+  overflow: hidden; margin-bottom: 6px;
+}
+.dist-bar .dist-fill {
+  height: 100%; border-radius: 999px; width: 0;
+  transition: width 0.9s ease;
+}
+.dist-card.full .dist-fill { background: #7c3aed; }
+.dist-card.mini .dist-fill { background: #0891b2; }
+.dist-device {
+  display: flex; gap: 6px; align-items: flex-start;
+  font-size: 11px; color: var(--sub); line-height: 1.5;
+  border-top: 1px dashed var(--border); padding-top: 6px; margin-top: 2px;
+}
+.dist-device .dd-ico { font-size: 14px; flex-shrink: 0; }
+.dist-device b { color: var(--text); }
+.dist-note {
+  margin-top: 8px; font-size: 11px; color: var(--sub); line-height: 1.55;
+  opacity: 0; transition: opacity 0.5s;
+}
+.dist-note.show { opacity: 1; }
+.dist-note b { color: var(--accent); }
+
+/* 27页专用：显存计算器组件样式 */
+.vram-calc-box {
+  background: var(--card-bg); border: 1.5px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow-card);
+  padding: 12px 16px; margin-bottom: 10px;
+}
+.vram-controls { display: flex; gap: 14px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+.vram-ctrl-group { display: flex; align-items: center; gap: 6px; }
+.vram-ctrl-label { font-size: 12px; font-weight: 800; color: var(--sub); }
+.vram-seg-group { display: flex; gap: 4px; background: var(--bg-dim); padding: 2px; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.vram-seg-btn { border: none; background: transparent; padding: 4px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; color: var(--sub); cursor: pointer; font-family: inherit; }
+.vram-seg-btn.active { background: var(--panel); color: var(--accent); font-weight: 800; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.vram-select { background: var(--panel); border: 1px solid var(--border); color: var(--text); border-radius: var(--radius-sm); padding: 4px 10px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; }
+
+.vram-readout {
+  background: rgba(79,123,255,0.05); border: 1px solid rgba(79,123,255,0.18);
+  border-radius: var(--radius-sm); padding: 8px 14px; font-size: 12px; color: var(--sub);
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px;
+}
+.vram-big { font-size: 18px; font-weight: 900; color: var(--accent); font-variant-numeric: tabular-nums; }
+.vram-formula-text { font-size: 11.5px; }
+.vram-dev-note { margin-left: auto; font-size: 11px; font-weight: 700; color: var(--sub); }
+
+.vram-results-list { display: flex; flex-direction: column; gap: 6px; max-height: 240px; overflow-y: auto; padding-right: 4px; }
+.vram-results-list::-webkit-scrollbar { width: 4px; }
+.vram-results-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.vram-row {
+  display: flex; align-items: center; gap: 10px; padding: 6px 12px;
+  border-radius: var(--radius-sm); border: 1.5px solid var(--border);
+  background: var(--card-bg); font-size: 12px; transition: all 0.2s;
+}
+.vram-row.can-run { border-color: rgba(22,163,74,0.3); background: rgba(22,163,74,0.02); }
+.vram-row.cant-run { border-color: rgba(220,38,38,0.25); background: rgba(220,38,38,0.02); opacity: 0.65; }
+
+.vram-m-name { font-size: 12.5px; font-weight: 800; color: var(--text); width: 130px; flex-shrink: 0; }
+.vram-m-tags { display: flex; gap: 4px; align-items: center; }
+.vram-m-tag { font-size: 10px; font-weight: 800; padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,0.06); color: var(--sub); }
+.vram-m-tag.moe { background: rgba(124,58,237,0.1); color: var(--purple); }
+
+.vram-m-req { font-size: 11.5px; color: var(--sub); width: 75px; flex-shrink: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.vram-bar-track { flex: 1; height: 7px; background: rgba(0,0,0,0.06); border-radius: 999px; overflow: hidden; }
+.vram-bar-fill { height: 100%; border-radius: 999px; transition: width 0.4s ease; }
+.vram-row.can-run .vram-bar-fill { background: var(--success); }
+.vram-row.cant-run .vram-bar-fill { background: var(--danger); }
+
+.vram-status-badge { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px; flex-shrink: 0; width: 55px; text-align: center; }
+.vram-row.can-run .vram-status-badge { background: rgba(22,163,74,0.12); color: var(--success); }
+.vram-row.cant-run .vram-status-badge { background: rgba(220,38,38,0.12); color: var(--danger); }
 
 /* 底部底栏与翻页控制器 */
 .bottom-bar {
@@ -1073,7 +1219,7 @@ body {
 
       <div class="card c2">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 17 22 12"/></svg>
         </div>
         <div class="card-body">
           <h4>2. 规划能力 (Planning)</h4>
@@ -1742,6 +1888,250 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 24: 『开源模型』等于免费吗？—— AI 圈“开源”真相与选型避坑 -->
+  <section class="slide" data-slide="24">
+    <header class="lesson-header">
+      <h1>『开源模型』等于免费吗？—— AI 圈“开源”真相与选型避坑</h1>
+      <p class="subtitle">点击下方交互组件，亲眼看<b>三件套亮灯检查器</b>与<b>满血 vs 蒸馏版参数性能动画对比</b>。</p>
+    </header>
+
+    <div class="kb-detail-grid">
+      <!-- 左栏：三件套检查器 -->
+      <div class="oc-checker">
+        <div>
+          <div style="font-size:13.5px; font-weight:800; color:var(--text); margin-bottom:8px;">💡 三件套检查器 · 它到底开了什么？</div>
+          <div class="oc-modes">
+            <button class="oc-mode on" id="ocModeA">常见的开权重模型</button>
+            <button class="oc-mode" id="ocModeB">少数完全开源项目</button>
+          </div>
+          <div class="oc-items">
+            <div class="oc-item" id="ocItem0">
+              <div class="oc-lamp">1</div>
+              <div>
+                <h4>模型权重 (Weights)</h4>
+                <div class="oc-note" id="ocNote0"></div>
+              </div>
+            </div>
+            <div class="oc-item" id="ocItem1">
+              <div class="oc-lamp">2</div>
+              <div>
+                <h4>训练数据 (Data)</h4>
+                <div class="oc-note" id="ocNote1"></div>
+              </div>
+            </div>
+            <div class="oc-item" id="ocItem2">
+              <div class="oc-lamp">3</div>
+              <div>
+                <h4>训练方法 (Code/Recipe)</h4>
+                <div class="oc-note" id="ocNote2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="oc-verdict" id="ocVerdict"></div>
+      </div>
+
+      <!-- 右栏：满血 vs 蒸馏播放对比 -->
+      <div class="dist-wrap">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div style="font-size:13.5px; font-weight:800; color:var(--text);">⚡ 满血版 vs 蒸馏版对比</div>
+            <button class="dist-play" id="distPlay">播放对比 ▶</button>
+          </div>
+
+          <div class="dist-cols">
+            <div class="dist-card full">
+              <h4>满血版 (Full)</h4>
+              <div class="dist-sub">新闻标题里刷榜的那个</div>
+              <div class="dist-bar-label"><span>体积 (参数量)</span><span class="dist-val">千亿/万亿级</span></div>
+              <div class="dist-bar"><div class="dist-fill" data-w="100"></div></div>
+              <div class="dist-bar-label"><span>能力</span><span class="dist-val">榜单成绩来源</span></div>
+              <div class="dist-bar"><div class="dist-fill" data-w="95"></div></div>
+              <div class="dist-device">
+                <span class="dd-ico">🏢</span>
+                <span>所需设备：<b>一屋子服务器</b>，专业显卡集群，电表转极快</span>
+              </div>
+            </div>
+
+            <div class="dist-card mini">
+              <h4>蒸馏版 (Distilled)</h4>
+              <div class="dist-sub">你家电脑跑起来的那个</div>
+              <div class="dist-bar-label"><span>体积 (参数量)</span><span class="dist-val">几十亿/百亿级</span></div>
+              <div class="dist-bar"><div class="dist-fill" data-w="12"></div></div>
+              <div class="dist-bar-label"><span>能力</span><span class="dist-val">日常够用，难题露怯</span></div>
+              <div class="dist-bar"><div class="dist-fill" data-w="65"></div></div>
+              <div class="dist-device">
+                <span class="dd-ico">💻</span>
+                <span>所需设备：<b>一台高配电脑</b>，好显卡，风扇响一点</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dist-note" id="distNote"></div>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>📜 商业许可证 (License) 避坑提醒：</b><br>
+      开源模型带有 LICENSE 协议。<b>免费下载 ≠ 免费商业运行</b>！很多模型限制月活用户或商用变现，拿去赚钱前务必核对使用协议，避免接收律师函。
+    </div>
+  </section>
+
+  <!-- SLIDE 25: 开源 7B 模型实操与选型：我拿到了权重文件，然后呢？ -->
+  <section class="slide" data-slide="25">
+    <header class="lesson-header">
+      <h1>开源 7B 模型实操与选型：我拿到了权重文件，然后呢？</h1>
+      <p class="subtitle">揭秘 <b>7B 权重真实用途、QLoRA 低成本微调实操与动态企业文档 RAG 选型硬道理</b>。</p>
+    </header>
+
+    <div class="grid-4-col" style="margin-bottom:12px;">
+      <div class="card c1">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <h4 style="font-size:14px;">1. 14GB 的 7B 权重文件能干嘛？</h4>
+            <span class="sc-tag rag" style="font-size:10px;">大脑资源包</span>
+          </div>
+          <p><b>本质：</b>它是静态的“大脑记忆”。配套几十 MB 软件（如 <b>Ollama</b>），立刻化身<b>完全离线、100% 隐私安全、0 订阅费</b>的私有 AI 助手！</p>
+        </div>
+      </div>
+
+      <div class="card c4">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <h4 style="font-size:14px;">2. 微调 (QLoRA) 需要天价算力吗？</h4>
+            <span class="sc-tag tune" style="font-size:10px;">完全不需要！</span>
+          </div>
+          <p><b>原理：</b>主模型冻结，只训练 50MB 的旁路 LoRA 插件。<b>单张 3090/4090 显卡 (24G 显存) 或云端租用 (2~3元/时) 1小时炼成</b>！</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-top:6px;">📊 动态更新的企业文件：选微调还是挂 RAG 知识库？</div>
+
+    <div class="duo-grid" style="margin-bottom:10px;">
+      <div class="duo-card pro">
+        <div class="duo-tag">❌ 动态文件搞微调 (SFT)</div>
+        <h4>极慢、高成本、易胡编</h4>
+        <p>制度改一行字需重新整理问答对、重炼 2 小时、重新导出部署；且回答容易凭肌肉记忆胡编乱造，<b>无法标注原文页码出处</b>。</p>
+      </div>
+
+      <div class="duo-card you">
+        <div class="duo-tag">✅ 动态文件挂 RAG 知识库</div>
+        <h4>秒级生效、100% 精准、带出处</h4>
+        <p>后台直接替换新的 Word/PDF 文件，3 秒向量切片<b>立刻生效</b>！开卷考试查原文，<b>准确度高并精准标注《手册》第 12 页</b>。</p>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 黄金工程选型铁律：</b><br>
+      ① <b>频繁更新的规章 / 知识 / 文件</b> ➔ <b>100% 挂载 RAG 知识库（开卷考试）</b><br>
+      ② <b>特定语气 / 独特风格 / 复杂专业输出格式</b> ➔ <b>才选择 LoRA 微调（练习肌肉记忆）</b>
+    </div>
+  </section>
+
+  <!-- SLIDE 26: LoRA 微调原理与物理拆解：如何用 50MB 插件改动 70 亿大脑？ -->
+  <section class="slide" data-slide="26">
+    <header class="lesson-header">
+      <h1>LoRA 微调原理与物理拆解：如何用 50MB 插件改动 70 亿大脑？</h1>
+      <p class="subtitle">揭秘 <b>B (Billion) 含义、低秩分解原理 ΔW = B × A、Prompt 骤减 90% 与物理插件双模式</b>。</p>
+    </header>
+
+    <div class="grid-4-col" style="margin-bottom:12px;">
+      <div class="card c1">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <h4 style="font-size:14px;">1. 什么是 B & 为什么能省 Prompt？</h4>
+            <span class="sc-tag rag" style="font-size:10px;">B = Billion (十亿)</span>
+          </div>
+          <p><b>刻入肌肉记忆：</b>把格式 (JSON)、语气、规则写进权重，<b>无需每次发几千字说明书，Prompt Token 骤减 80%~90%</b>！</p>
+        </div>
+      </div>
+
+      <div class="card c5">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <h4 style="font-size:14px;">2. LoRA 低秩分解原理 (降维打击)</h4>
+            <span class="sc-tag tune" style="font-size:10px;">ΔW = B × A</span>
+          </div>
+          <p><b>低秩假说：</b>特定任务内在维度极低。大矩阵拆为两个窄矩阵 ($r=8$)，<b>参数量暴降 99.6%！$B=0$ 初始化保证第 0 步零干扰</b>。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-top:6px;">💾 14GB 文件变大了吗？—— 物理存储与部署双模式</div>
+
+    <div class="duo-grid" style="margin-bottom:10px;">
+      <div class="duo-card you">
+        <div class="duo-tag">🔌 模式 A：外挂随身听 (不合并，最省硬盘)</div>
+        <h4>1 个基座 (14GB) + N 个插件 (50MB)</h4>
+        <p>原 14GB 基座一字节未变！训练仅生成独立的 50MB <code>adapter_model.safetensors</code>。用哪个挂哪个，<b>节省 90% 存储</b>。</p>
+      </div>
+
+      <div class="duo-card pro">
+        <div class="duo-tag">⚡ 模式 B：永久融合 (导出单文件)</div>
+        <h4>矩阵加法：W_new = W0 + ΔW</h4>
+        <p>执行 <code>merge_and_unload()</code> 将数值融入原矩阵，<b>新文件依然刚好是 14GB</b>（网格未膨胀），<b>推理运行 0 额外延迟</b>！</p>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 一句话解密 LoRA 原理：</b><br>
+      在不破坏原 14GB 大脑全能常识的前提下，<b>以极低的算力成本生成一个几十 MB 的“业务补丁包”</b>，实现低成本、强遵循的专属调教！
+    </div>
+  </section>
+
+  <!-- SLIDE 27: 本地部署显存计算器与硬件选型 -->
+  <section class="slide" data-slide="27">
+    <header class="lesson-header">
+      <h1>你的电脑能跑多大的模型？—— 本地部署显存计算器与硬件选型</h1>
+      <p class="subtitle">选择<b>平台 (NVIDIA / Apple Silicon)</b>、<b>设备型号</b>与<b>精度 (INT4/INT8/FP16)</b>，实时计算模型匹配与显存硬开销。</p>
+    </header>
+
+    <!-- 动态显存计算器组件 -->
+    <div class="vram-calc-box">
+      <div class="vram-controls">
+        <div class="vram-ctrl-group">
+          <span class="vram-ctrl-label">平台：</span>
+          <div class="vram-seg-group" id="vramPlatform">
+            <button class="vram-seg-btn active" data-platform="nvidia">NVIDIA 显卡</button>
+            <button class="vram-seg-btn" data-platform="apple">Apple Silicon</button>
+          </div>
+        </div>
+
+        <div class="vram-ctrl-group">
+          <span class="vram-ctrl-label">型号：</span>
+          <select class="vram-select" id="vramDeviceSelect"></select>
+        </div>
+
+        <div class="vram-ctrl-group">
+          <span class="vram-ctrl-label">精度：</span>
+          <div class="vram-seg-group" id="vramPrec">
+            <button class="vram-seg-btn" data-prec="fp16">FP16</button>
+            <button class="vram-seg-btn" data-prec="int8">INT8</button>
+            <button class="vram-seg-btn active" data-prec="int4">INT4</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="vram-readout">
+        <span>可用于载入模型：</span>
+        <span class="vram-big" id="vramAvailBig">32 GB</span>
+        <span class="vram-formula-text">显存 ≈ 参数量(B) × <b id="vramFactorTag">0.65</b> (<b id="vramPrecTag">INT4</b>, 已含 KV Cache 开销)</span>
+        <span class="vram-dev-note" id="vramDevNote">NVIDIA 独立显存 32 GB</span>
+      </div>
+
+      <div class="vram-results-list" id="vramResultsList"></div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 硬件选型与前几轮选型终极总结：</b><br>
+      ① <b>🏎️ NVIDIA 独显（拼速度）</b>：100% 显存独占，带宽高(>1000GB/s)，生成极快；缺点是消费卡最高 24G~32G (4090/5090D)。<br>
+      ② <b>🐘 Apple Silicon (拼容量)</b>：CPU/GPU 共享统一内存(保守算75%)，64G/128G Mac 可跑 70B~110B 超大模型。<br>
+      ③ <b>⚡ MoE 模型特例 (如 30B-A3B)</b>：显存按总参数(30B)算，速度按激活(3B)算！<b>占地方大但跑得极快，最适合大内存 Mac</b>！
+    </div>
+  </section>
+
 </main>
 
 <!-- 底栏翻页控制 -->
@@ -1749,7 +2139,7 @@ body {
   <div class="progress-bar-wrap">
     <div class="progress-bar-inner" id="progressBar"></div>
   </div>
-  <div class="slide-counter" id="slideCounter">01 / 23</div>
+  <div class="slide-counter" id="slideCounter">01 / 26</div>
   <button class="ctrl-btn" id="prevBtn" title="上一页 (← / PageUp)">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
@@ -1761,7 +2151,7 @@ body {
 <!-- 目录 Modal -->
 <div class="overview-modal" id="overviewModal">
   <div class="overview-header">
-    <h2 style="font-size:20px; font-weight:800;">幻灯片目录（全 23 页）</h2>
+    <h2 style="font-size:20px; font-weight:800;">幻灯片目录（全 26 页）</h2>
     <button class="ctrl-btn" id="closeOverviewBtn">×</button>
   </div>
   <div class="overview-grid" id="overviewGrid"></div>
@@ -2243,6 +2633,224 @@ renderQA(0);
     slider.addEventListener('input', renderParam);
     renderParam();
   }
+})();
+
+/* ── SLIDE 24: 三件套检查器 + 满血/蒸馏对比交互代码 ── */
+(function () {
+  var MODES = {
+    a: {
+      lit: [true, false, false],
+      notes: [
+        '<b>给了。</b>练好的大脑本体，下载就能装进机器',
+        '<b>没给。</b>它读过什么书、读了多少只能猜',
+        '<b>没给。</b>怎么练的、用了什么技巧属于机密',
+      ],
+      verdict: '只亮一盏灯，这是市面的主流情况。<b>你拿到了成品，但复刻不了它</b>，圈内叫它「开放权重」更准确。',
+    },
+    b: {
+      lit: [true, true, true],
+      notes: [
+        '<b>给了。</b>练好的大脑本体，下载就能装进机器',
+        '<b>给了。</b>能看到读过什么数据，甚至下载同批数据',
+        '<b>给了。</b>训练代码步骤全公开，可从零复刻',
+      ],
+      verdict: '三盏灯全亮，这才是软件圈意义上的完全开源。<b>这样的项目是极少数派</b>，遇到了值得脱帽致意。',
+    },
+  };
+
+  var btnA = document.getElementById('ocModeA');
+  var btnB = document.getElementById('ocModeB');
+  var verdict = document.getElementById('ocVerdict');
+  var ocTimers = [];
+
+  function playOC(key) {
+    ocTimers.forEach(function (t) { clearTimeout(t); });
+    ocTimers = [];
+    if (!btnA || !btnB || !verdict) return;
+
+    btnA.className = 'oc-mode' + (key === 'a' ? ' on' : '');
+    btnB.className = 'oc-mode' + (key === 'b' ? ' on' : '');
+    verdict.classList.remove('show');
+
+    var m = MODES[key];
+    for (var i = 0; i < 3; i++) {
+      (function (idx) {
+        var item = document.getElementById('ocItem' + idx);
+        var note = document.getElementById('ocNote' + idx);
+        if (!item || !note) return;
+        item.classList.remove('lit');
+        note.innerHTML = m.notes[idx];
+        ocTimers.push(setTimeout(function () {
+          if (m.lit[idx]) item.classList.add('lit');
+        }, 300 * (idx + 1)));
+      })(i);
+    }
+    ocTimers.push(setTimeout(function () {
+      verdict.innerHTML = m.verdict;
+      verdict.classList.add('show');
+    }, 300 * 3 + 250));
+  }
+
+  if (btnA && btnB) {
+    btnA.addEventListener('click', function () { playOC('a'); });
+    btnB.addEventListener('click', function () { playOC('b'); });
+    playOC('a');
+  }
+
+  var distBtn = document.getElementById('distPlay');
+  var fills = document.querySelectorAll('#slide-24 .dist-fill, section[data-slide="24"] .dist-fill');
+  var distNote = document.getElementById('distNote');
+  var distTimers = [];
+
+  function playDist() {
+    distTimers.forEach(function (t) { clearTimeout(t); });
+    distTimers = [];
+    if (!distBtn || !distNote) return;
+
+    distNote.classList.remove('show');
+    fills.forEach(function (f) { f.style.width = '0'; });
+
+    fills.forEach(function (f, i) {
+      distTimers.push(setTimeout(function () {
+        f.style.width = f.getAttribute('data-w') + '%';
+      }, 150 + i * 200));
+    });
+
+    distTimers.push(setTimeout(function () {
+      distNote.innerHTML = '<b>本地跑的多半是蒸馏小号</b>。它聊天、总结写邮件不错，但拿新闻刷榜成绩苛求它，它会很委屈。';
+      distNote.classList.add('show');
+    }, 150 + fills.length * 200 + 400));
+
+    distBtn.textContent = '↻ 再播一遍';
+  }
+
+  if (distBtn) {
+    distBtn.addEventListener('click', playDist);
+    playDist();
+  }
+})();
+
+/* ── SLIDE 27: 动态显存计算器逻辑 ── */
+(function() {
+  const DEVICES = {
+    nvidia: [
+      { name: 'RTX 4060 (8 GB 显存)', vram: 8, label: 'NVIDIA 独立显存 8 GB' },
+      { name: 'RTX 4070 / 5070 (12 GB 显存)', vram: 12, label: 'NVIDIA 独立显存 12 GB' },
+      { name: 'RTX 4080 / 5080 (16 GB 显存)', vram: 16, label: 'NVIDIA 独立显存 16 GB' },
+      { name: 'RTX 3090 / 4090 (24 GB 显存)', vram: 24, label: 'NVIDIA 独立显存 24 GB' },
+      { name: 'RTX 5090 D (32 GB 显存)', vram: 32, label: 'NVIDIA 独立显存 32 GB' }
+    ],
+    apple: [
+      { name: 'MacBook Pro (18 GB 统一内存)', vram: 18 * 0.75, label: 'Apple 统一内存 18 GB (75% 可用 ≈ 13.5 GB)' },
+      { name: 'MacBook Pro (36 GB 统一内存)', vram: 36 * 0.75, label: 'Apple 统一内存 36 GB (75% 可用 ≈ 27 GB)' },
+      { name: 'MacBook / Studio (64 GB 统一内存)', vram: 64 * 0.75, label: 'Apple 统一内存 64 GB (75% 可用 ≈ 48 GB)' },
+      { name: 'Mac Studio (96 GB 统一内存)', vram: 96 * 0.75, label: 'Apple 统一内存 96 GB (75% 可用 ≈ 72 GB)' },
+      { name: 'Mac Studio (128 GB 统一内存)', vram: 128 * 0.75, label: 'Apple 统一内存 128 GB (75% 可用 ≈ 96 GB)' },
+      { name: 'Mac Studio (192 GB 统一内存)', vram: 192 * 0.75, label: 'Apple 统一内存 192 GB (75% 可用 ≈ 144 GB)' }
+    ]
+  };
+
+  const PREC_FACTORS = {
+    fp16: { factor: 2.6, name: 'FP16' },
+    int8: { factor: 1.3, name: 'INT8' },
+    int4: { factor: 0.65, name: 'INT4' }
+  };
+
+  const MODELS = [
+    { name: 'Qwen3-0.6B', tag: '端侧', params: 0.6 },
+    { name: 'Qwen3-1.7B', tag: '端侧', params: 1.7 },
+    { name: 'Qwen3-4B', tag: '轻量', params: 4 },
+    { name: 'Qwen3-8B', tag: '主流', params: 8 },
+    { name: 'Qwen3-14B', tag: '主流', params: 14 },
+    { name: 'Qwen3.6-27B', tag: '高配', params: 27 },
+    { name: 'Qwen3-32B', tag: '高配', params: 32 },
+    { name: 'Qwen3-30B-A3B', tag: 'MoE', subTag: '总参 30B / 激活 3B', params: 30 },
+    { name: 'Qwen3.6-35B-A3B', tag: 'MoE', subTag: '总参 35B / 激活 3B', params: 35 },
+    { name: 'Qwen3-70B', tag: '旗舰', params: 70 },
+    { name: 'Qwen3-110B', tag: '超大', params: 110 }
+  ];
+
+  let currentPlatform = 'nvidia';
+  let currentDeviceIdx = 4; // RTX 5090D default
+  let currentPrec = 'int4';
+
+  const selectEl = document.getElementById('vramDeviceSelect');
+  const availBigEl = document.getElementById('vramAvailBig');
+  const factorTagEl = document.getElementById('vramFactorTag');
+  const precTagEl = document.getElementById('vramPrecTag');
+  const devNoteEl = document.getElementById('vramDevNote');
+  const listEl = document.getElementById('vramResultsList');
+
+  function populateDevices() {
+    if (!selectEl) return;
+    const list = DEVICES[currentPlatform];
+    selectEl.innerHTML = list.map((d, i) => `<option value="${i}">${d.name}</option>`).join('');
+    if (currentDeviceIdx >= list.length) currentDeviceIdx = 0;
+    selectEl.value = currentDeviceIdx;
+  }
+
+  function renderCalculator() {
+    if (!selectEl || !listEl) return;
+    const dev = DEVICES[currentPlatform][currentDeviceIdx];
+    const prec = PREC_FACTORS[currentPrec];
+    const availVram = dev.vram;
+
+    availBigEl.textContent = dev.vram % 1 === 0 ? `${dev.vram} GB` : `${dev.vram.toFixed(1)} GB`;
+    factorTagEl.textContent = prec.factor;
+    precTagEl.textContent = prec.name;
+    devNoteEl.textContent = dev.label;
+
+    listEl.innerHTML = MODELS.map(m => {
+      const req = (m.params * prec.factor).toFixed(1);
+      const canRun = parseFloat(req) <= availVram;
+      const pct = Math.min(100, Math.max(4, (req / (availVram * 1.1)) * 100));
+
+      return `
+        <div class="vram-row ${canRun ? 'can-run' : 'cant-run'}">
+          <div class="vram-m-name">${m.name}</div>
+          <div class="vram-m-tags">
+            <span class="vram-m-tag ${m.tag === 'MoE' ? 'moe' : ''}">${m.tag}</span>
+            ${m.subTag ? `<span class="vram-m-tag moe">${m.subTag}</span>` : ''}
+          </div>
+          <div class="vram-m-req">需 ${req} GB</div>
+          <div class="vram-bar-track">
+            <div class="vram-bar-fill" style="width: ${pct}%"></div>
+          </div>
+          <div class="vram-status-badge">${canRun ? '可以跑' : '跑不动'}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  document.querySelectorAll('#vramPlatform .vram-seg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#vramPlatform .vram-seg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentPlatform = btn.dataset.platform;
+      currentDeviceIdx = 0;
+      populateDevices();
+      renderCalculator();
+    });
+  });
+
+  document.querySelectorAll('#vramPrec .vram-seg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#vramPrec .vram-seg-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentPrec = btn.dataset.prec;
+      renderCalculator();
+    });
+  });
+
+  if (selectEl) {
+    selectEl.addEventListener('change', (e) => {
+      currentDeviceIdx = parseInt(e.target.value, 10);
+      renderCalculator();
+    });
+  }
+
+  populateDevices();
+  renderCalculator();
 })();
 
 /* PPT 页码控制与整体切换 */
