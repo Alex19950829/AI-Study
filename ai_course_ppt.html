@@ -1303,45 +1303,55 @@ body {
     </div>
   </section>
 
-  <!-- SLIDE 13: 深度思考物理机制：System 1 直觉 vs System 2 理性算力图景 -->
+  <!-- SLIDE 13: 深度思考物理机制：单次前向传播硬约束 vs <think> 草稿纸机制 -->
   <section class="slide" data-slide="13">
     <header class="lesson-header">
-      <h1>深度思考物理机制：System 1 直觉 vs System 2 理性算力图景</h1>
-      <p class="subtitle">为什么秒答面对多重约束易崩溃？<b>物理计算步数硬约束 vs 思考草稿纸 &lt;think&gt; 机制</b>。</p>
+      <h1>深度思考物理机制：单次前向传播硬约束 vs &lt;think&gt; 草稿纸机制</h1>
+      <p class="subtitle">单次前向传播物理瓶颈、网络深度计算步数硬约束与 <b>$a+b=10$ 的“无撤销锁死” vs “草稿自愈”实测剖析</b>。</p>
     </header>
 
-    <!-- 💡 物理执行流全景图 -->
-    <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 14px; margin-bottom:8px; box-shadow:var(--shadow-card);">
-      <div style="font-size:12px; font-weight:800; color:var(--accent); margin-bottom:4px;">
-        ⚙️ 物理执行流：输入问题 ➔ &lt;think&gt; 疯狂吐思考 Token (试错/排除/自我质疑) ➔ 逻辑通顺 ➔ 输出 Final Answer
+    <!-- 💡 物理原理拆解：单次前向传播 vs 算力硬约束 -->
+    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
+      <!-- 左：单次前向传播 (One-Pass Forward) -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 12px; box-shadow:var(--shadow-card);">
+        <div style="font-size:12px; font-weight:800; color:var(--danger); margin-bottom:4px;">
+          🌊 单次前向传播 (One-Pass Forward Pass)
+        </div>
+        <div style="font-size:11px; line-height:1.5; color:var(--text);">
+          • <b>无回头路瀑布流</b>：生成每个 Token 时，数据从 1 层流到 128 层（输出层）只单向流动一次，<b>没有循环、没有撤销键 (Undo)</b>。<br>
+          • <b>自回归历史锁死</b>：吐出的字立刻变不可篡改的历史 (Context)。如果第一个字猜偏，后续注意力被错线锁死，导致盲目自信发乱编。
+        </div>
       </div>
-      <div style="font-size:11px; color:var(--sub); font-family:monospace; background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.12); padding:6px 10px; border-radius:6px;">
-        [输入问题] ➔ <code>&lt;think&gt;</code> 假设1 ➔ 发现矛盾(划掉重推) ➔ 假设2 ➔ <code>&lt;/think&gt;</code> ➔ <b>[输出 100 分最终答案]</b> (变相延长上下文，用时间换空间)
+
+      <!-- 右：网络深度计算步数硬约束 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 12px; box-shadow:var(--shadow-card);">
+        <div style="font-size:12px; font-weight:800; color:var(--purple); margin-bottom:4px;">
+          📏 网络深度计算步数硬约束
+        </div>
+        <div style="font-size:11px; line-height:1.5; color:var(--text);">
+          • <b>逻辑深度 > 神经网络层数</b>：128 层 Transformer 在预测单字时最多做 128 步矩阵推演。面对需 500 步的复杂推理，物理上根本算不完！<br>
+          • <b>“用 Token 换时间步”突破</b>：深度思考模型在 <code>&lt;think&gt;</code> 中吐千字草稿，把逻辑深度转译为多时间步连续演推。
+        </div>
       </div>
     </div>
 
-    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
-      <!-- 左：秒答 (System 1) 物理瓶颈 -->
-      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card);">
-        <div style="font-size:12.5px; font-weight:800; color:var(--danger); margin-bottom:6px;">
-          ⚡ 秒答模式 (System 1) 的物理瓶颈
-        </div>
-        <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
-          • <b>单次前向传播 (One-Pass Forward)</b>：在接收到问号瞬间，直接吐出最终答案的第一字。<br>
-          • <b>网络深度计算步数硬约束</b>：Transformer 神经网络层数固定，无法在单次计算中解出多重复杂约束。<br>
-          • <b>缺乏“思考草稿纸”</b>：一旦自回归第一个 Token 猜偏（如先定张三坐第1排），后续注意力被错线锁死，导致盲目自信发乱编。
-        </div>
+    <!-- 🎯 经典案例对比：a + b = 10 (要求 b = 3) -->
+    <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 12px; margin-bottom:8px; box-shadow:var(--shadow-card);">
+      <div style="font-size:12px; font-weight:800; color:var(--accent); margin-bottom:6px;">
+        📌 经典例题物理图景对比：已知 $a+b=10$，要求 $b=3$
       </div>
-
-      <!-- 右：深度思考背后的 3 大核心原理 -->
-      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card);">
-        <div style="font-size:12.5px; font-weight:800; color:var(--success); margin-bottom:6px;">
-          🧠 深度思考背后的 3 大核心原理
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:11px; line-height:1.5;">
+        <div style="background:rgba(229,62,62,0.05); border:1px solid rgba(229,62,62,0.18); border-radius:8px; padding:8px 10px;">
+          <b style="color:var(--danger);">⚡ 秒答模式 (无草稿纸，必死锁)：</b><br>
+          1. 盲猜误吐 <code>a = 8</code> ➔ 锁死在 Context 无法擦除；<br>
+          2. 接着吐 <code>b = 3</code> ➔ 面对绝境（无法擦掉 8）；<br>
+          3. 迫于自回归只能硬编：<code>“8 + 3 = 10”</code> (无法自我纠错！)。
         </div>
-        <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
-          • <b>1. 逻辑深度转译为“时间步”</b>：在 <code>&lt;think&gt;</code> 里疯狂吐思考 Token，每一个 Token append 回 Context 参与后续注意力，变相延长上下文，用时间换逻辑空间！<br>
-          • <b>2. 上下文草稿纸自愈</b>：遇死胡同自发输出 <code>Wait / 不对 / 重新看题</code> 反思 Token，将概率强行拉回分支路口，实现“划掉重来”。<br>
-          • <b>3. 强化学习 (GRPO/RL) 演化</b>：结果奖励驱动（算对奖 100 分），神经网络在试错中自发演化出长链思考。
+        <div style="background:rgba(22,163,74,0.05); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:8px 10px;">
+          <b style="color:var(--success);">🧠 深度思考模式 (&lt;think&gt; 草稿自愈)：</b><br>
+          1. <code>&lt;think&gt; 假设 a=8 ➔ 8+3=11≠10 ➔ 矛盾！</code><br>
+          2. <b>触发反思 Token：<code>"Wait... 排除 a=8！"</code></b> (划掉重来)<br>
+          3. 重试假设 <code>a=7 ➔ 7+3=10</code> ➔ 正文输出：<code>a = 7, b = 3</code>。
         </div>
       </div>
     </div>
