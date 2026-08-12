@@ -1138,26 +1138,43 @@ body {
   <!-- SLIDE 8: 上下文窗口全景拆解（含 OpenClaw 深度工程落地） -->
   <section class="slide" data-slide="8">
     <header class="lesson-header">
-      <h1>为什么聊久了它会「忘事」？—— 上下文窗口全景拆解</h1>
-      <p class="subtitle">工作台比喻、<b>三大物理算力硬伤 (KV Cache OOM / $O(N^2)$ 黑洞 / 注意力稀释)</b> 与 <b>OpenClaw 工程治理</b>。</p>
+      <h1>上下文窗口全景拆解</h1>
+      <p class="subtitle">工作台比喻、<b>三大物理算力硬伤 (KV Cache OOM / <i>O(N<sup>2</sup>)</i> 黑洞 / 注意力稀释)</b> 与 <b>OpenClaw 工程治理</b>。</p>
     </header>
 
     <div class="cw-panorama">
-      <div class="cw-pane">
-        <h4>🪟 1. 直觉比喻：放纸条的工作台</h4>
-        <p>AI 每次回答只能看见工作台上放得下的最近内容。台面满了（超过 Context Window），<b>最早的纸条会被推下台面</b>，掉下去的信息再也无法参与推理。</p>
+      <!-- 左：直觉比喻 + 三大物理算力硬伤 (优化视觉层级与自适应填充) -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:10px; justify-content:space-between;">
+        <!-- 比喻卡片 -->
+        <div style="background:rgba(0,102,255,0.03); border:1px solid rgba(0,102,255,0.12); border-radius:10px; padding:10px 12px;">
+          <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:4px;">🪟 1. 直觉比喻：放纸条的工作台</div>
+          <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
+            AI 每次回答只能看见工作台上放得下的最近内容。台面满了（超过 Context Window），<b>最早的纸条会被推下台面</b>，掉下去的信息再也无法参与推理。
+          </div>
+        </div>
         
-        <h4 style="margin-top:8px;">⚡ 2. 为什么必须设窗口？三大物理算力硬伤</h4>
-        <div style="font-size:11px; line-height:1.55; color:var(--text);">
-          • <b>💥 KV Cache 显存暴胀 (OOM 崩溃)</b>：<br>
-          每个 Token 的注意力特征缓存约占 1.2 KB。无节制保留 MB/GB 级 session 会瞬间吃掉上百 GB 显存，引发 GPU OOM 全线崩溃！<br>
-          • <b>⬛ 自注意力 $O(N^2)$ 算力黑洞与天价账单</b>：<br>
-          计算复杂度随 Token 呈平方级增加（10万 Token 计算量暴增一万倍！），首字延迟飙升至分钟级，API 计费呈指数增长。<br>
-          • <b>🧠 注意力稀释（中间失忆 Lost in the Middle）</b>：<br>
-          上下文过长会导致自注意力概率被极度平摊，模型极易遗忘中段核心约束与 System Prompt。
+        <!-- 三大物理硬伤 -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:12.5px; font-weight:800; color:var(--text);">⚡ 2. 为什么必须设窗口？三大物理算力硬伤</div>
+          
+          <div style="background:rgba(229,62,62,0.04); border:1px solid rgba(229,62,62,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
+            <b style="color:var(--danger);">💥 ① KV Cache 显存暴胀 (OOM 崩溃)</b><br>
+            每个 Token 缓存约占 1.2 KB。无节制保留 MB/GB 级 session 会瞬间吃掉上百 GB 显存，引发 GPU OOM 全线崩溃！
+          </div>
+
+          <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
+            <b style="color:var(--amber);">⬛ ② 自注意力 <i>O(N<sup>2</sup>)</i> 算力黑洞与天价账单</b><br>
+            计算复杂度随 Token 呈平方级增加（10 万 Token 计算量暴增一万倍！），首字延迟飙升至分钟级，API 计费呈指数增长。
+          </div>
+
+          <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
+            <b style="color:var(--purple);">🧠 ③ 注意力稀释 (中间失忆 Lost in the Middle)</b><br>
+            上下文过长会导致自注意力概率被极度平摊，模型极易遗忘中段核心约束与 System Prompt。
+          </div>
         </div>
       </div>
 
+      <!-- 右：主流模型窗口对比 + OpenClaw 治理 -->
       <div class="cw-pane">
         <h4>📊 3. 主流大模型窗口设定对比</h4>
         <table class="model-table">
