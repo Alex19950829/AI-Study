@@ -2399,75 +2399,68 @@ body {
     </div>
   </section>
 
-  <!-- SLIDE 32: Token 与词表原理：大模型是如何把文本切碎成数字的 -->
+  <!-- SLIDE 32: Token 与词表原理：1:1 动态分词与 Tokenizer 算法实验室 -->
   <section class="slide" data-slide="32">
     <header class="lesson-header">
-      <h1>Token 与词表原理：大模型是如何把文本切碎成数字的</h1>
-      <p class="subtitle">揭秘<b>分词器 (Tokenizer)、Trie 前缀树最长匹配、BPE (字节对编码) 算法，与中英文 Token 效率差异</b>。</p>
+      <h1>Token 与词表原理：1:1 动态分词与 Tokenizer 算法实验室</h1>
+      <p class="subtitle">揭秘<b>分词器 (Tokenizer)、Trie 前缀树最长贪婪匹配、BPE (字节对编码) 算法，与跨语言压缩率</b>。</p>
     </header>
 
-    <div class="duo-grid" style="margin-bottom:10px;">
-      <div class="duo-card you" style="padding:12px 14px;">
-        <div class="duo-tag" style="font-size:11px;">📖 分词器 (Tokenizer) 与 词表 (Vocabulary)</div>
-        <h4>大模型识别的翻译官 ➔ 文本 ➔ 数字 ID 序列</h4>
-        <p style="font-size:11.5px;">计算机不认识汉字或英文，必须先通过词表（如包含 151,643 个 Token 的字典）将文本切分成 Token ID 数组（如 <code>[1042, 8831]</code>）。</p>
+    <div class="duo-grid" style="margin-bottom:8px;">
+      <div class="duo-card you" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">📖 分词器 (Tokenizer) 与 词表 (Vocabulary)</div>
+        <p style="font-size:11.5px; line-height:1.5;">
+          • <b>翻译官本质</b>：计算机只看数字，通过词表（如 151,643 个词条）将文本切为 Token ID。<br>
+          • <b>BPE 字节对编码</b>：统计海量语料高频字符对进行合并，高频词完整保留、生僻词拆细。
+        </p>
       </div>
 
-      <div class="duo-card pro" style="padding:12px 14px;">
-        <div class="duo-tag" style="font-size:11px;">✂️ BPE (Byte Pair Encoding 字节对编码) 算法</div>
-        <h4>高频合并 ➔ 最长贪婪匹配 (Trie 树)</h4>
-        <p style="font-size:11.5px;">统计海量语料高频字符组合进行合并。切词时使用 <b>Trie 前缀树进行最长贪婪匹配</b>，确保高频词完整、低频词拆碎，避免词表无限膨胀。</p>
+      <div class="duo-card pro" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">✂️ 最长贪婪匹配 (Trie 前缀树) 与 计费压缩率</div>
+        <p style="font-size:11.5px; line-height:1.5;">
+          • <b>Trie 树最长匹配</b>：沿着树路径走，词表有“五花肉”切 1 个，没有则降级切“五花”+“肉”。<br>
+          • <b>现代词表红利</b>：Qwen2.5/DeepSeek 扩容中文词表，中文 1 Token 可容纳 1.5 个汉字。
+        </p>
       </div>
     </div>
 
-    <div class="sec-label" style="margin-top:4px;">🧮 Token 切分与跨语言计费 4 大核心维度</div>
-
-    <div class="grid-4-col" style="margin-bottom:10px;">
-      <div class="card c1">
-        <div class="card-body">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-            <h4 style="font-size:13.5px;">1. 最长贪婪匹配</h4>
-            <span class="sc-tag rag" style="font-size:9.5px;">Trie 树</span>
-          </div>
-          <p>如“五花肉”词表有完整词条则切为 1 个 Token，没有则拆为“五花”+“肉”。</p>
+    <!-- 🧪 动态交互分词实验室 -->
+    <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 16px; margin-bottom:8px; box-shadow:var(--shadow-card);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:12.5px; font-weight:800; color:var(--text); display:flex; align-items:center; gap:6px;">
+          🧪 <b>1:1 动态分词实验室</b> (点击预设或在输入框中打字，体验实时分词与 Token ID 生成)
+        </span>
+        <div style="display:flex; gap:6px;">
+          <button class="sc-tag rag" style="cursor:pointer; border:none; padding:4px 10px; font-weight:700;" onclick="s32Preset('五花肉')">🥩 五花肉 (最长匹配)</button>
+          <button class="sc-tag tune" style="cursor:pointer; border:none; padding:4px 10px; font-weight:700;" onclick="s32Preset('人工智能大模型')">🤖 人工智能大模型</button>
+          <button class="sc-tag both" style="cursor:pointer; border:none; padding:4px 10px; font-weight:700;" onclick="s32Preset('Hello World! 欢迎学习 AI')">🔤 中英混排计费</button>
         </div>
       </div>
 
-      <div class="card c2">
-        <div class="card-body">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-            <h4 style="font-size:13.5px;">2. 中英文 Token 差异</h4>
-            <span class="sc-tag tune" style="font-size:9.5px;">压缩率</span>
-          </div>
-          <p>英文 1 Token 约等于 0.75 个单词；旧模型中文 1 个汉字往往切成 2~3 个 Token！</p>
-        </div>
+      <!-- 输入框 -->
+      <div style="display:flex; gap:8px; margin-bottom:10px;">
+        <input type="text" id="s32Input" value="五花肉" placeholder="输入任意中英文文本，观察切分过程..." style="flex:1; background:var(--panel); border:1.5px solid var(--border); border-radius:8px; padding:8px 12px; font-size:13px; font-weight:600; color:var(--text); outline:none;">
+        <button onclick="s32RunAnimation()" style="background:var(--accent); color:white; border:none; border-radius:8px; padding:0 16px; font-size:12.5px; font-weight:700; cursor:pointer;">▶ 动画重新播放</button>
       </div>
 
-      <div class="card c4">
-        <div class="card-body">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-            <h4 style="font-size:13.5px;">3. 扩充中文词表</h4>
-            <span class="sc-tag both" style="font-size:9.5px;">Qwen/DeepSeek</span>
-          </div>
-          <p>现代模型（如 Qwen2.5/DeepSeek）将词表扩至 15 万+，中文压缩率提升 2 倍。</p>
-        </div>
+      <!-- 动态切词动画呈现区 -->
+      <div id="s32TokenBox" style="min-height:54px; background:var(--panel); border:1.5px dashed var(--border); border-radius:8px; padding:10px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+        <!-- 动态 JS 填充 Token 卡片 -->
       </div>
 
-      <div class="card c5">
-        <div class="card-body">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
-            <h4 style="font-size:13.5px;">4. 预测下一个 Token</h4>
-            <span class="sc-tag rag" style="font-size:9.5px;">自回归</span>
-          </div>
-          <p>模型吐出回答时，本质是在 15 万词表概率分布中选择下一个 Token ID。</p>
-        </div>
+      <!-- 实时物理指标仪表盘 -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; padding-top:8px; border-top:1px dashed var(--border); font-size:11.5px;">
+        <div><b>字符长度：</b><span id="s32CharCount" style="color:var(--accent); font-weight:800;">3</span> 个字符</div>
+        <div><b>Token 总数：</b><span id="s32TokenCount" style="color:var(--success); font-weight:800;">1</span> 个 Token</div>
+        <div><b>切词压缩效率：</b><span id="s32Ratio" style="color:var(--purple,#7c3aed); font-weight:800;">3.00 字符/Token</span> (极其高效)</div>
+        <div><b>Token ID 序列：</b><code id="s32Ids" style="background:rgba(0,0,0,0.06); padding:2px 8px; border-radius:4px; font-size:11px; color:var(--accent);">[8831]</code></div>
       </div>
     </div>
 
     <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
       <b>💡 总结：</b><br>
-      • <b>Token 是大模型处理与计费的物理基本单位</b>。词表越大，切词越完整、吞吐越快、Token 消耗越省。<br>
-      • 了解 Token 切分机制有助于优化提示词（避免死板拆字），并精算多语言 API 调用的真实物理成本！
+      • <b>Token 是大模型处理与计费的物理基本单位</b>。最长匹配（Trie树）把常见词打包为单个 Token，可显著降低 API 调用费用！<br>
+      • 了解 Token 切分机制有助于优化提示词（避免死板拆字），并精算多语言大模型的真实物理吞吐成本！
     </div>
   </section>
 
@@ -3190,6 +3183,103 @@ renderQA(0);
 
   populateDevices();
   renderCalculator();
+})();
+
+/* ── SLIDE 32: 1:1 动态分词与 Tokenizer 算法实验室 ── */
+(function() {
+  const VOCAB_MAP = [
+    { text: '五花肉', id: 8831, color: '#0066ff', tag: '高频最长匹配' },
+    { text: '五花', id: 1042, color: '#16a34a', tag: '词条' },
+    { text: '肉', id: 9812, color: '#7c3aed', tag: '单字' },
+    { text: '人工智能', id: 15408, color: '#0066ff', tag: '高频词包' },
+    { text: '大模型', id: 22091, color: '#0891b2', tag: '领域核心词' },
+    { text: 'Hello', id: 9906, color: '#0066ff', tag: '英文单词' },
+    { text: ' World', id: 4432, color: '#16a34a', tag: '带空格英文' },
+    { text: '!', id: 102, color: '#e53e3e', tag: '标点' },
+    { text: ' 欢迎', id: 3108, color: '#7c3aed', tag: '双字词' },
+    { text: '学习', id: 7721, color: '#0891b2', tag: '双字词' },
+    { text: ' AI', id: 9553, color: '#0066ff', tag: '缩写' }
+  ];
+
+  window.s32Preset = function(str) {
+    const input = document.getElementById('s32Input');
+    if (input) {
+      input.value = str;
+      window.s32RunAnimation();
+    }
+  };
+
+  window.s32RunAnimation = function() {
+    const input = document.getElementById('s32Input');
+    const box = document.getElementById('s32TokenBox');
+    const charEl = document.getElementById('s32CharCount');
+    const countEl = document.getElementById('s32TokenCount');
+    const ratioEl = document.getElementById('s32Ratio');
+    const idsEl = document.getElementById('s32Ids');
+
+    if (!input || !box) return;
+    const text = input.value.trim() || '五花肉';
+    box.innerHTML = '';
+
+    let remaining = text;
+    let tokens = [];
+
+    while (remaining.length > 0) {
+      let matched = false;
+      for (let item of VOCAB_MAP) {
+        if (remaining.startsWith(item.text)) {
+          tokens.push(item);
+          remaining = remaining.slice(item.text.length);
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) {
+        const char = remaining.charAt(0);
+        const code = char.charCodeAt(0) + 1000;
+        tokens.push({ text: char, id: code, color: '#4f7bff', tag: '字符碎片' });
+        remaining = remaining.slice(1);
+      }
+    }
+
+    let ids = [];
+    tokens.forEach((t, idx) => {
+      ids.push(t.id);
+      const pill = document.createElement('div');
+      pill.style.cssText = `
+        opacity:0; transform:scale(0.8) translateY(6px);
+        transition:all 0.25s ease ${idx * 0.08}s;
+        background:${t.color}15; border:1.5px solid ${t.color}50; color:${t.color};
+        border-radius:8px; padding:6px 12px; display:flex; align-items:center; gap:8px;
+        font-size:12.5px; font-weight:800; cursor:default;
+      `;
+      pill.innerHTML = `
+        <span>"${t.text}"</span>
+        <span style="font-size:10px; opacity:0.85; background:${t.color}; color:white; padding:1px 6px; border-radius:4px;">ID: ${t.id}</span>
+      `;
+      box.appendChild(pill);
+
+      setTimeout(() => {
+        pill.style.opacity = '1';
+        pill.style.transform = 'scale(1) translateY(0)';
+      }, 30 + idx * 80);
+    });
+
+    const charLen = text.length;
+    const tokLen = tokens.length;
+    const ratio = (charLen / Math.max(1, tokLen)).toFixed(2);
+
+    if (charEl) charEl.textContent = charLen;
+    if (countEl) countEl.textContent = tokLen;
+    if (ratioEl) ratioEl.textContent = `${ratio} 字符/Token`;
+    if (idsEl) idsEl.textContent = `[${ids.join(', ')}]`;
+  };
+
+  const inputEl = document.getElementById('s32Input');
+  if (inputEl) {
+    inputEl.addEventListener('input', () => window.s32RunAnimation());
+    setTimeout(() => window.s32RunAnimation(), 300);
+  }
 })();
 
 /* PPT 页码控制与整体切换 */
