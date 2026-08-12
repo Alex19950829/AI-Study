@@ -2327,6 +2327,78 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 31: 大模型训练 vs 推理全景：从“考场作答”到“权重文件物理重写” -->
+  <section class="slide" data-slide="31">
+    <header class="lesson-header">
+      <h1>大模型训练 vs 推理全景：从“考场作答”到“权重文件物理重写”</h1>
+      <p class="subtitle">揭秘<b>对话非学习/参数只读冻结、4 步物理训练流（二进制文件 ➔ GPU 梯度计算 ➔ 导出新文件），与全量 vs LoRA 差异</b>。</p>
+    </header>
+
+    <div class="duo-grid" style="margin-bottom:10px;">
+      <div class="duo-card you" style="padding:12px 14px;">
+        <div class="duo-tag" style="font-size:11px;">💬 对话推理 (Inference) ➔ 上考场作答（只读模式）</div>
+        <h4>参数 100% 锁死冻结 (Frozen) ➔ 对话 ≠ 学习</h4>
+        <p style="font-size:11.5px;">用户输入只暂存在 <code>Context Window</code> (临时运行内存) 中！窗口关闭或清空后记忆消失，<b>不会修改底层任何浮点数按钮</b>。</p>
+      </div>
+
+      <div class="duo-card pro" style="padding:12px 14px;">
+        <div class="duo-tag" style="font-size:11px;">🏋️ 模型训练 (Training) ➔ 备考刷题（可写模式）</div>
+        <h4>前向算误差 ➔ 反向传播 ➔ GPU 疯狂调节数十亿按钮</h4>
+        <p style="font-size:11.5px;">在海量数据上通过梯度下降实时更新物理权重，千~万块 GPU 并行计算，天价烧钱（数千万~数亿美元），耗时数周至数月。</p>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-top:4px;">💿 开源模型训练的 4 步物理全过程 (Physical Pipeline)</div>
+
+    <div class="grid-4-col" style="margin-bottom:10px;">
+      <div class="card c1">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <h4 style="font-size:13.5px;">1. 载入开源文件</h4>
+            <span class="sc-tag rag" style="font-size:9.5px;">Safetensors</span>
+          </div>
+          <p>从硬盘加载 <code>model.safetensors</code> (如 14GB 原版权重文件)，读取初始浮点数按钮。</p>
+        </div>
+      </div>
+
+      <div class="card c2">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <h4 style="font-size:13.5px;">2. 喂数据算误差</h4>
+            <span class="sc-tag tune" style="font-size:9.5px;">前向传播</span>
+          </div>
+          <p>训练文本跑前向矩阵计算 (Forward Pass)，对比真实标准答案计算 Loss 误差。</p>
+        </div>
+      </div>
+
+      <div class="card c4">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <h4 style="font-size:13.5px;">3. GPU 拧按钮</h4>
+            <span class="sc-tag both" style="font-size:9.5px;">反向传播</span>
+          </div>
+          <p>GPU 数千核心并行计算梯度 (Backprop)，沿着误差反方向微调数十亿个参数按钮。</p>
+        </div>
+      </div>
+
+      <div class="card c5">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <h4 style="font-size:13.5px;">4. 导出新文件</h4>
+            <span class="sc-tag rag" style="font-size:9.5px;">落盘保存</span>
+          </div>
+          <p>内存新参数落盘导出为全新 14GB 文件；或 LoRA 导出 50MB <code>adapter_model</code> 补丁。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 产生永久记忆的唯二工程路径：</b><br>
+      • <b>路径 A（改大脑）</b>：通过 SFT / LoRA 重新微调，更新并保存出新的权重文件。<br>
+      • <b>路径 B（给字典）</b>：挂载外置 RAG 知识库，每次对话时检索真实文档注入 Context 上下文。
+    </div>
+  </section>
+
 </main>
 
 <!-- 底栏翻页控制 -->
