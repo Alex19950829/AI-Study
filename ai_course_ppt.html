@@ -2327,6 +2327,69 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 31: AI 的食物：训练数据规模、词元单位拆解与能力边界滑块 -->
+  <section class="slide" data-slide="31">
+    <header class="lesson-header">
+      <h1>AI 的食物：训练数据规模、词元单位拆解与能力边界滑块</h1>
+      <p class="subtitle">拆解<b>单位 M/B 的真面目、Chinchilla 缩放法则，与 270M~5T+ 模型全档位幻灯片实测</b>。</p>
+    </header>
+
+    <div class="duo-grid" style="margin-bottom:8px;">
+      <div class="duo-card you" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">📐 概念澄清：M/B 是数量单位，不是 MB 内存大小！</div>
+        <p style="font-size:11.5px; line-height:1.6;">
+          • <b>M (Million) = 百万</b>：<code>270M</code> = 2.7 亿脑细胞参数（存硬盘约 540MB）。<br>
+          • <b>B (Billion) = 十亿</b>：<code>1B Tokens</code> = 10 亿训练词元（约 7.5 亿中文字数）。<br>
+          • <b>Chinchilla 法则</b>：最佳训练数据 Tokens 量 $\ge$ 参数量 $\times 20$ 倍！
+        </p>
+      </div>
+
+      <div class="duo-card pro" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">📚 预训练语料来源典型配比 (Training Corpus)</div>
+        <div style="font-size:11px; display:flex; flex-direction:column; gap:4px; margin-top:4px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:65px; text-align:right; font-weight:700;">网页文本</span>
+            <div style="flex:1; height:12px; background:rgba(0,0,0,0.06); border-radius:6px; overflow:hidden;"><div style="width:70%; height:100%; background:#0066ff;"></div></div>
+            <span style="font-weight:800; color:#0066ff;">70%</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:65px; text-align:right; font-weight:700;">书籍</span>
+            <div style="flex:1; height:12px; background:rgba(0,0,0,0.06); border-radius:6px; overflow:hidden;"><div style="width:12%; height:100%; background:#7c3aed;"></div></div>
+            <span style="font-weight:800; color:#7c3aed;">12%</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="width:65px; text-align:right; font-weight:700;">代码/学术</span>
+            <div style="flex:1; height:12px; background:rgba(0,0,0,0.06); border-radius:6px; overflow:hidden;"><div style="width:13%; height:100%; background:#16a34a;"></div></div>
+            <span style="font-weight:800; color:#16a34a;">13%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-top:4px;">🎛️ 拖动滑块：亲眼看看 270M 到 5T+ 模型如何回答同一个问题</div>
+
+    <div style="display:flex; align-items:center; gap:12px; background:var(--panel); border:1.5px solid var(--border); border-radius:10px; padding:8px 14px; margin-bottom:8px;">
+      <span style="font-size:16px; font-weight:900; color:var(--accent); min-width:60px;" id="s31Val">270M</span>
+      <input type="range" min="0" max="8" step="1" value="0" id="s31Slider" style="flex:1; accent-color:var(--accent); cursor:pointer;">
+      <span style="font-size:11px; font-weight:800; padding:3px 10px; border-radius:6px; color:#fff; background:var(--danger);" id="s31Badge">严重幻觉</span>
+    </div>
+
+    <!-- 动态实测模型卡片 -->
+    <div id="s31Card" style="background:var(--card); border:2px solid rgba(229,62,62,0.45); border-radius:10px; padding:12px 16px; box-shadow:var(--shadow-card);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+        <div>
+          <span style="font-size:22px; font-weight:900;" id="s31CardSize">270M</span>
+          <span style="font-size:13px; font-weight:800; margin-left:8px;" id="s31CardName">Gemma-4-e2b</span>
+          <span style="font-size:11px; color:var(--sub); margin-left:6px;" id="s31CardTag">Google · 本地实测</span>
+        </div>
+        <div style="font-size:12px; font-weight:800; padding:3px 10px; border-radius:6px; background:var(--danger); color:white;" id="s31CardVerdict">幻觉</div>
+      </div>
+      <div style="font-size:11.5px; font-weight:700; color:var(--sub); margin-bottom:4px;">提问：李知恩是谁？请介绍一下她的生平和代表作品。</div>
+      <div style="font-size:12.5px; line-height:1.6; background:rgba(0,0,0,0.03); border-radius:8px; padding:8px 12px; margin-bottom:6px;" id="s31CardAnswer"></div>
+      <div style="font-size:11.5px; color:var(--sub); line-height:1.5;" id="s31CardTip"></div>
+    </div>
+  </section>
+
 </main>
 
 <!-- 底栏翻页控制 -->
@@ -3076,6 +3139,107 @@ renderQA(0);
 
   function nextSlide() { if (currentIndex < totalSlides - 1) updateSlide(currentIndex + 1); }
   function prevSlide() { if (currentIndex > 0) updateSlide(currentIndex - 1); }
+
+/* ── SLIDE 31: 动态模型规模与能力滑块逻辑 ── */
+(function() {
+  const SCALES = [
+    {
+      num: '270M', verdict: 'hallucination', verdictLabel: '严重幻觉',
+      modelName: 'Gemma-4-e2b (270M)', modelTag: 'Google · 本地实测',
+      answer: '李知恩是一位中国著名<b style="color:var(--danger)">教育ólogo</b>和<b style="color:var(--danger)">教育家</b>。尽管目前没有公开信息，但根据一些记录，可以推断她是<b style="color:var(--danger)">中国教育教育家</b>。代表作品：<b style="color:var(--danger)">《教育家》《教育与教育家》</b>。',
+      tip: '<b>实测结论：</b> 270M (2.7亿参数) 脑细胞太少，完全不知道李知恩是谁，捏造了“中国教育家”身份，连词都拼错了。这就是参数极度稀疏的结果。'
+    },
+    {
+      num: '0.6B', verdict: 'hallucination', verdictLabel: '部分幻觉',
+      modelName: 'Qwen3-0.6B', modelTag: 'Alibaba · 本地实测',
+      answer: '李知恩（<b style="color:var(--danger)">Lee Ji-hoon</b>）是韩国著名的女演员，出生于1993年，目前担任<b style="color:var(--danger)">韩国国家大百科全书的编委</b>。代表作包括多部影视作品。',
+      tip: '<b>实测结论：</b> 0.6B 知道是韩国女艺人，但艺名拼成了 Lee Ji-hoon，还捏造了“国家百科全书编委”。方向对了，细节全错。'
+    },
+    {
+      num: '1.8B', verdict: 'unknown', verdictLabel: '拒绝回答',
+      modelName: 'HunYuan-1.8B', modelTag: 'Tencent · 本地实测',
+      answer: '关于「李知恩」这一名字，目前<b style="color:var(--amber)">没有广泛知名或公开的权威资料</b>记录其生平及代表作品，可能是特定领域的从业者。建议提供更多背景信息。',
+      tip: '<b>实测结论：</b> 1.8B 至少没有胡编捏造，但属于知识空白，直接推给用户要求补充背景信息。相当于“这本书我没读过”。'
+    },
+    {
+      num: '30B', verdict: 'correct', verdictLabel: '正确详细',
+      modelName: 'Qwen3-Coder-30B', modelTag: 'Alibaba · 本地实测',
+      answer: '李知恩（艺名 <b>IU</b>），1993年5月16日出生于韩国首尔，是韩国著名女歌手、词曲创作人和演员。代表音乐作品：《Good Day》《Through the Night》《Palette》；主演电视剧：《我的大叔》《德鲁纳酒店》。',
+      tip: '<b>实测结论：</b> 30B 到达主流体量，艺名、生日、代表作全对！主流公众人物事实基本不再幻觉。'
+    },
+    {
+      num: '70B', verdict: 'hallucination', verdictLabel: '张冠李戴',
+      modelName: 'Llama-3.3-70B-Instruct', modelTag: 'Meta · 云端实测',
+      answer: '李知恩是一位韩国女演员，生于<b style="color:var(--danger)">1987年2月9日</b>。在2010年因出演电视剧<b style="color:var(--danger)">《秘密花园》</b>中尹瑟一角获得关注。代表作《信号》《Architecture 101》。',
+      tip: '<b>实测结论：</b> 70B 答错了！认成了同名的另一个演员，年龄差了 6 岁。证明大参数量不等于零幻觉，语料未覆盖仍然会错。'
+    },
+    {
+      num: '120B', verdict: 'correct', verdictLabel: '专家级',
+      modelName: 'GPT-OSS-120B', modelTag: 'OpenAI · 本地实测',
+      answer: '李知恩（Lee Ji-eun），艺名 <b>IU</b>，1993年5月16日生于韩国首尔。2008年以单曲《Lost Child》出道，2010年《Good Day》三段高音奠定「国民妹妹」地位。代表作：《Palette》《Lilac》《我的大叔》《德鲁纳酒店》。',
+      tip: '<b>实测结论：</b> 120B 回答结构清晰如维基百科，连出道单曲和公司历史都极其准确。'
+    },
+    {
+      num: '235B', verdict: 'correct', verdictLabel: '百科级',
+      modelName: 'Qwen3-235B-A22B (MoE)', modelTag: 'Alibaba · 云端实测',
+      answer: '李知恩（1993年5月16日－），韩国创作女歌手及演员，艺名 <b>IU</b>（아이유）。2008年出道，2010年《Good Day》横扫榜单。代表作：《Through the Night》《BBIBBI》《我的大叔》《鬼怪》。',
+      tip: '<b>实测结论：</b> 235B MoE 激活 22B，知识覆盖极为全面，细节无懈可击。'
+    },
+    {
+      num: '1T', verdict: 'correct', verdictLabel: '超越百科',
+      modelName: 'Kimi K2 (~1T MoE)', modelTag: 'Moonshot AI · 云端实测',
+      answer: '李知恩（이지은），艺名 <b>IU</b>，1993年生。K-Pop史上首位达成 Melon 音源榜年榜全杀与百次 PAK 的艺人。代表曲：《Through the Night》《Eight》《Love wins all》；影视：《我的大叔》《德鲁纳酒店》。',
+      tip: '<b>实测结论：</b> Kimi K2 连音源榜 PAK 次数和韩文歌名都记准了，万亿参数带来物理数据库级的知识密度。'
+    },
+    {
+      num: '5T+', verdict: 'correct', verdictLabel: '行业天花板',
+      modelName: 'Claude Opus 4.6', modelTag: 'Anthropic · 云端实测',
+      answer: '李知恩（이지은），艺名 <b>IU</b>（아이유，意为"I and You"），1993年生于首尔。15岁以《迷儿》出道。代表作：《Modern Times》《Palette》（与G-Dragon合作）、电视剧《月之恋人-步步惊心：丽》《我的大叔》。',
+      tip: '<b>实测结论：</b> 顶级闭源旗舰 Opus 4.6，语源背景、合唱合作人细节完整覆盖，达到顶峰广度。'
+    }
+  ];
+
+  const BADGES = {
+    hallucination: { bg: 'var(--danger)', text: 'white' },
+    unknown:       { bg: 'var(--amber)',  text: 'white' },
+    correct:       { bg: 'var(--success)', text: 'white' }
+  };
+
+  const slider = document.getElementById('s31Slider');
+  const valEl = document.getElementById('s31Val');
+  const badgeEl = document.getElementById('s31Badge');
+  const cardEl = document.getElementById('s31Card');
+  const cardSizeEl = document.getElementById('s31CardSize');
+  const cardNameEl = document.getElementById('s31CardName');
+  const cardTagEl = document.getElementById('s31CardTag');
+  const cardVerdictEl = document.getElementById('s31CardVerdict');
+  const cardAnswerEl = document.getElementById('s31CardAnswer');
+  const cardTipEl = document.getElementById('s31CardTip');
+
+  function renderS31(idx) {
+    const s = SCALES[idx];
+    if (!s || !slider) return;
+    valEl.textContent = s.num;
+    badgeEl.textContent = s.verdictLabel;
+    const b = BADGES[s.verdict];
+    badgeEl.style.background = b.bg;
+    badgeEl.style.color = b.text;
+
+    cardEl.style.borderColor = b.bg;
+    cardSizeEl.textContent = s.num;
+    cardNameEl.textContent = s.modelName;
+    cardTagEl.textContent = s.modelTag;
+    cardVerdictEl.textContent = s.verdictLabel;
+    cardVerdictEl.style.background = b.bg;
+    cardAnswerEl.innerHTML = s.answer;
+    cardTipEl.innerHTML = s.tip;
+  }
+
+  if (slider) {
+    slider.addEventListener('input', (e) => renderS31(parseInt(e.target.value, 10)));
+    renderS31(0);
+  }
+})();
 
   document.addEventListener('keydown', (e) => {
     if (overviewModal.classList.contains('open')) {
