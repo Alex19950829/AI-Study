@@ -2618,6 +2618,69 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 35: 提示词生效的物理本质：2D 向量激活空间与逻辑锁定 -->
+  <section class="slide" data-slide="35">
+    <header class="lesson-header">
+      <h1>提示词生效的物理本质：2D 向量激活空间与逻辑锁定</h1>
+      <p class="subtitle">拆解<b>为什么写清豁免条件/辱骂定义/布尔返回值后，大模型能严丝合缝按规则执行？物理落点全景剖析</b>。</p>
+    </header>
+
+    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
+      <!-- 左：2D 向量激活高清示意图 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px; box-shadow:var(--shadow-card); display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <img src="vector_space_prompt_map_cn.jpg" alt="LLM 2D 向量激活空间地图" style="width:100%; max-height:240px; object-fit:contain; border-radius:8px;">
+        <div style="font-size:11px; font-weight:700; color:var(--sub); margin-top:6px; text-align:center;">
+          📍 图解：点 A（发散闲聊区）vs 点 B（精准锁定“审核规则 ✕ 代码布尔引擎”）
+        </div>
+      </div>
+
+      <!-- 右：二维对比矩阵表格 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card); display:flex; flex-direction:column; justify-content:space-between;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:6px;">
+          📊 <b>物理落点与输出确定性对比</b>
+        </div>
+        <table class="model-table" style="font-size:11px; margin:0;">
+          <thead>
+            <tr><th>比较维度</th><th>❌ 点 A：没有提示词</th><th>✅ 点 B：带规则 Prompt</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>输入示例</b></td>
+              <td><code>“你这个笨蛋”</code></td>
+              <td><code>“规则：豁免/辱骂定义/返回 boolean”</code></td>
+            </tr>
+            <tr>
+              <td><b>2D 空间坐标</b></td>
+              <td><b>(X: 10%, Y: 20%)</b> 自由闲聊区</td>
+              <td><b>(X: 95%, Y: 90%)</b> 规则 ✕ 代码逻辑区</td>
+            </tr>
+            <tr>
+              <td><b>被激活神经元</b></td>
+              <td>日常闲聊/感情发泄类</td>
+              <td><b>IF/ELSE 判断与审查规章类</b></td>
+            </tr>
+            <tr>
+              <td><b>概率分布形状</b></td>
+              <td><b>发散云雾状</b>（概率平摊）</td>
+              <td><b>极端尖峰锁死</b>（true/false 占99%）</td>
+            </tr>
+            <tr>
+              <td><b>典型输出</b></td>
+              <td><code>“笨蛋是昵称/你在骂人”</code> (不稳定)</td>
+              <td><code>false</code> (严丝合缝符合豁免规则)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 总结：</b><br>
+      • <b>没有提示词时</b>：大模型在全宇宙漫无目的地散步，概率发散向四周掷骰子；<br>
+      • <b>有了精细规则 Prompt 后</b>：提示词写的不是普通的字，而是直接给大模型的神经网络概率矩阵画锁止边界！
+    </div>
+  </section>
+
 </main>
 
 <!-- 底栏翻页控制 -->
