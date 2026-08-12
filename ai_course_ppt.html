@@ -2564,33 +2564,27 @@ body {
     </div>
   </section>
 
-  <!-- SLIDE 34: 4 代 AI 算法演进：CNN 卷积神经网络 vs RNN 循环神经网络 vs BERT 双向编码器 vs GPT -->
+  <!-- SLIDE 34: 4 代 AI 算法演进：为什么 GPT / ChatGPT 终结了 CNN、RNN 与 BERT？ -->
   <section class="slide" data-slide="34">
     <header class="lesson-header">
-      <h1>4 代 AI 算法演进：CNN 卷积神经网络 ➔ RNN 循环神经网络 ➔ BERT 双向编码器 ➔ ChatGPT</h1>
-      <p class="subtitle">对比<b>CNN (卷积神经网络)、RNN (循环神经网络)、BERT (双向 Transformer 编码器) 核心瓶颈，与 GPT / ChatGPT 终极跃进</b>。</p>
+      <h1>4 代 AI 算法演进：为什么 ChatGPT 终结了 CNN、RNN 与 BERT？</h1>
+      <p class="subtitle">对比<b>CNN 滑动窗口近视眼、RNN 记忆衰减与串行瓶颈、BERT 完形填空局限，与 GPT 预训练通用跃进</b>。</p>
     </header>
 
     <div class="duo-grid" style="margin-bottom:8px;">
       <div class="duo-card you" style="padding:10px 14px;">
-        <div class="duo-tag" style="font-size:10.5px;">🏷️ 前 GPT 时代：任务专用模型 (Task-Specific Models)</div>
+        <div class="duo-tag" style="font-size:10.5px;">🏷️ 前 GPT 时代：任务专用模型 (Task-Specific)</div>
         <p style="font-size:11.5px; line-height:1.5;">
-          • <b>先定任务，再训模型</b>：做翻译训一个、做分类训一个，换任务即需重采数据重训。<br>
-          • <b>三大经典架构短板</b>：<br>
-          &nbsp;&nbsp;- <b>CNN 卷积神经网络</b>：窗口局限（近视眼）；<br>
-          &nbsp;&nbsp;- <b>RNN 循环神经网络</b>：时序记忆衰减与串行瓶颈；<br>
-          &nbsp;&nbsp;- <b>BERT 双向 Transformer 编码器</b>：完形填空擅长理解，不擅长长文生成。
+          • <b>先定任务，再训模型</b>：做翻译训一个、做分类训一个，换个任务就要重新采集数据重新训练。<br>
+          • <b>致命短板</b>：CNN 看太近（近视眼）、RNN 忘太快（遗忘症）、BERT 只会填空不会续写。
         </p>
       </div>
 
       <div class="duo-card pro" style="padding:10px 14px;">
         <div class="duo-tag" style="font-size:10.5px;">🚀 GPT/ChatGPT 时代：通用基础模型 (Foundation Model)</div>
         <p style="font-size:11.5px; line-height:1.5;">
-          • <b>预训练一次，能力通用</b>：海量文本因果预测（PreTraining），语法、常识、逻辑自然涌现。<br>
-          • <b>ChatGPT 胜出硬核优势</b>：<br>
-          &nbsp;&nbsp;- <b>Transformer 全局 Self-Attention</b>：超越 CNN 局域近视；<br>
-          &nbsp;&nbsp;- <b>GPU 万核大规模并行</b>：超越 RNN 串行训练慢；<br>
-          &nbsp;&nbsp;- <b>因果自回归生成</b>：超越 BERT 填空限制，天然契合人类对话交流！
+          • <b>预训练一次，能力通用</b>：海量文本跑因果预测（PreTraining），语法、逻辑、代码自然涌现。<br>
+          • <b>核心优势</b>：Transformer 全局注意力、GPU 万核极速并行、Scaling Law 带来智能跃进！
         </p>
       </div>
     </div>
@@ -2599,16 +2593,16 @@ body {
     <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 16px; margin-bottom:8px; box-shadow:var(--shadow-card);">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <span style="font-size:12.5px; font-weight:800; color:var(--text); display:flex; align-items:center; gap:6px;">
-          🎛️ <b>4 代 AI 算法物理机制与缺陷比对实验室</b> (点击下方 Tab 切换查看详细机制与对比)
+          🎛️ <b>4 代 AI 算法瓶颈与机制切换体验</b> (点击 Tab 查看核心缺陷与运作动画)
         </span>
       </div>
 
       <!-- Tab 按钮 -->
       <div style="display:flex; gap:6px; margin-bottom:10px;">
-        <button id="s34TabCnn" class="sc-tag tune" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:11.5px; font-weight:800;" onclick="s34SwitchTab('cnn')">1. CNN 卷积神经网络</button>
-        <button id="s34TabRnn" class="sc-tag rag" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:11.5px; font-weight:800;" onclick="s34SwitchTab('rnn')">2. RNN 循环神经网络</button>
-        <button id="s34TabBert" class="sc-tag both" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:11.5px; font-weight:800;" onclick="s34SwitchTab('bert')">3. BERT 双向 Transformer 编码器</button>
-        <button id="s34TabGpt" class="sc-tag tune" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:11.5px; font-weight:800; background:var(--accent); color:white;" onclick="s34SwitchTab('gpt')">4. GPT / ChatGPT 因果生成模型</button>
+        <button id="s34TabCnn" class="sc-tag tune" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:12px; font-weight:800;" onclick="s34SwitchTab('cnn')">1. CNN 滑动窗口 (近视眼)</button>
+        <button id="s34TabRnn" class="sc-tag rag" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:12px; font-weight:800;" onclick="s34SwitchTab('rnn')">2. RNN 记忆衰减 (串行慢)</button>
+        <button id="s34TabBert" class="sc-tag both" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:12px; font-weight:800;" onclick="s34SwitchTab('bert')">3. BERT 双向填空 (不擅长生成)</button>
+        <button id="s34TabGpt" class="sc-tag tune" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:12px; font-weight:800; background:var(--accent); color:white;" onclick="s34SwitchTab('gpt')">4. GPT 因果生成 (终极跃进)</button>
       </div>
 
       <!-- 动态展示面板 -->
@@ -2619,8 +2613,8 @@ body {
 
     <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
       <b>💡 总结：</b><br>
-      • <b>CNN 卷积神经网络 / RNN 循环神经网络 / BERT 双向 Transformer 编码器 就像特种工具</b>（电钻、扳手），换个任务就要重新训练；<br>
-      • <b>ChatGPT (GPT) 就像通用钢铁侠战衣</b>：预训练全网知识，只需一条提示词（Prompt）就能适配任何任务！
+      • <b>CNN/RNN/BERT 就像特种工具</b>（电钻、扳手），换个螺丝就要换工具；<br>
+      • <b>GPT/ChatGPT 就像通用钢铁侠战衣</b>：预训练海量常识，只需一条提示词（Prompt）就能做任何任务！
     </div>
   </section>
 
