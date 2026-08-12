@@ -1199,8 +1199,71 @@ body {
     </div>
   </section>
 
-  <!-- SLIDE 10: Agent 的四大核心能力图谱（推理、规划、环境交互、状态） -->
+  <!-- SLIDE 10: 提示词生效的物理本质：2D 向量激活空间与逻辑锁定 -->
   <section class="slide" data-slide="10">
+    <header class="lesson-header">
+      <h1>提示词生效的物理本质：2D 向量激活空间与逻辑锁定</h1>
+      <p class="subtitle">拆解<b>为什么写清豁免条件/辱骂定义/布尔返回值后，大模型能严丝合缝按规则执行？物理落点全景剖析</b>。</p>
+    </header>
+
+    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
+      <!-- 左：2D 向量激活高清示意图 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px; box-shadow:var(--shadow-card); display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <img src="vector_space_prompt_map_cn.jpg" alt="LLM 2D 向量激活空间地图" style="width:100%; max-height:240px; object-fit:contain; border-radius:8px;">
+        <div style="font-size:11px; font-weight:700; color:var(--sub); margin-top:6px; text-align:center;">
+          📍 图解：点 A（发散闲聊区）vs 点 B（精准锁定“审核规则 ✕ 代码布尔引擎”）
+        </div>
+      </div>
+
+      <!-- 右：二维对比矩阵表格 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card); display:flex; flex-direction:column; justify-content:space-between;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:6px;">
+          📊 <b>物理落点与输出确定性对比</b>
+        </div>
+        <table class="model-table" style="font-size:11px; margin:0;">
+          <thead>
+            <tr><th>比较维度</th><th>❌ 点 A：没有提示词</th><th>✅ 点 B：带规则 Prompt</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>输入示例</b></td>
+              <td><code>“你这个笨蛋”</code></td>
+              <td><code>“规则：豁免/辱骂定义/返回 boolean”</code></td>
+            </tr>
+            <tr>
+              <td><b>2D 空间坐标</b></td>
+              <td><b>(X: 10%, Y: 20%)</b> 自由闲聊区</td>
+              <td><b>(X: 95%, Y: 90%)</b> 规则 ✕ 代码逻辑区</td>
+            </tr>
+            <tr>
+              <td><b>被激活神经元</b></td>
+              <td>日常闲聊/感情发泄类</td>
+              <td><b>IF/ELSE 判断与审查规章类</b></td>
+            </tr>
+            <tr>
+              <td><b>概率分布形状</b></td>
+              <td><b>发散云雾状</b>（概率平摊）</td>
+              <td><b>极端尖峰锁死</b>（true/false 占99%）</td>
+            </tr>
+            <tr>
+              <td><b>典型输出</b></td>
+              <td><code>“笨蛋是昵称/你在骂人”</code> (不稳定)</td>
+              <td><code>false</code> (严丝合缝符合豁免规则)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 总结：</b><br>
+      • <b>没有提示词时</b>：大模型在全宇宙漫无目的地散步，概率发散向四周掷骰子；<br>
+      • <b>有了精细规则 Prompt 后</b>：提示词写的不是普通的字，而是直接给大模型的神经网络概率矩阵画锁止边界！
+    </div>
+  </section>
+
+  <!-- SLIDE 10: Agent 的四大核心能力图谱（推理、规划、环境交互、状态） -->
+  <section class="slide" data-slide="11">
     <header class="lesson-header">
       <h1>Agent 的四大核心能力图谱</h1>
       <p class="subtitle">聊天式 AI 只有「对话大脑」，Agent 则具备<b>推理、规划、环境交互与状态记忆</b>构成的完备能力体系。</p>
@@ -1256,7 +1319,7 @@ body {
   </section>
 
   <!-- SLIDE 11: Agent 控制循环（Planning-Action-Observe 动态演练） -->
-  <section class="slide" data-slide="11">
+  <section class="slide" data-slide="12">
     <header class="lesson-header">
       <h1>Planning - Action - Observe 控制循环</h1>
       <p class="subtitle">普通 LLM 是单向问答（Input ➔ Output）；Agent 是<b>闭环自愈系统（Input ➔ [Plan ➔ Act ➔ Observe] × N ➔ Output）</b>。</p>
@@ -1303,7 +1366,7 @@ body {
   </section>
 
   <!-- SLIDE 12: 上下文窗口全景拆解（含 OpenClaw 深度工程落地） -->
-  <section class="slide" data-slide="12">
+  <section class="slide" data-slide="13">
     <header class="lesson-header">
       <h1>为什么聊久了它会「忘事」？—— 上下文窗口全景拆解</h1>
       <p class="subtitle">工作台比喻、<b>底层算力限制原因</b>、主流模型窗口对比与 <b>OpenClaw 架构级上下文治理</b>。</p>
@@ -1349,7 +1412,7 @@ body {
   </section>
 
   <!-- SLIDE 13: 深度思考与推理模型：同一道题，两种模式实测演示 -->
-  <section class="slide" data-slide="13">
+  <section class="slide" data-slide="14">
     <header class="lesson-header">
       <h1>同一道排座题：秒答 vs 豆包/DeepSeek 深度思考</h1>
       <p class="subtitle">点击下方模式按钮，亲眼看模型如何<b>自发输出草稿、自我怀疑、推翻假设并修正交卷</b>。</p>
@@ -1384,7 +1447,7 @@ body {
   </section>
 
   <!-- SLIDE 14: 推理模型 3 大核心机制：模型如何实现「自发探索」？ -->
-  <section class="slide" data-slide="14">
+  <section class="slide" data-slide="15">
     <header class="lesson-header">
       <h1>推理模型 3 大核心机制：模型如何实现「自发探索」？</h1>
       <p class="subtitle">没有人类写一行 <code>if-else</code>，完全靠<b>强化学习、注意力重定向与树状分支搜索</b>自发涌现。</p>
@@ -1438,7 +1501,7 @@ body {
   </section>
 
   <!-- SLIDE 15: 向量碰撞与高熵激活：神经网络内部如何「发现」矛盾？ -->
-  <section class="slide" data-slide="15">
+  <section class="slide" data-slide="16">
     <header class="lesson-header">
       <h1>向量碰撞与高熵激活：神经网络内部如何「发现」矛盾？</h1>
       <p class="subtitle">模型内部没有 <code>if(a+b != 8)</code> 的代码，它靠的是<b>隐藏层向量排斥碰撞产生的「隐层高熵信号」</b>。</p>
@@ -1490,7 +1553,7 @@ body {
   </section>
 
   <!-- SLIDE 16: 深度思考的核心作用与「高性价比」降本平衡指南 -->
-  <section class="slide" data-slide="16">
+  <section class="slide" data-slide="17">
     <header class="lesson-header">
       <h1>深度思考的核心作用与「高性价比」降本平衡指南</h1>
       <p class="subtitle">既要利用深度思考<b>「解构逻辑漏洞、反向优化 Prompt」</b>，又要避免<b>频繁调用导致的成本暴增</b>。</p>
@@ -1532,7 +1595,7 @@ body {
   </section>
 
   <!-- SLIDE 17: 模型参数量全景拆解：参数到底是什么？ -->
-  <section class="slide" data-slide="17">
+  <section class="slide" data-slide="18">
     <header class="lesson-header">
       <h1>模型参数量全景拆解：参数到底是什么？</h1>
       <p class="subtitle">告别抽象数字！揭秘 7B / 70B / 671B 背后保存的<b>硬盘浮点数、旋钮比喻与三大核心概念辨析</b>。</p>
@@ -1582,7 +1645,7 @@ body {
   </section>
 
   <!-- SLIDE 18: 参数规模交互试用与小模型「反杀」选型指南 -->
-  <section class="slide" data-slide="18">
+  <section class="slide" data-slide="19">
     <header class="lesson-header">
       <h1>参数规模交互试用与小模型「反杀」选型指南</h1>
       <p class="subtitle">拖动滑块体验 <b>10亿级到万亿级吨位差异</b>，看清三大场景下小模型如何凭性价比打赢大块头。</p>
@@ -1632,7 +1695,7 @@ body {
   </section>
 
   <!-- SLIDE 19: 静态参数 vs 动态输入：模型发布后如何回答所有问题？ -->
-  <section class="slide" data-slide="19">
+  <section class="slide" data-slide="20">
     <header class="lesson-header">
       <h1>静态参数 vs 动态输入：模型发布后如何回答所有问题？</h1>
       <p class="subtitle">揭秘 <b>10万本考卷 vs 脑细胞比喻</b>、只读权重矩阵 (Freeze Weights) 与文件物理体积真相。</p>
@@ -1666,7 +1729,7 @@ body {
   </section>
 
   <!-- SLIDE 20: 为什么有的 AI「看不懂」图片？—— 多模态底层原理全景 -->
-  <section class="slide" data-slide="20">
+  <section class="slide" data-slide="21">
     <header class="lesson-header">
       <h1>为什么有的 AI「看不懂」图片？—— 多模态底层原理全景</h1>
       <p class="subtitle">揭秘纯文本 LLM 与多模态模型差异、<b>两大常见误区避坑</b>与视觉 Token 三步转译。</p>
@@ -1718,7 +1781,7 @@ body {
   </section>
 
   <!-- SLIDE 21: 微调是什么？和「喂资料」有什么区别？—— 技术选型决策指南 -->
-  <section class="slide" data-slide="21">
+  <section class="slide" data-slide="22">
     <header class="lesson-header">
       <h1>微调是什么？和「喂资料」有什么区别？</h1>
       <p class="subtitle">揭秘<b>微调 (SFT 重新上课) 与知识库 (RAG 开卷考试) 区别</b>、4 大场景对号入座与最省钱选型链。</p>
@@ -1770,7 +1833,7 @@ body {
   </section>
 
   <!-- SLIDE 22: 企业都在建的「知识库」是什么？—— 切片与 TopK 工程实操 -->
-  <section class="slide" data-slide="22">
+  <section class="slide" data-slide="23">
     <header class="lesson-header">
       <h1>企业都在建的「知识库」是什么？—— 切片与 TopK 工程实操</h1>
       <p class="subtitle">揭秘 <b>RAG 3 步运转闭环、Chunk Size 黄金法则与 TopK / Rerank 场景推荐</b>。</p>
@@ -1824,7 +1887,7 @@ body {
   </section>
 
   <!-- SLIDE 23: 知识库怎么切片？—— 4 大切片模式与配置指南 -->
-  <section class="slide" data-slide="23">
+  <section class="slide" data-slide="24">
     <header class="lesson-header">
       <h1>知识库怎么切片？—— 4 大切片模式与配置指南</h1>
       <p class="subtitle">揭秘<b>固定字符、递归字符、结构化 Markdown 与语义切片的原理、配置代码与适用场景</b>。</p>
@@ -1889,7 +1952,7 @@ body {
   </section>
 
   <!-- SLIDE 24: 『开源模型』等于免费吗？—— AI 圈“开源”真相与选型避坑 -->
-  <section class="slide" data-slide="24">
+  <section class="slide" data-slide="25">
     <header class="lesson-header">
       <h1>『开源模型』等于免费吗？—— AI 圈“开源”真相与选型避坑</h1>
       <p class="subtitle">点击下方交互组件，亲眼看<b>三件套亮灯检查器</b>与<b>满血 vs 蒸馏版参数性能动画对比</b>。</p>
@@ -1979,7 +2042,7 @@ body {
   </section>
 
   <!-- SLIDE 25: 开源 7B 模型实操与选型：我拿到了权重文件，然后呢？ -->
-  <section class="slide" data-slide="25">
+  <section class="slide" data-slide="26">
     <header class="lesson-header">
       <h1>开源 7B 模型实操与选型：我拿到了权重文件，然后呢？</h1>
       <p class="subtitle">揭秘 <b>7B 权重真实用途、QLoRA 低成本微调实操与动态企业文档 RAG 选型硬道理</b>。</p>
@@ -2031,7 +2094,7 @@ body {
   </section>
 
   <!-- SLIDE 26: LoRA 微调原理与物理拆解：如何用 50MB 插件改动 70 亿大脑？ -->
-  <section class="slide" data-slide="26">
+  <section class="slide" data-slide="27">
     <header class="lesson-header">
       <h1>LoRA 微调原理与物理拆解：如何用 50MB 插件改动 70 亿大脑？</h1>
       <p class="subtitle">揭秘 <b>B (Billion) 含义、低秩分解原理 ΔW = B × A、Prompt 骤减 90% 与物理插件双模式</b>。</p>
@@ -2082,7 +2145,7 @@ body {
   </section>
 
   <!-- SLIDE 27: 本地部署显存计算器与硬件选型 -->
-  <section class="slide" data-slide="27">
+  <section class="slide" data-slide="28">
     <header class="lesson-header">
       <h1>你的电脑能跑多大的模型？—— 本地部署显存计算器与硬件选型</h1>
       <p class="subtitle">选择<b>平台 (NVIDIA / Apple Silicon)</b>、<b>设备型号</b>与<b>精度 (INT4/INT8/FP16)</b>，实时计算模型匹配与显存硬开销。</p>
@@ -2133,7 +2196,7 @@ body {
   </section>
 
   <!-- SLIDE 28: 同一个问题，为什么每次答案不一样？—— 随机性原理与结果一致性控制 -->
-  <section class="slide" data-slide="28">
+  <section class="slide" data-slide="29">
     <header class="lesson-header">
       <h1>同一个问题，为什么每次答案不一样？—— 随机性原理与结果一致性控制</h1>
       <p class="subtitle">揭秘<b>“带权掷骰子”抽签机理、创意 vs 严肃场景分级，与 4 种消除答案漂移的硬核工程手段</b>。</p>
@@ -2185,7 +2248,7 @@ body {
   </section>
 
   <!-- SLIDE 29: AI 客服变迁全景：传统规则客服 vs 现代 LLM+RAG 智能体架构 -->
-  <section class="slide" data-slide="29">
+  <section class="slide" data-slide="30">
     <header class="lesson-header">
       <h1>AI 客服变迁全景：传统规则客服 vs 现代 LLM+RAG 智能体架构</h1>
       <p class="subtitle">揭秘<b>传统客服“蠢”的根源、传统 vs 现代链路图对比，与自建 5 步智能分流路由器</b>。</p>
@@ -2256,7 +2319,7 @@ body {
   </section>
 
   <!-- SLIDE 30: 大模型限流与用量治理：传统 QPS 滑动窗口 vs 现代 LLM TPM+显存多维限流 -->
-  <section class="slide" data-slide="30">
+  <section class="slide" data-slide="31">
     <header class="lesson-header">
       <h1>大模型限流与用量治理：传统 QPS 滑动窗口 vs 现代 LLM 多维限流</h1>
       <p class="subtitle">揭秘<b>豆包、Claude Code、ChatGPT 3小时/5小时滑动重置、Token 预扣返还与 GPU 显存级调度</b>。</p>
@@ -2328,7 +2391,7 @@ body {
   </section>
 
   <!-- SLIDE 31: 大模型训练 vs 推理全景：从“考场作答”到“权重文件物理重写” -->
-  <section class="slide" data-slide="31">
+  <section class="slide" data-slide="32">
     <header class="lesson-header">
       <h1>大模型训练 vs 推理全景：从“考场作答”到“权重文件物理重写”</h1>
       <p class="subtitle">揭秘<b>对话非学习/参数只读冻结、4 步物理训练流（二进制文件 ➔ GPU 梯度计算 ➔ 导出新文件），与全量 vs LoRA 差异</b>。</p>
@@ -2400,7 +2463,7 @@ body {
   </section>
 
   <!-- SLIDE 32: Token 与词表原理：1:1 动态分词与 Tokenizer 算法实验室 -->
-  <section class="slide" data-slide="32">
+  <section class="slide" data-slide="33">
     <header class="lesson-header">
       <h1>Token 与词表原理：1:1 动态分词与 Tokenizer 算法实验室</h1>
       <p class="subtitle">揭秘<b>分词器 (Tokenizer)、Trie 前缀树最长贪婪匹配、BPE (字节对编码) 算法，与跨语言压缩率</b>。</p>
@@ -2465,7 +2528,7 @@ body {
   </section>
 
   <!-- SLIDE 33: Base 模型原理：Token 推 Token 的预测机器与自回归推演 -->
-  <section class="slide" data-slide="33">
+  <section class="slide" data-slide="34">
     <header class="lesson-header">
       <h1>Base 模型：Token 推 Token 机器与自回归实时概率推演</h1>
       <p class="subtitle">训练结束后得到的原始模型只做一件事：<b>给定前文所有 Token，预测下一个最可能的 Token 概率分布</b>。</p>
@@ -2565,7 +2628,7 @@ body {
   </section>
 
   <!-- SLIDE 34: 4 代 AI 算法演进：为什么 GPT / ChatGPT 终结了 CNN、RNN 与 BERT？ -->
-  <section class="slide" data-slide="34">
+  <section class="slide" data-slide="35">
     <header class="lesson-header">
       <h1>4 代 AI 算法演进：为什么 ChatGPT 终结了 CNN、RNN 与 BERT？</h1>
       <p class="subtitle">对比<b>CNN 滑动窗口近视眼、RNN 记忆衰减与串行瓶颈、BERT 完形填空局限，与 GPT 预训练通用跃进</b>。</p>
@@ -2615,69 +2678,6 @@ body {
       <b>💡 总结：</b><br>
       • <b>CNN/RNN/BERT 就像特种工具</b>（电钻、扳手），换个螺丝就要换工具；<br>
       • <b>GPT/ChatGPT 就像通用钢铁侠战衣</b>：预训练海量常识，只需一条提示词（Prompt）就能做任何任务！
-    </div>
-  </section>
-
-  <!-- SLIDE 35: 提示词生效的物理本质：2D 向量激活空间与逻辑锁定 -->
-  <section class="slide" data-slide="35">
-    <header class="lesson-header">
-      <h1>提示词生效的物理本质：2D 向量激活空间与逻辑锁定</h1>
-      <p class="subtitle">拆解<b>为什么写清豁免条件/辱骂定义/布尔返回值后，大模型能严丝合缝按规则执行？物理落点全景剖析</b>。</p>
-    </header>
-
-    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
-      <!-- 左：2D 向量激活高清示意图 -->
-      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px; box-shadow:var(--shadow-card); display:flex; flex-direction:column; align-items:center; justify-content:center;">
-        <img src="vector_space_prompt_map_cn.jpg" alt="LLM 2D 向量激活空间地图" style="width:100%; max-height:240px; object-fit:contain; border-radius:8px;">
-        <div style="font-size:11px; font-weight:700; color:var(--sub); margin-top:6px; text-align:center;">
-          📍 图解：点 A（发散闲聊区）vs 点 B（精准锁定“审核规则 ✕ 代码布尔引擎”）
-        </div>
-      </div>
-
-      <!-- 右：二维对比矩阵表格 -->
-      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card); display:flex; flex-direction:column; justify-content:space-between;">
-        <div style="font-size:12.5px; font-weight:800; color:var(--text); margin-bottom:6px;">
-          📊 <b>物理落点与输出确定性对比</b>
-        </div>
-        <table class="model-table" style="font-size:11px; margin:0;">
-          <thead>
-            <tr><th>比较维度</th><th>❌ 点 A：没有提示词</th><th>✅ 点 B：带规则 Prompt</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><b>输入示例</b></td>
-              <td><code>“你这个笨蛋”</code></td>
-              <td><code>“规则：豁免/辱骂定义/返回 boolean”</code></td>
-            </tr>
-            <tr>
-              <td><b>2D 空间坐标</b></td>
-              <td><b>(X: 10%, Y: 20%)</b> 自由闲聊区</td>
-              <td><b>(X: 95%, Y: 90%)</b> 规则 ✕ 代码逻辑区</td>
-            </tr>
-            <tr>
-              <td><b>被激活神经元</b></td>
-              <td>日常闲聊/感情发泄类</td>
-              <td><b>IF/ELSE 判断与审查规章类</b></td>
-            </tr>
-            <tr>
-              <td><b>概率分布形状</b></td>
-              <td><b>发散云雾状</b>（概率平摊）</td>
-              <td><b>极端尖峰锁死</b>（true/false 占99%）</td>
-            </tr>
-            <tr>
-              <td><b>典型输出</b></td>
-              <td><code>“笨蛋是昵称/你在骂人”</code> (不稳定)</td>
-              <td><code>false</code> (严丝合缝符合豁免规则)</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
-      <b>💡 总结：</b><br>
-      • <b>没有提示词时</b>：大模型在全宇宙漫无目的地散步，概率发散向四周掷骰子；<br>
-      • <b>有了精细规则 Prompt 后</b>：提示词写的不是普通的字，而是直接给大模型的神经网络概率矩阵画锁止边界！
     </div>
   </section>
 
