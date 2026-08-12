@@ -2132,6 +2132,201 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 28: 同一个问题，为什么每次答案不一样？—— 随机性原理与结果一致性控制 -->
+  <section class="slide" data-slide="28">
+    <header class="lesson-header">
+      <h1>同一个问题，为什么每次答案不一样？—— 随机性原理与结果一致性控制</h1>
+      <p class="subtitle">揭秘<b>“带权掷骰子”抽签机理、创意 vs 严肃场景分级，与 4 种消除答案漂移的硬核工程手段</b>。</p>
+    </header>
+
+    <div class="grid-4-col" style="margin-bottom:12px;">
+      <div class="card c1">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <h4 style="font-size:14px;">1. 为什么两次答案不一样？</h4>
+            <span class="sc-tag rag" style="font-size:10px;">随机是出厂特性</span>
+          </div>
+          <p><b>带权掷骰子：</b>生成每个字都在预测概率分布（如「茶」45% /「铺」30% /「忙」15%）并抽签。<b>一句话几十次抽签，两次一模一样才是极小概率事件</b>！</p>
+        </div>
+      </div>
+
+      <div class="card c4">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <h4 style="font-size:14px;">2. 为什么要故意设计随机？</h4>
+            <span class="sc-tag tune" style="font-size:10px;">防止变成死板复读机</span>
+          </div>
+          <p><b>灵感与变通：</b>若硬选第 1 名 (0 随机)，问十次起名十次答《茉莉奶茶》。<b>允许抽第 2/3 名，语言才自然有创意</b>！</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-top:6px;">🛠️ 4 种硬核工程手段：如何让答案 100% 保持一致？</div>
+
+    <div class="duo-grid" style="margin-bottom:10px;">
+      <div class="duo-card pro">
+        <div class="duo-tag">⚡ 方式 1：温度归零 (Temperature = 0)</div>
+        <h4>关闭概率抽签 ➔ 开启贪婪搜索 (Greedy)</h4>
+        <p>在 API/配置中将 <code>temperature</code> 设为 <code>0</code> (或 <code>0.1</code>)，强制每次选择概率最高的那一个词，<b>准确率保持 99% 高度一致</b>！</p>
+      </div>
+
+      <div class="duo-card you">
+        <div class="duo-tag">🔒 方式 2：锁定随机种子 (Seed = 42)</div>
+        <h4>系统级可重复复现 (System Determinism)</h4>
+        <p>在调用 API 时传入固定 <code>seed</code> 参数。在固定 Prompt、温度和 Seed 条件下，<b>输出实现 100% 物理级绝对复现</b>！</p>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 控制答案一致性 3&4 辅助手势：</b><br>
+      ③ <b>提示词强约束 (JSON Only)</b>：强行规定 <code>仅输出 JSON 格式，零客套话</code>，消灭修饰词导致的回答漂移。<br>
+      ④ <b>挂载 RAG 知识库</b>：规定 <code>严格基于上下文作答，找不到答不知道</code>，消灭事实编造产生的随机漂移。
+    </div>
+  </section>
+
+  <!-- SLIDE 29: AI 客服变迁全景：传统规则客服 vs 现代 LLM+RAG 智能体架构 -->
+  <section class="slide" data-slide="29">
+    <header class="lesson-header">
+      <h1>AI 客服变迁全景：传统规则客服 vs 现代 LLM+RAG 智能体架构</h1>
+      <p class="subtitle">揭秘<b>传统客服“蠢”的根源、传统 vs 现代链路图对比，与自建 5 步智能分流路由器</b>。</p>
+    </header>
+
+    <!-- 对比流程图容器 -->
+    <div class="duo-grid" style="margin-bottom:10px;">
+      <div class="duo-card you" style="padding:12px 14px;">
+        <div class="duo-tag" style="font-size:11px;">📟 传统客服链路 (2010~2022 规则查表)</div>
+        <div style="font-family:monospace; font-size:11.5px; background:rgba(220,38,38,0.05); border:1px dashed rgba(220,38,38,0.25); border-radius:8px; padding:8px 10px; color:var(--text); line-height:1.6; margin-top:6px;">
+          用户消息 ➔ <b>[1. 关键词/正则匹配]</b><br>
+          &nbsp;&nbsp;└─➔ <b>[2. NLU 意图分类/槽位提取]</b><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─➔ <b>[3. if-else 树状决策图]</b> ➔ 💥 弹死板固定话术 / 死机
+        </div>
+        <p style="font-size:11.5px; margin-top:6px;"><b>痛点：</b>跳出硬编码分支即死机，错别字同义词无法识别，只认孤立词（如“发票”）。</p>
+      </div>
+
+      <div class="duo-card pro" style="padding:12px 14px;">
+        <div class="duo-tag" style="font-size:11px;">🤖 现代 AI 客服链路 (2023+ LLM 智能体)</div>
+        <div style="font-family:monospace; font-size:11.5px; background:rgba(22,163,74,0.05); border:1px solid rgba(22,163,74,0.2); border-radius:8px; padding:8px 10px; color:var(--text); line-height:1.6; margin-top:6px;">
+          用户消息 ➔ <b>[LLM 大脑理解]</b><br>
+          &nbsp;&nbsp;├─➔ <b>[RAG 知识库]</b> (查手册标注页码)<br>
+          &nbsp;&nbsp;├─➔ <b>[Tool Calling]</b> (调 API 改地址/查物流)<br>
+          &nbsp;&nbsp;└─➔ <b>[Guardrails 护栏]</b> ➔ 🛡️ 输出精准自然语言答复
+        </div>
+        <p style="font-size:11.5px; margin-top:6px;"><b>优势：</b>听懂口语隐喻，基于企业私有文档作答，自动调接口办理业务。</p>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-top:4px;">🛠️ 自建企业级 AI 自动化客服 5 步智能分流拓扑图</div>
+
+    <!-- 5步分流可视化架构图 -->
+    <div style="background:var(--card); border:1.5px solid var(--accent); border-radius:12px; padding:12px 16px; margin-bottom:10px; box-shadow:var(--shadow-card);">
+      <div style="text-align:center; font-weight:800; font-size:12.5px; color:var(--accent); margin-bottom:6px;">
+        📥 用户消息输入
+      </div>
+      <div style="display:flex; justify-content:center; align-items:center; margin-bottom:8px;">
+        <div style="background:rgba(79,123,255,0.1); border:1.5px solid var(--accent); border-radius:8px; padding:6px 16px; font-weight:800; font-size:12.5px; color:var(--accent);">
+          🔀 1. 分级意图路由器 (Intent Router)
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:8px;">
+        <div style="background:rgba(8,145,178,0.06); border:1px solid rgba(8,145,178,0.3); border-radius:8px; padding:8px 10px; text-align:center;">
+          <div style="font-weight:800; font-size:11.5px; color:#0891b2;">A. 常见 FAQ 咨询</div>
+          <div style="font-size:11px; margin-top:4px;"><b>2. RAG 知识库检索</b><br>(查手册 / 标注页码出处)</div>
+        </div>
+        <div style="background:rgba(0,102,255,0.06); border:1px solid rgba(0,102,255,0.3); border-radius:8px; padding:8px 10px; text-align:center;">
+          <div style="font-weight:800; font-size:11.5px; color:var(--accent);">B. 业务操作办理</div>
+          <div style="font-size:11px; margin-top:4px;"><b>3. Agent 工具调用</b><br>(调后端 API 改地址/查物流)</div>
+        </div>
+        <div style="background:rgba(220,38,38,0.06); border:1px solid rgba(220,38,38,0.3); border-radius:8px; padding:8px 10px; text-align:center;">
+          <div style="font-weight:800; font-size:11.5px; color:var(--danger);">C. 情绪激化 / 严重投诉</div>
+          <div style="font-size:11px; margin-top:4px;"><b>4. 无缝转接人工坐席</b><br>(附带前文摘要给真人)</div>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:center; align-items:center;">
+        <div style="background:rgba(22,163,74,0.08); border:1px solid var(--success); border-radius:8px; padding:5px 20px; font-weight:800; font-size:12px; color:var(--success);">
+          🛡️ 5. 安全护栏与输出审核 (Guardrails) ➔ 📤 输出最终答复
+        </div>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 自建技术栈选型推荐：</b><br>
+      • <b>零代码 / 可视化拖拽首选</b>：推荐 <b>Dify</b> 或 <b>FastGPT</b>（自带可视工作流、RAG 向量库与 Agent 工具集）。<br>
+      • <b>全代码深度定制</b>：选择 <code>LangChain / LlamaIndex</code> + <code>vLLM (跑 Qwen2.5-7B/14B)</code> + <code>Qdrant</code>。
+    </div>
+  </section>
+
+  <!-- SLIDE 30: 大模型限流与用量治理：传统 QPS 滑动窗口 vs 现代 LLM TPM+显存多维限流 -->
+  <section class="slide" data-slide="30">
+    <header class="lesson-header">
+      <h1>大模型限流与用量治理：传统 QPS 滑动窗口 vs 现代 LLM 多维限流</h1>
+      <p class="subtitle">揭秘<b>豆包、Claude Code、ChatGPT 3小时/5小时滑动重置、Token 预扣返还与 GPU 显存级调度</b>。</p>
+    </header>
+
+    <div class="duo-grid" style="margin-bottom:10px;">
+      <div class="duo-card you" style="padding:12px 14px;">
+        <div class="duo-tag" style="font-size:11px;">📟 传统 Web API 限流 (滑动窗口/令牌桶)</div>
+        <h4>仅按请求次数 (QPS / RPM) 限制 ➔ 请求开销平权</h4>
+        <p style="font-size:11.5px;">限制“1分钟内最多请求 60 次”。针对 CPU/数据库瓶颈，不管每次请求发送的是 10 字节还是 1MB 数据。</p>
+      </div>
+
+      <div class="duo-card pro" style="padding:12px 14px;">
+        <div class="duo-tag" style="font-size:11px;">🤖 现代 LLM 多维限流 (豆包 / Claude / ChatGPT)</div>
+        <h4>RPM + TPM (Tokens/分) + 并发 KV Cache ➔ 开销极度非平权</h4>
+        <p style="font-size:11.5px;">针对 <b>GPU 算力、显存 KV Cache 与 API 成本</b>！输入 10 个字与 10 万字消耗天差地别，长上下文请求会加权扣除额度。</p>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-top:4px;">🧮 现代大模型四大核心限流与调度机制</div>
+
+    <div class="grid-4-col" style="margin-bottom:10px;">
+      <div class="card c1">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <h4 style="font-size:13.5px;">1. 多维双桶 (RPM+TPM)</h4>
+            <span class="sc-tag rag" style="font-size:9.5px;">网关拦截</span>
+          </div>
+          <p>同时校验每分请求数与 Token 消费额，长文本超标抛出 429 报错。</p>
+        </div>
+      </div>
+
+      <div class="card c2">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <h4 style="font-size:13.5px;">2. 预扣除与返还</h4>
+            <span class="sc-tag tune" style="font-size:9.5px;">精准结算</span>
+          </div>
+          <p>网关预扣 <code>Input + Max Tokens</code>，生成完成或中断后<b>实时退回多扣 Token</b>。</p>
+        </div>
+      </div>
+
+      <div class="card c4">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <h4 style="font-size:13.5px;">3. 滑动时间块</h4>
+            <span class="sc-tag both" style="font-size:9.5px;">3h/5h重置</span>
+          </div>
+          <p>Claude/ChatGPT 按微型时间桶加权统计 Token，按时间滑动平滑释放。</p>
+        </div>
+      </div>
+
+      <div class="card c5">
+        <div class="card-body">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+            <h4 style="font-size:13.5px;">4. 显存物理级限流</h4>
+            <span class="sc-tag rag" style="font-size:9.5px;">vLLM排队</span>
+          </div>
+          <p>推理引擎监控 KV Cache 显存占用，>95% 时触发排队/拒绝（返回 503）。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 总结：</b><br>
+      • <b>传统限流</b>：拿 Redis 简单算 <code>1分钟有没有超 60 次</code>。<br>
+      • <b>大模型限流</b>：<b>请求数(RPM) + Token消耗量(TPM) + 并发数(GPU显存) 三维联动</b>，结合预扣返还与长上下文加权扣除的复合分布式网关系统。
+    </div>
+  </section>
+
 </main>
 
 <!-- 底栏翻页控制 -->
@@ -2151,7 +2346,7 @@ body {
 <!-- 目录 Modal -->
 <div class="overview-modal" id="overviewModal">
   <div class="overview-header">
-    <h2 style="font-size:20px; font-weight:800;">幻灯片目录（全 26 页）</h2>
+    <h2 style="font-size:20px; font-weight:800;" id="modalHeaderTitle">幻灯片目录</h2>
     <button class="ctrl-btn" id="closeOverviewBtn">×</button>
   </div>
   <div class="overview-grid" id="overviewGrid"></div>
@@ -2902,10 +3097,15 @@ renderQA(0);
 
   function buildOverview() {
     overviewGrid.innerHTML = '';
+    const modalHeaderTitle = document.getElementById('modalHeaderTitle');
+    if (modalHeaderTitle) modalHeaderTitle.textContent = `幻灯片目录（全 ${totalSlides} 页）`;
+
     slides.forEach((s, i) => {
       let titleText = `Slide ${i + 1}`;
       const header = s.querySelector('h1') || s.querySelector('h2');
-      if (header) titleText = header.innerText.replace(/\n/g, ' ');
+      if (header && header.textContent.trim()) {
+        titleText = header.textContent.replace(/\s+/g, ' ').trim();
+      }
       const thumb = document.createElement('div');
       thumb.className = `thumb-card ${i === currentIndex ? 'active' : ''}`;
       thumb.innerHTML = `<div class="thumb-num">${String(i + 1).padStart(2, '0')}</div><div class="thumb-title">${titleText}</div>`;
