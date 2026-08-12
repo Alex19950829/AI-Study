@@ -3348,7 +3348,7 @@ renderQA(0);
       const pill = document.createElement('div');
       pill.style.cssText = `
         opacity:0; transform:scale(0.8) translateY(6px);
-        transition:all 0.25s ease ${idx * 0.08}s;
+        transition:all 0.4s ease ${idx * 0.22}s;
         background:${t.color}15; border:1.5px solid ${t.color}50; color:${t.color};
         border-radius:8px; padding:6px 12px; display:flex; align-items:center; gap:8px;
         font-size:12.5px; font-weight:800; cursor:default;
@@ -3362,7 +3362,7 @@ renderQA(0);
       setTimeout(() => {
         pill.style.opacity = '1';
         pill.style.transform = 'scale(1) translateY(0)';
-      }, 30 + idx * 80);
+      }, 50 + idx * 220);
     });
 
     const charLen = text.length;
@@ -3430,7 +3430,7 @@ renderQA(0);
         if (pEl) pEl.textContent = pct + '%';
         if (fEl) {
           fEl.style.background = isTop ? 'var(--success)' : 'var(--accent)';
-          fEl.style.transition = 'width 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+          fEl.style.transition = 'width 0.8s cubic-bezier(0.25, 1, 0.5, 1)';
           fEl.style.width = pct + '%';
         }
         if (bEl) bEl.style.opacity = '1';
@@ -3453,9 +3453,9 @@ renderQA(0);
       i++;
       if (i >= CTX_COUNT) {
         clearInterval(timer);
-        if (cb) setTimeout(cb, 200);
+        if (cb) setTimeout(cb, 350);
       }
-    }, 100);
+    }, 250);
   }
 
   function showProbBars() {
@@ -3478,7 +3478,7 @@ renderQA(0);
         setTimeout(() => {
           const titleEl = document.getElementById('s33ProbTitle');
           if (titleEl) titleEl.textContent = '✅ 自回归实时推演生成完毕（按「↺ 重新播放」复现全过程）';
-        }, 600);
+        }, 800);
         return;
       }
 
@@ -3493,7 +3493,7 @@ renderQA(0);
       tk.style.cssText = `
         padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:800;
         background:rgba(22,163,74,0.12); color:var(--success); border:1px solid rgba(22,163,74,0.3);
-        opacity:0; transform:translateY(6px); transition:all 0.3s ease;
+        opacity:0; transform:translateY(6px); transition:all 0.5s ease;
       `;
       tk.textContent = GENERATED[count];
       row.appendChild(tk);
@@ -3506,15 +3506,15 @@ renderQA(0);
       count++;
 
       if (count < PROB_FRAMES.length) {
-        setTimeout(() => updateProbPanel(count), 200);
+        setTimeout(() => updateProbPanel(count), 400);
       }
-    }, 800);
+    }, 1600);
   }
 
   function playS33Demo() {
     showCtxTokens(() => {
       showProbBars();
-      setTimeout(runGeneration, 800);
+      setTimeout(runGeneration, 1200);
     });
   }
 
@@ -3540,7 +3540,7 @@ renderQA(0);
     const wrap = document.getElementById('s33ProbWrap');
     if (wrap) wrap.style.opacity = '0';
 
-    setTimeout(playS33Demo, 300);
+    setTimeout(playS33Demo, 400);
   };
 
   const observer = new IntersectionObserver((entries) => {
