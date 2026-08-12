@@ -1139,7 +1139,7 @@ body {
   <section class="slide" data-slide="8">
     <header class="lesson-header">
       <h1>为什么聊久了它会「忘事」？—— 上下文窗口全景拆解</h1>
-      <p class="subtitle">工作台比喻、<b>底层算力限制原因</b>、主流模型窗口对比与 <b>OpenClaw 架构级上下文治理</b>。</p>
+      <p class="subtitle">工作台比喻、<b>三大物理算力硬伤 (KV Cache OOM / $O(N^2)$ 黑洞 / 注意力稀释)</b> 与 <b>OpenClaw 工程治理</b>。</p>
     </header>
 
     <div class="cw-panorama">
@@ -1147,8 +1147,15 @@ body {
         <h4>🪟 1. 直觉比喻：放纸条的工作台</h4>
         <p>AI 每次回答只能看见工作台上放得下的最近内容。台面满了（超过 Context Window），<b>最早的纸条会被推下台面</b>，掉下去的信息再也无法参与推理。</p>
         
-        <h4 style="margin-top:10px;">⚡ 2. 为什么一定要设固定窗口？</h4>
-        <p><b>① 算力 $O(N^2)$ 暴增</b>：自注意力计算随 Token 翻倍呈平方增长。<br><b>② 显存 KV Cache 极限</b>：避免显存爆满崩溃 (OOM)。<br><b>③ 注意力稀释</b>：避免“中间失忆 (Lost in the Middle)”。<br><b>④ 响应延迟与成本控制</b>：按 Input Token 计费，避免天价账单。</p>
+        <h4 style="margin-top:8px;">⚡ 2. 为什么必须设窗口？三大物理算力硬伤</h4>
+        <div style="font-size:11px; line-height:1.55; color:var(--text);">
+          • <b>💥 KV Cache 显存暴胀 (OOM 崩溃)</b>：<br>
+          每个 Token 的注意力特征缓存约占 1.2 KB。无节制保留 MB/GB 级 session 会瞬间吃掉上百 GB 显存，引发 GPU OOM 全线崩溃！<br>
+          • <b>⬛ 自注意力 $O(N^2)$ 算力黑洞与天价账单</b>：<br>
+          计算复杂度随 Token 呈平方级增加（10万 Token 计算量暴增一万倍！），首字延迟飙升至分钟级，API 计费呈指数增长。<br>
+          • <b>🧠 注意力稀释（中间失忆 Lost in the Middle）</b>：<br>
+          上下文过长会导致自注意力概率被极度平摊，模型极易遗忘中段核心约束与 System Prompt。
+        </div>
       </div>
 
       <div class="cw-pane">
