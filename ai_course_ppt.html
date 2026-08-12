@@ -2681,6 +2681,172 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 36: 大模型幻觉全景：物理成因、4 大幻觉类型与“小抄”认知 -->
+  <section class="slide" data-slide="36">
+    <header class="lesson-header">
+      <h1>大模型幻觉全景：物理成因、4 大幻觉类型与“小抄”认知</h1>
+      <p class="subtitle"><b>幻觉不是 Bug，而是概率采样的必然伴生物</b>。4 大常见类型与两大底层物理根因拆解。</p>
+    </header>
+
+    <!-- 4 大幻觉类型 -->
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-bottom:8px;">
+      <div style="background:rgba(229,62,62,0.06); border:1.5px solid rgba(229,62,62,0.2); border-radius:10px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:800; color:var(--danger); margin-bottom:4px;">🔴 1. 事实性幻觉</div>
+        <div style="font-size:11px; color:var(--text); line-height:1.5;">凭空捏造不存在的事实、历史事件或虚假统计数据。</div>
+      </div>
+      <div style="background:rgba(217,119,6,0.06); border:1.5px solid rgba(217,119,6,0.2); border-radius:10px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:800; color:var(--amber); margin-bottom:4px;">🟠 2. 来源幻觉</div>
+        <div style="font-size:11px; color:var(--text); line-height:1.5;">引用虚假的学术论文、假网址链接或不存在的作者。</div>
+      </div>
+      <div style="background:rgba(124,58,237,0.06); border:1.5px solid rgba(124,58,237,0.2); border-radius:10px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:800; color:var(--purple); margin-bottom:4px;">🟡 3. 推理幻觉</div>
+        <div style="font-size:11px; color:var(--text); line-height:1.5;">前提完全正确，但推导中途逻辑跳跃或计算出错。</div>
+      </div>
+      <div style="background:rgba(0,102,255,0.06); border:1.5px solid rgba(0,102,255,0.2); border-radius:10px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:800; color:var(--accent); margin-bottom:4px;">🔵 4. 代码幻觉</div>
+        <div style="font-size:11px; color:var(--text); line-height:1.5;">生成看似专业、实则根本不存在的虚构 API 函数。</div>
+      </div>
+    </div>
+
+    <!-- 2 大物理根因 -->
+    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
+      <div class="duo-card you" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">⚡ 根因一：参数知识缺陷与截止日期</div>
+        <p style="font-size:11.5px; line-height:1.5;">
+          • <b>数据噪音</b>：预训练文本中本身就夹杂着大量错误、谣言与冲突事实；<br>
+          • <b>静态冻结</b>：知识截止日期后的新发生内容，模型在权重参数里一无所知。
+        </p>
+      </div>
+
+      <div class="duo-card pro" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">⚡ 根因二：上下文理解偏差与概率倾向</div>
+        <p style="font-size:11.5px; line-height:1.5;">
+          • <b>Prompt 模糊盲猜</b>：提示词不清晰时，模型只能在概率分布中“猜测意图”；<br>
+          • <b>最可能 $\neq$ 最准确</b>：模型总是顺着概率最高的方向续写，哪怕该方向事实错误。
+        </p>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 关键认知：</b><br>
+      • <b>PreTraining 完成后参数物理冻结</b>，模型无法自动更新知识，这是幻觉的根本原因；<br>
+      • <b>正确做法是工程缓解</b>（RAG 发小抄/Prompt 锁边界），不要指望模型变聪明后幻觉自己消失！
+    </div>
+  </section>
+
+  <!-- SLIDE 37: 幻觉工程治理：RAG 进阶与 Sampling 采样控制 (Temperature & Top-P) -->
+  <section class="slide" data-slide="37">
+    <header class="lesson-header">
+      <h1>幻觉工程治理：RAG 进阶与 Sampling 采样控制 (Temperature & Top-P)</h1>
+      <p class="subtitle">从物理控制到事实增强：<b>采样参数（陡峭度/剪枝）与 RAG 4 大进阶检索招式</b>。</p>
+    </header>
+
+    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
+      <!-- 左：Temperature & Top-P 物理机制 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card);">
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:6px;">
+          🎛️ 采样控制：Temperature & Top-P
+        </div>
+        <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
+          • <b>Temperature (温度 $T$)</b>：控制概率分布的<b>陡峭度</b>。<br>
+          &nbsp;&nbsp;- <code>T=0 (极低温)</code>：强行极化放大第一名，锁定最高概率词 (Greedy Search)，消除随机漂移。<br>
+          &nbsp;&nbsp;- <code>T>1 (高温)</code>：抹平概率差距，让生僻词参与随机抽签，释放创意（易发疯）。<br>
+          • <b>Top-P (核采样 Nucleus)</b>：动态裁剪候选池<b>尾部杂音</b>。<br>
+          &nbsp;&nbsp;- 按概率从大到小累加至 $P$ (如 85%)，直接剪断剔除剩余 15% 的低概率垃圾词。<br>
+          • <b>黄金法则</b>：严肃业务设 <code>Temperature=0</code>。两者修改其一即可。
+        </div>
+      </div>
+
+      <!-- 右：RAG 4 大进阶招式 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card);">
+        <div style="font-size:12.5px; font-weight:800; color:var(--success); margin-bottom:6px;">
+          📚 事实增强：RAG 知识库 4 大进阶招式
+        </div>
+        <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
+          • <b>1. Chunk 智能切片</b>：重叠切片 (Overlap 10-20%)，防止跨语义断裂。<br>
+          • <b>2. HyDE 假设性文档</b>：先让 LLM 生成假想回答再去检索，解决提问与知识库词汇不匹配。<br>
+          • <b>3. Reranker 重排序</b>：用 Cross-Encoder 精排网络对向量初步召回结果重打分，修正浅层匹配误差。<br>
+          • <b>4. 运行时上下文注入</b>：RAG 不是“让模型学习”，而是<b>“在推理时给模型发确凿小抄”</b>！
+        </div>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 总结：</b><br>
+      • <b>降低随机性 (T=0)</b> 确保输出稳定聚焦；<b>RAG 发小抄</b> 确保事实有据可依，两者组合是防幻觉的强力防线！
+    </div>
+  </section>
+
+  <!-- SLIDE 38: AI PM 架构选型决策矩阵与 4 大避坑清单 -->
+  <section class="slide" data-slide="38">
+    <header class="lesson-header">
+      <h1>AI PM 架构选型决策矩阵与 4 大避坑清单</h1>
+      <p class="subtitle">从单点 Prompt 到 RAG、微调 (SFT) 与 HITL 人工分级审核的全景决策框架。</p>
+    </header>
+
+    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
+      <!-- 左：4 大典型避坑清单 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card);">
+        <div style="font-size:12.5px; font-weight:800; color:var(--danger); margin-bottom:8px;">
+          ❌ 4 大典型认知误区避坑清单
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px; font-size:11px; line-height:1.5;">
+          <div style="background:rgba(229,62,62,0.04); border:1px solid rgba(229,62,62,0.15); border-radius:6px; padding:6px 8px;">
+            ❌ <b>“调高 Temperature 就更聪明”</b> ➔ <b>只是更随机，不是更智能</b>。
+          </div>
+          <div style="background:rgba(229,62,62,0.04); border:1px solid rgba(229,62,62,0.15); border-radius:6px; padding:6px 8px;">
+            ❌ <b>“RAG = 让模型学习了文档”</b> ➔ <b>只是运行时临时注入上下文“发小抄”</b>。
+          </div>
+          <div style="background:rgba(229,62,62,0.04); border:1px solid rgba(229,62,62,0.15); border-radius:6px; padding:6px 8px;">
+            ❌ <b>“模型在直接调用 API”</b> ➔ <b>模型只是输出了格式化文本，由代码调 API</b>。
+          </div>
+          <div style="background:rgba(229,62,62,0.04); border:1px solid rgba(229,62,62,0.15); border-radius:6px; padding:6px 8px;">
+            ❌ <b>“模型出错就要重新微调”</b> ➔ <b>优先改 Prompt，成本低 100 倍</b>。
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：4 维架构选型决策矩阵 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card);">
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:8px;">
+          🎯 4 维架构选型决策矩阵
+        </div>
+        <table class="model-table" style="font-size:10.5px; margin:0;">
+          <thead>
+            <tr><th>选型方案</th><th>适用场景</th><th>代价与成本</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b style="color:var(--accent);">Prompt 够用</b></td>
+              <td>知识已在参数中，仅调格式/语气/风格</td>
+              <td>极低（零开发成本）</td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--success);">需要 RAG</b></td>
+              <td>私有知识库、实时数据、截止日期后内容</td>
+              <td>检索延迟 + 维护向量库成本</td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--amber);">需要微调 (SFT)</b></td>
+              <td>特定领域格式/风格、改变推理范式</td>
+              <td>高（需要标注数据与 GPU 算力）</td>
+            </tr>
+            <tr>
+              <td><b style="color:var(--purple);">需要 HITL 审核</b></td>
+              <td>高风险输出、医疗/法律合规分级把关</td>
+              <td>人力成本 + 响应延迟</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 带走这句话：</b><br>
+      • <b>大模型本质是“超大型概率预测机器”</b>。理解它的物理局限，才能在工程上正确发挥它的智能优势！
+    </div>
+  </section>
+
 </main>
 
 <!-- 底栏翻页控制 -->
