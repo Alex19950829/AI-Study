@@ -2762,7 +2762,7 @@ body {
   <div class="progress-bar-wrap">
     <div class="progress-bar-inner" id="progressBar"></div>
   </div>
-  <div class="slide-counter" id="slideCounter">01 / 26</div>
+  <div class="slide-counter" id="slideCounter">01 / 37</div>
   <button class="ctrl-btn" id="prevBtn" title="上一页 (← / PageUp)">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
@@ -2940,65 +2940,67 @@ const DEMOS = [
   { starter: '红烧肉的做法是：', steps: [['五花肉',51,'先',24,'准备',11],['切块',63,'洗净',15,'切成',11],['焯水',49,'冷水',20,'后',11],['后',90,'。',5,'后',3],['小火',58,'下',12,'中火',11],['炒出',61,'熬',18,'慢慢',9],['糖色',93,'焦糖',3,'红',2]] }
 ];
 
-let curDemo = 0, running = false, runSeq = 0;
 const demoText = document.getElementById('demoText'), btnRun = document.getElementById('btnRun'), statusEl = document.getElementById('demoStatus'), pop = document.getElementById('decisionPop'), candList = document.getElementById('candList');
 
-candList.innerHTML = [0, 1, 2].map(() => `<div class="cand-row"><div class="cand-word"></div><div class="cand-track"><div class="cand-fill"></div></div><div class="cand-pct"></div></div>`).join('');
-const candRows = [...candList.children].map(row => ({ row, word: row.querySelector('.cand-word'), fill: row.querySelector('.cand-fill'), pct: row.querySelector('.cand-pct') }));
+if (candList && btnRun && demoText) {
+  let curDemo = 0, running = false, runSeq = 0;
+  candList.innerHTML = [0, 1, 2].map(() => `<div class="cand-row"><div class="cand-word"></div><div class="cand-track"><div class="cand-fill"></div></div><div class="cand-pct"></div></div>`).join('');
+  const candRows = [...candList.children].map(row => ({ row, word: row.querySelector('.cand-word'), fill: row.querySelector('.cand-fill'), pct: row.querySelector('.cand-pct') }));
 
-function resetDemo() {
-  const d = DEMOS[curDemo];
-  demoText.innerHTML = `<span class="starter-part">${d.starter}</span><span class="ai-part" id="aiPart"></span><span class="caret"></span>`;
-  pop.classList.remove('show');
-  btnRun.disabled = false;
-  btnRun.textContent = '让 AI 接下去 →';
-}
-
-function renderStep(step) {
-  candRows.forEach((r, k) => {
-    const w = step[k * 2], p = step[k * 2 + 1];
-    r.row.classList.remove('picked');
-    r.word.textContent = w;
-    r.pct.textContent = p + '%';
-    r.fill.style.width = p + '%';
-  });
-}
-
-document.querySelectorAll('.starter-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    runSeq++; running = false;
-    document.querySelectorAll('.starter-chip').forEach(c => c.classList.remove('active'));
-    chip.classList.add('active');
-    curDemo = +chip.dataset.i;
-    resetDemo();
-  });
-});
-
-async function runDemo() {
-  if (running) return;
-  running = true;
-  const seq = ++runSeq;
-  btnRun.disabled = true;
-  btnRun.textContent = '正在接话……';
-  const d = DEMOS[curDemo];
-  const aiPart = document.getElementById('aiPart');
-  pop.classList.add('show');
-
-  for (const step of d.steps) {
-    renderStep(step);
-    await new Promise(r => setTimeout(r, 450));
-    if (seq !== runSeq) return;
-    candRows[0].row.classList.add('picked');
-    await new Promise(r => setTimeout(r, 250));
-    if (seq !== runSeq) return;
-    aiPart.textContent += step[0];
+  function resetDemo() {
+    const d = DEMOS[curDemo];
+    demoText.innerHTML = `<span class="starter-part">${d.starter}</span><span class="ai-part" id="aiPart"></span><span class="caret"></span>`;
+    pop.classList.remove('show');
+    btnRun.disabled = false;
+    btnRun.textContent = '让 AI 接下去 →';
   }
-  btnRun.disabled = false;
-  btnRun.textContent = '再看一遍 ↻';
-  running = false;
+
+  function renderStep(step) {
+    candRows.forEach((r, k) => {
+      const w = step[k * 2], p = step[k * 2 + 1];
+      r.row.classList.remove('picked');
+      r.word.textContent = w;
+      r.pct.textContent = p + '%';
+      r.fill.style.width = p + '%';
+    });
+  }
+
+  document.querySelectorAll('.starter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      runSeq++; running = false;
+      document.querySelectorAll('.starter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      curDemo = +chip.dataset.i;
+      resetDemo();
+    });
+  });
+
+  async function runDemo() {
+    if (running) return;
+    running = true;
+    const seq = ++runSeq;
+    btnRun.disabled = true;
+    btnRun.textContent = '正在接话……';
+    const d = DEMOS[curDemo];
+    const aiPart = document.getElementById('aiPart');
+    pop.classList.add('show');
+
+    for (const step of d.steps) {
+      renderStep(step);
+      await new Promise(r => setTimeout(r, 450));
+      if (seq !== runSeq) return;
+      candRows[0].row.classList.add('picked');
+      await new Promise(r => setTimeout(r, 250));
+      if (seq !== runSeq) return;
+      aiPart.textContent += step[0];
+    }
+    btnRun.disabled = false;
+    btnRun.textContent = '再看一遍 ↻';
+    running = false;
+  }
+  btnRun.addEventListener('click', runDemo);
+  resetDemo();
 }
-btnRun.addEventListener('click', runDemo);
-resetDemo();
 
 /* 数学试验代码 */
 const MATH_CASES = [
