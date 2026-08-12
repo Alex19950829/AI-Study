@@ -1303,12 +1303,22 @@ body {
     </div>
   </section>
 
-<!-- SLIDE 13: 深度思考物理机制：System 1 直觉 vs System 2 理性算力图景 -->
+  <!-- SLIDE 13: 深度思考物理机制：System 1 直觉 vs System 2 理性算力图景 -->
   <section class="slide" data-slide="13">
     <header class="lesson-header">
       <h1>深度思考物理机制：System 1 直觉 vs System 2 理性算力图景</h1>
-      <p class="subtitle">为什么秒答面对多重约束易崩溃？<b>物理计算步数硬约束 vs“用 Token 换时间步”草稿纸机制</b>。</p>
+      <p class="subtitle">为什么秒答面对多重约束易崩溃？<b>物理计算步数硬约束 vs 思考草稿纸 &lt;think&gt; 机制</b>。</p>
     </header>
+
+    <!-- 💡 物理执行流全景图 -->
+    <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 14px; margin-bottom:8px; box-shadow:var(--shadow-card);">
+      <div style="font-size:12px; font-weight:800; color:var(--accent); margin-bottom:4px;">
+        ⚙️ 物理执行流：输入问题 ➔ &lt;think&gt; 疯狂吐思考 Token (试错/排除/自我质疑) ➔ 逻辑通顺 ➔ 输出 Final Answer
+      </div>
+      <div style="font-size:11px; color:var(--sub); font-family:monospace; background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.12); padding:6px 10px; border-radius:6px;">
+        [输入问题] ➔ <code>&lt;think&gt;</code> 假设1 ➔ 发现矛盾(划掉重推) ➔ 假设2 ➔ <code>&lt;/think&gt;</code> ➔ <b>[输出 100 分最终答案]</b> (变相延长上下文，用时间换空间)
+      </div>
+    </div>
 
     <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
       <!-- 左：秒答 (System 1) 物理瓶颈 -->
@@ -1317,21 +1327,21 @@ body {
           ⚡ 秒答模式 (System 1) 的物理瓶颈
         </div>
         <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
-          • <b>单次前向传播 (One-Pass Forward)</b>：在接收到问号的瞬间，直接吐出最终答案的第一字。<br>
+          • <b>单次前向传播 (One-Pass Forward)</b>：在接收到问号瞬间，直接吐出最终答案的第一字。<br>
           • <b>网络深度计算步数硬约束</b>：Transformer 神经网络层数固定，无法在单次计算中解出多重复杂约束。<br>
           • <b>缺乏“思考草稿纸”</b>：一旦自回归第一个 Token 猜偏（如先定张三坐第1排），后续注意力被错线锁死，导致盲目自信发乱编。
         </div>
       </div>
 
-      <!-- 右：深度思考 (System 2) 3 大物理突破 -->
+      <!-- 右：深度思考背后的 3 大核心原理 -->
       <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card);">
         <div style="font-size:12.5px; font-weight:800; color:var(--success); margin-bottom:6px;">
-          🧠 深度思考 (System 2) 3 大物理突破
+          🧠 深度思考背后的 3 大核心原理
         </div>
         <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
-          • <b>1. 用 Token 换时间步 (Compute for Tokens)</b>：在 <code>&lt;think&gt;</code> 中吐千字草稿，将逻辑深度转译为多时间步连续推演。<br>
-          • <b>2. 上下文草稿纸自愈</b>：出现矛盾时高概率触发 <code>Wait/不对</code>，注意力指针重新拉回题目重新审题，实现“划掉重来”。<br>
-          • <b>3. GRPO 强化学习演化</b>：设定结果奖励（算对奖100分），模型在自我博弈中自发涌现长链思考与自我质疑能力。
+          • <b>1. 逻辑深度转译为“时间步”</b>：在 <code>&lt;think&gt;</code> 里疯狂吐思考 Token，每一个 Token append 回 Context 参与后续注意力，变相延长上下文，用时间换逻辑空间！<br>
+          • <b>2. 上下文草稿纸自愈</b>：遇死胡同自发输出 <code>Wait / 不对 / 重新看题</code> 反思 Token，将概率强行拉回分支路口，实现“划掉重来”。<br>
+          • <b>3. 强化学习 (GRPO/RL) 演化</b>：结果奖励驱动（算对奖 100 分），神经网络在试错中自发演化出长链思考。
         </div>
       </div>
     </div>
