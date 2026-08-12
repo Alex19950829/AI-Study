@@ -2464,6 +2464,106 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 33: Base 模型原理：Token 推 Token 的预测机器与自回归推演 -->
+  <section class="slide" data-slide="33">
+    <header class="lesson-header">
+      <h1>Base 模型：Token 推 Token 机器与自回归实时概率推演</h1>
+      <p class="subtitle">训练结束后得到的原始模型只做一件事：<b>给定前文所有 Token，预测下一个最可能的 Token 概率分布</b>。</p>
+    </header>
+
+    <div class="duo-grid" style="margin-bottom:8px;">
+      <div class="duo-card you" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">🤖 Base 模型的物理本质</div>
+        <p style="font-size:11.5px; line-height:1.5;">
+          • <b>无情的预测机器</b>：它不会“思考答案”或“查阅知识”，只看海量文本训练出来的概率矩阵。<br>
+          • <b>自回归循环 (Autoregressive Loop)</b>：前文 Token ➔ 概率分布 ➔ 采样 ➔ 吐出新 Token ➔ 追加至末尾循环。
+        </p>
+      </div>
+
+      <div class="duo-card pro" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">💡 经典案例与认知误区打假</div>
+        <p style="font-size:11.5px; line-height:1.5;">
+          • 输入：<code>「紫霞捧着月光宝盒，轻声问：哥哥」</code> ➔ 推出最高概率接续：<code>「，你说你喜欢我」</code>。<br>
+          • <b>关键洞察</b>：它并不<em>知道</em>自己在写什么故事，它只是沿着概率最高的轨迹接话茬！
+        </p>
+      </div>
+    </div>
+
+    <!-- 🧪 动态 Token 概率推演演示区 -->
+    <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 16px; margin-bottom:8px; box-shadow:var(--shadow-card);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:12.5px; font-weight:800; color:var(--text); display:flex; align-items:center; gap:6px;">
+          🎬 <b>1:1 动态 Token 逐字生成与概率实时更新动画</b>
+        </span>
+        <button id="s33ReplayBtn" onclick="s33ReplayAll()" style="background:var(--accent); color:white; border:none; border-radius:8px; padding:4px 14px; font-size:12px; font-weight:700; cursor:pointer;">↺ 重新播放动画</button>
+      </div>
+
+      <!-- 上下文与生成追加 Token 链 -->
+      <div style="background:var(--panel); border:1.5px solid var(--border); border-radius:8px; padding:10px 12px; margin-bottom:10px;">
+        <div style="font-size:11px; font-weight:800; color:var(--sub); margin-bottom:6px;" id="s33ChainLabel">前文 Context（前文 Token 序列）：</div>
+        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; min-height:36px;" id="s33ContextRow">
+          <span class="tk s33-ctx" id="s33ctx0" style="padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:700; background:rgba(0,102,255,0.1); color:var(--accent); border:1px solid rgba(0,102,255,0.2); opacity:0; transition:all 0.3s ease;">紫霞</span>
+          <span class="s33-arrow" id="s33a0" style="color:var(--sub); opacity:0; transition:opacity 0.2s;">→</span>
+          <span class="tk s33-ctx" id="s33ctx1" style="padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:700; background:rgba(0,102,255,0.1); color:var(--accent); border:1px solid rgba(0,102,255,0.2); opacity:0; transition:all 0.3s ease;">捧着</span>
+          <span class="s33-arrow" id="s33a1" style="color:var(--sub); opacity:0; transition:opacity 0.2s;">→</span>
+          <span class="tk s33-ctx" id="s33ctx2" style="padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:700; background:rgba(0,102,255,0.1); color:var(--accent); border:1px solid rgba(0,102,255,0.2); opacity:0; transition:all 0.3s ease;">月光</span>
+          <span class="s33-arrow" id="s33a2" style="color:var(--sub); opacity:0; transition:opacity 0.2s;">→</span>
+          <span class="tk s33-ctx" id="s33ctx3" style="padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:700; background:rgba(0,102,255,0.1); color:var(--accent); border:1px solid rgba(0,102,255,0.2); opacity:0; transition:all 0.3s ease;">宝盒</span>
+          <span class="s33-arrow" id="s33a3" style="color:var(--sub); opacity:0; transition:opacity 0.2s;">→</span>
+          <span class="tk s33-ctx" id="s33ctx4" style="padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:700; background:rgba(0,102,255,0.1); color:var(--accent); border:1px solid rgba(0,102,255,0.2); opacity:0; transition:all 0.3s ease;">，</span>
+          <span class="s33-arrow" id="s33a4" style="color:var(--sub); opacity:0; transition:opacity 0.2s;">→</span>
+          <span class="tk s33-ctx" id="s33ctx5" style="padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:700; background:rgba(0,102,255,0.1); color:var(--accent); border:1px solid rgba(0,102,255,0.2); opacity:0; transition:all 0.3s ease;">轻声</span>
+          <span class="s33-arrow" id="s33a5" style="color:var(--sub); opacity:0; transition:opacity 0.2s;">→</span>
+          <span class="tk s33-ctx" id="s33ctx6" style="padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:700; background:rgba(0,102,255,0.1); color:var(--accent); border:1px solid rgba(0,102,255,0.2); opacity:0; transition:all 0.3s ease;">问</span>
+          <span class="s33-arrow" id="s33a6" style="color:var(--sub); opacity:0; transition:opacity 0.2s;">→</span>
+          <span class="tk s33-ctx" id="s33ctx7" style="padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:700; background:rgba(0,102,255,0.1); color:var(--accent); border:1px solid rgba(0,102,255,0.2); opacity:0; transition:all 0.3s ease;">：</span>
+          <span class="s33-arrow" id="s33a7" style="color:var(--sub); opacity:0; transition:opacity 0.2s;">→</span>
+          <span class="tk s33-ctx" id="s33ctx8" style="padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:700; background:rgba(0,102,255,0.1); color:var(--accent); border:1px solid rgba(0,102,255,0.2); opacity:0; transition:all 0.3s ease;">哥哥</span>
+        </div>
+      </div>
+
+      <!-- 动态概率分布展示条 -->
+      <div id="s33ProbWrap" style="background:rgba(0,0,0,0.03); border-radius:8px; padding:10px 14px; opacity:0; transition:opacity 0.3s ease;">
+        <div style="font-size:11.5px; font-weight:800; color:var(--accent); margin-bottom:8px;" id="s33ProbTitle">模型正在预测下一个 Token…</div>
+        
+        <div style="display:flex; flex-direction:column; gap:5px;" id="s33ProbList">
+          <!-- 5 行动态候选词条 -->
+          <div style="display:flex; align-items:center; gap:8px;" id="s33pb0">
+            <span style="width:36px; font-size:12px; font-weight:800; font-family:monospace;" id="s33pw0">，</span>
+            <div style="flex:1; height:8px; background:rgba(0,0,0,0.06); border-radius:4px; overflow:hidden;"><div id="s33pf0" style="height:100%; width:0%; background:var(--success); transition:width 0.5s ease;"></div></div>
+            <span style="width:36px; font-size:11px; font-weight:700; color:var(--sub); text-align:right;" id="s33pp0">62%</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;" id="s33pb1">
+            <span style="width:36px; font-size:12px; font-weight:800; font-family:monospace;" id="s33pw1">你</span>
+            <div style="flex:1; height:8px; background:rgba(0,0,0,0.06); border-radius:4px; overflow:hidden;"><div id="s33pf1" style="height:100%; width:0%; background:var(--accent); transition:width 0.5s ease;"></div></div>
+            <span style="width:36px; font-size:11px; font-weight:700; color:var(--sub); text-align:right;" id="s33pp1">18%</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;" id="s33pb2">
+            <span style="width:36px; font-size:12px; font-weight:800; font-family:monospace;" id="s33pw2">啊</span>
+            <div style="flex:1; height:8px; background:rgba(0,0,0,0.06); border-radius:4px; overflow:hidden;"><div id="s33pf2" style="height:100%; width:0%; background:var(--accent); transition:width 0.5s ease;"></div></div>
+            <span style="width:36px; font-size:11px; font-weight:700; color:var(--sub); text-align:right;" id="s33pp2">9%</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;" id="s33pb3">
+            <span style="width:36px; font-size:12px; font-weight:800; font-family:monospace;" id="s33pw3">呀</span>
+            <div style="flex:1; height:8px; background:rgba(0,0,0,0.06); border-radius:4px; overflow:hidden;"><div id="s33pf3" style="height:100%; width:0%; background:var(--accent); transition:width 0.5s ease;"></div></div>
+            <span style="width:36px; font-size:11px; font-weight:700; color:var(--sub); text-align:right;" id="s33pp3">5%</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;" id="s33pb4">
+            <span style="width:36px; font-size:12px; font-weight:800; font-family:monospace;" id="s33pw4">…</span>
+            <div style="flex:1; height:8px; background:rgba(0,0,0,0.06); border-radius:4px; overflow:hidden;"><div id="s33pf4" style="height:100%; width:0%; background:var(--accent); transition:width 0.5s ease;"></div></div>
+            <span style="width:36px; font-size:11px; font-weight:700; color:var(--sub); text-align:right;" id="s33pp4">6%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 总结：</b><br>
+      • <b>这就是 Base 模型的全部</b>：不断把最高概率词追加到序列末尾，直到生成终止符 <code>&lt;EOS&gt;</code>。<br>
+      • 它没有意图、没有情感，只有概率矩阵。<b>但这个简单的接话茬循环，是一切大模型智能的物理引擎！</b>
+    </div>
+  </section>
+
 </main>
 
 <!-- 底栏翻页控制 -->
@@ -3280,6 +3380,180 @@ renderQA(0);
     inputEl.addEventListener('input', () => window.s32RunAnimation());
     setTimeout(() => window.s32RunAnimation(), 300);
   }
+})();
+
+/* ── SLIDE 33: Base 模型自回归概率预测动画 ── */
+(function() {
+  let genInterval = null;
+  const CTX_COUNT = 9;
+  const PROB_FRAMES = [
+    { title: '前文结尾「哥哥」→ 下一个 Token 概率分布', chosen: '，',
+      rows: [['，', 62, true], ['你', 18, false], ['啊', 9, false], ['呀', 5, false], ['…', 6, false]] },
+    { title: '前文结尾「，」→ 下一个 Token 概率分布', chosen: '你',
+      rows: [['你', 55, true], ['我', 20, false], ['说', 12, false], ['的', 7, false], ['可', 6, false]] },
+    { title: '前文结尾「你」→ 下一个 Token 概率分布', chosen: '说',
+      rows: [['说', 48, true], ['知', 22, false], ['爱', 15, false], ['懂', 9, false], ['走', 6, false]] },
+    { title: '前文结尾「说」→ 下一个 Token 概率分布', chosen: '你',
+      rows: [['你', 61, true], ['她', 18, false], ['过', 11, false], ['不', 7, false], ['的', 3, false]] },
+    { title: '前文结尾「你」→ 下一个 Token 概率分布', chosen: '喜',
+      rows: [['喜', 52, true], ['爱', 25, false], ['不', 13, false], ['已', 6, false], ['的', 4, false]] },
+    { title: '前文结尾「喜」→ 下一个 Token 概率分布', chosen: '欢',
+      rows: [['欢', 88, true], ['爱', 8, false], ['好', 3, false], ['悦', 1, false]] },
+    { title: '前文结尾「欢」→ 下一个 Token 概率分布', chosen: '我',
+      rows: [['我', 71, true], ['你', 14, false], ['他', 9, false], ['她', 4, false], ['它', 2, false]] }
+  ];
+
+  const GENERATED = PROB_FRAMES.map(f => f.chosen);
+
+  function updateProbPanel(frameIdx) {
+    const frame = PROB_FRAMES[frameIdx];
+    const titleEl = document.getElementById('s33ProbTitle');
+    if (titleEl) titleEl.textContent = frame.title;
+
+    for (let i = 0; i < 5; i++) {
+      const fill = document.getElementById('s33pf' + i);
+      if (fill) {
+        fill.style.transition = 'none';
+        fill.style.width = '0%';
+      }
+    }
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      frame.rows.forEach((row, i) => {
+        const [word, pct, isTop] = row;
+        const wEl = document.getElementById('s33pw' + i);
+        const pEl = document.getElementById('s33pp' + i);
+        const fEl = document.getElementById('s33pf' + i);
+        const bEl = document.getElementById('s33pb' + i);
+
+        if (wEl) wEl.textContent = word;
+        if (pEl) pEl.textContent = pct + '%';
+        if (fEl) {
+          fEl.style.background = isTop ? 'var(--success)' : 'var(--accent)';
+          fEl.style.transition = 'width 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+          fEl.style.width = pct + '%';
+        }
+        if (bEl) bEl.style.opacity = '1';
+      });
+
+      for (let i = frame.rows.length; i < 5; i++) {
+        const bEl = document.getElementById('s33pb' + i);
+        if (bEl) bEl.style.opacity = '0';
+      }
+    }));
+  }
+
+  function showCtxTokens(cb) {
+    let i = 0;
+    const timer = setInterval(() => {
+      const el = document.getElementById('s33ctx' + i);
+      const arr = document.getElementById('s33a' + i);
+      if (el) el.style.opacity = '1';
+      if (arr) arr.style.opacity = '1';
+      i++;
+      if (i >= CTX_COUNT) {
+        clearInterval(timer);
+        if (cb) setTimeout(cb, 200);
+      }
+    }, 100);
+  }
+
+  function showProbBars() {
+    const wrap = document.getElementById('s33ProbWrap');
+    if (wrap) wrap.style.opacity = '1';
+    updateProbPanel(0);
+  }
+
+  function runGeneration() {
+    const labelEl = document.getElementById('s33ChainLabel');
+    if (labelEl) labelEl.textContent = '前文 Context + 实时自回归追加生成：';
+
+    const row = document.getElementById('s33ContextRow');
+    if (!row) return;
+    let count = 0;
+
+    genInterval = setInterval(() => {
+      if (count >= GENERATED.length) {
+        clearInterval(genInterval);
+        setTimeout(() => {
+          const titleEl = document.getElementById('s33ProbTitle');
+          if (titleEl) titleEl.textContent = '✅ 自回归实时推演生成完毕（按「↺ 重新播放」复现全过程）';
+        }, 600);
+        return;
+      }
+
+      const arr = document.createElement('span');
+      arr.className = 's33-dyn-arrow';
+      arr.style.cssText = 'color:var(--sub); font-size:14px;';
+      arr.textContent = '→';
+      row.appendChild(arr);
+
+      const tk = document.createElement('span');
+      tk.className = 'tk s33-gen-tk';
+      tk.style.cssText = `
+        padding:4px 10px; border-radius:6px; font-size:12.5px; font-weight:800;
+        background:rgba(22,163,74,0.12); color:var(--success); border:1px solid rgba(22,163,74,0.3);
+        opacity:0; transform:translateY(6px); transition:all 0.3s ease;
+      `;
+      tk.textContent = GENERATED[count];
+      row.appendChild(tk);
+
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        tk.style.opacity = '1';
+        tk.style.transform = 'translateY(0)';
+      }));
+
+      count++;
+
+      if (count < PROB_FRAMES.length) {
+        setTimeout(() => updateProbPanel(count), 200);
+      }
+    }, 800);
+  }
+
+  function playS33Demo() {
+    showCtxTokens(() => {
+      showProbBars();
+      setTimeout(runGeneration, 800);
+    });
+  }
+
+  window.s33ReplayAll = function() {
+    if (genInterval) clearInterval(genInterval);
+
+    const labelEl = document.getElementById('s33ChainLabel');
+    if (labelEl) labelEl.textContent = '前文 Context（前文 Token 序列）：';
+
+    for (let i = 0; i < CTX_COUNT; i++) {
+      const el = document.getElementById('s33ctx' + i);
+      const arr = document.getElementById('s33a' + i);
+      if (el) el.style.opacity = '0';
+      if (arr) arr.style.opacity = '0';
+    }
+
+    const row = document.getElementById('s33ContextRow');
+    const ctx8 = document.getElementById('s33ctx8');
+    if (row && ctx8) {
+      while (row.lastChild && row.lastChild !== ctx8) row.removeChild(row.lastChild);
+    }
+
+    const wrap = document.getElementById('s33ProbWrap');
+    if (wrap) wrap.style.opacity = '0';
+
+    setTimeout(playS33Demo, 300);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        playS33Demo();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const s33El = document.querySelector('[data-slide="33"]');
+  if (s33El) observer.observe(s33El);
 })();
 
 /* PPT 页码控制与整体切换 */
