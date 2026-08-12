@@ -2564,6 +2564,60 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 34: 4 代 AI 算法演进：为什么 GPT / ChatGPT 终结了 CNN、RNN 与 BERT？ -->
+  <section class="slide" data-slide="34">
+    <header class="lesson-header">
+      <h1>4 代 AI 算法演进：为什么 ChatGPT 终结了 CNN、RNN 与 BERT？</h1>
+      <p class="subtitle">对比<b>CNN 滑动窗口近视眼、RNN 记忆衰减与串行瓶颈、BERT 完形填空局限，与 GPT 预训练通用跃进</b>。</p>
+    </header>
+
+    <div class="duo-grid" style="margin-bottom:8px;">
+      <div class="duo-card you" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">🏷️ 前 GPT 时代：任务专用模型 (Task-Specific)</div>
+        <p style="font-size:11.5px; line-height:1.5;">
+          • <b>先定任务，再训模型</b>：做翻译训一个、做分类训一个，换个任务就要重新采集数据重新训练。<br>
+          • <b>致命短板</b>：CNN 看太近（近视眼）、RNN 忘太快（遗忘症）、BERT 只会填空不会续写。
+        </p>
+      </div>
+
+      <div class="duo-card pro" style="padding:10px 14px;">
+        <div class="duo-tag" style="font-size:10.5px;">🚀 GPT/ChatGPT 时代：通用基础模型 (Foundation Model)</div>
+        <p style="font-size:11.5px; line-height:1.5;">
+          • <b>预训练一次，能力通用</b>：海量文本跑因果预测（PreTraining），语法、逻辑、代码自然涌现。<br>
+          • <b>核心优势</b>：Transformer 全局注意力、GPU 万核极速并行、Scaling Law 带来智能跃进！
+        </p>
+      </div>
+    </div>
+
+    <!-- 🧪 4 代模型交互体验区 -->
+    <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 16px; margin-bottom:8px; box-shadow:var(--shadow-card);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:12.5px; font-weight:800; color:var(--text); display:flex; align-items:center; gap:6px;">
+          🎛️ <b>4 代 AI 算法瓶颈与机制切换体验</b> (点击 Tab 查看核心缺陷与运作动画)
+        </span>
+      </div>
+
+      <!-- Tab 按钮 -->
+      <div style="display:flex; gap:6px; margin-bottom:10px;">
+        <button id="s34TabCnn" class="sc-tag tune" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:12px; font-weight:800;" onclick="s34SwitchTab('cnn')">1. CNN 滑动窗口 (近视眼)</button>
+        <button id="s34TabRnn" class="sc-tag rag" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:12px; font-weight:800;" onclick="s34SwitchTab('rnn')">2. RNN 记忆衰减 (串行慢)</button>
+        <button id="s34TabBert" class="sc-tag both" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:12px; font-weight:800;" onclick="s34SwitchTab('bert')">3. BERT 双向填空 (不擅长生成)</button>
+        <button id="s34TabGpt" class="sc-tag tune" style="flex:1; cursor:pointer; border:none; padding:8px 0; font-size:12px; font-weight:800; background:var(--accent); color:white;" onclick="s34SwitchTab('gpt')">4. GPT 因果生成 (终极跃进)</button>
+      </div>
+
+      <!-- 动态展示面板 -->
+      <div id="s34Panel" style="background:var(--panel); border:1.5px dashed var(--border); border-radius:8px; padding:12px 16px; min-height:100px;">
+        <!-- 动态 JS 插入 4 代模型详解 -->
+      </div>
+    </div>
+
+    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
+      <b>💡 总结：</b><br>
+      • <b>CNN/RNN/BERT 就像特种工具</b>（电钻、扳手），换个螺丝就要换工具；<br>
+      • <b>GPT/ChatGPT 就像通用钢铁侠战衣</b>：预训练海量常识，只需一条提示词（Prompt）就能做任何任务！
+    </div>
+  </section>
+
 </main>
 
 <!-- 底栏翻页控制 -->
@@ -3554,6 +3608,68 @@ renderQA(0);
 
   const s33El = document.querySelector('[data-slide="33"]');
   if (s33El) observer.observe(s33El);
+})();
+
+/* ── SLIDE 34: 4 代 AI 算法演进切换逻辑 ── */
+(function() {
+  const CONTENT = {
+    cnn: {
+      title: '1. CNN (卷积神经网络) ➔ 滑动窗口 / 局域“近视眼”',
+      tag: '用于图像 ➔ 硬套文本',
+      color: '#c2410c', bg: '#fff7ed', border: '#fdba74',
+      desc: '<b>工作原理：</b>拿一个固定大小的“镜头窗口”（如 3 个词）在句子上向右滑动提取特征。<br><b>致命短板：</b>只能看清窗口内的词。句尾的“哥哥”与句首的“紫霞”相距 8 个词，CNN 无法一步建立联系，属于典型的<b>“局部近视眼”</b>。'
+    },
+    rnn: {
+      title: '2. RNN (循环神经网络) ➔ 单向传送带 / 遗忘症与串行瓶颈',
+      tag: '时序模型 ➔ 梯度消失',
+      color: '#15803d', bg: '#f0fdf4', border: '#86efac',
+      desc: '<b>工作原理：</b>像流水账一样从左往右逐字读取，用一个隐状态（Memory State）累加记忆。<br><b>致命短板：</b><b>① 遗忘症（梯度消失）</b>：读到第 10 个词时，开头第 1 个词的记忆已被冲淡殆尽；<b>② 无法并行</b>：必须算完词 1 才能算词 2，GPU 万核算力无法并发，训练极慢。'
+    },
+    bert: {
+      title: '3. BERT (双向 Transformer 编码器) ➔ 完形填空 / 只能理解无法生成',
+      tag: '理解天花板 ➔ 不擅长生成',
+      color: '#7c3aed', bg: '#faf5ff', border: '#d8b4fe',
+      desc: '<b>工作原理：</b>Google 2018 推出，基于 Transformer Encoder，同时看左边和右边的词（双向注意力），做填空题 <code>“紫霞 [MASK] 月光宝盒”</code>。<br><b>致命短板：</b><b>只会理解，不擅生成</b>。双向注意力导致它无法像人类一样自回归顺畅写作与长文对话。'
+    },
+    gpt: {
+      title: '4. GPT / ChatGPT (因果 Transformer 解码器) ➔ 预训练因果生成 / 终极跃进',
+      tag: '基础模型 ➔ 涌现智能',
+      color: '#1d4ed8', bg: '#eff6ff', border: '#93c5fd',
+      desc: '<b>工作原理：</b>只看左边预测下一个词（Causal Autoregressive），天然契合人类对话与创作！<br><b>ChatGPT 的四大胜出优势：</b><br>① <b>通用能力</b>：全网文本预训练，语法/逻辑/常识/代码天然涌现；<br>② <b>无遗忘无窗口局限</b>：Self-Attention 全局连接，一步到位；<br>③ <b>GPU 极速并行</b>：支持几万块 GPU 集群大规模预训练；<br>④ <b>Scaling Law 规模法则</b>：参数越大，复杂推理与盲盒技能越惊人！'
+    }
+  };
+
+  window.s34SwitchTab = function(type) {
+    const tabs = ['cnn', 'rnn', 'bert', 'gpt'];
+    tabs.forEach(t => {
+      const btn = document.getElementById('s34Tab' + t.charAt(0).toUpperCase() + t.slice(1));
+      if (btn) {
+        if (t === type) {
+          btn.style.background = CONTENT[t].color;
+          btn.style.color = 'white';
+        } else {
+          btn.style.background = 'rgba(0,0,0,0.05)';
+          btn.style.color = 'var(--text)';
+        }
+      }
+    });
+
+    const panel = document.getElementById('s34Panel');
+    const c = CONTENT[type];
+    if (panel && c) {
+      panel.style.background = c.bg;
+      panel.style.borderColor = c.border;
+      panel.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="font-size:13.5px; font-weight:800; color:${c.color};">${c.title}</span>
+          <span style="font-size:10px; font-weight:800; padding:2px 8px; border-radius:4px; background:${c.color}; color:white;">${c.tag}</span>
+        </div>
+        <div style="font-size:12px; line-height:1.7; color:var(--text);">${c.desc}</div>
+      `;
+    }
+  };
+
+  setTimeout(() => window.s34SwitchTab('gpt'), 300);
 })();
 
 /* PPT 页码控制与整体切换 */
