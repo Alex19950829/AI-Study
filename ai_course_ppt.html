@@ -825,35 +825,57 @@ body {
     </div>
   </section>
 
-  <!-- SLIDE 2: SFT 有监督微调物理机制与场景判别 -->
+  <!-- SLIDE 2: SFT 有监督微调物理机制与 Loss 扣分惩罚全景 -->
   <section class="slide" data-slide="2">
     <header class="lesson-header">
-      <h1>SFT 有监督微调物理机制与场景判别</h1>
-      <p class="subtitle">打破认知误区：<b>什么是 Fine-tuning / SFT？数据标注、“监督”的物理过程与 Loss 掩码惩罚</b>。</p>
+      <h1>SFT 有监督微调物理机制与 Loss 扣分惩罚全景</h1>
+      <p class="subtitle">打破认知误区：<b>Fine-tuning vs SFT 关系、“掩码 Loss 扣分”物理计算与“带权重重新算”迭代循环</b>。</p>
     </header>
 
     <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
-      <!-- 左：Fine-tuning vs SFT 概念与关系 -->
-      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card);">
-        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:6px;">
+      <!-- 左：Fine-tuning vs SFT 概念关系 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 12px; box-shadow:var(--shadow-card);">
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:4px;">
           💡 Fine-tuning vs SFT 概念关系
         </div>
-        <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
-          • <b>Fine-tuning (微调) 是总称</b>：在预训练好的基座文件 (Base) 权重基础上，用特定数据再次训练更新权重 ($\Delta W$)。<br>
-          • <b>SFT (有监督微调) 是最常用手段</b>：SFT 属于微调的一种！提前准备好 <code>[Prompt 提问 ➔ 标准答案 Target]</code> 问答集。<br>
-          • <b>核心作用</b>：把高材生送进“岗前培训班”，让 Base 模型学会听懂人话、遵守回答格式与特定角色语气。
+        <div style="font-size:11px; line-height:1.55; color:var(--text);">
+          • <b>Fine-tuning (微调) 是总称</b>：在 Base 权重基础上用特定数据再次训练更新权重 ($\Delta W$)。<br>
+          • <b>SFT (有监督微调) 是最常用手段</b>：预先标注好 <code>[Prompt 提问 ➔ 标准答案]</code> 问答集。<br>
+          • <b>核心作用</b>：把高材生送进“岗前培训班”，学会听懂人话、遵守格式与特定语气。
         </div>
       </div>
 
-      <!-- 右：监督 (Supervision) 物理过程与 Loss 掩码 -->
-      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow-card);">
-        <div style="font-size:12.5px; font-weight:800; color:var(--success); margin-bottom:6px;">
-          ⚙️ “监督 (Supervision)” 物理纠偏机制
+      <!-- 右：监督 (Supervision) 掩码与纠偏 -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 12px; box-shadow:var(--shadow-card);">
+        <div style="font-size:12.5px; font-weight:800; color:var(--success); margin-bottom:4px;">
+          ⚙️ “监督 (Supervision)” 掩码与纠偏
         </div>
-        <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
-          • <b>掩码 Loss 监督</b>：训练时<b>遮罩 Prompt，只对答案计算 Loss 惩罚</b>！答错则梯度大反向修正。<br>
-          • <b>微秒级循环</b>：前向预测 ➔ 发现偏离标注标准答案 ➔ 算 Loss ➔ 反向传播更新权重 $\Delta W$。<br>
-          • <b>工程避坑</b>：SFT 改变的是<b>行为习惯 (How to speak)</b>，不要用来记频繁变动的死知识（应改用 RAG）。
+        <div style="font-size:11px; line-height:1.55; color:var(--text);">
+          • <b>掩码 Loss 遮罩</b>：遮罩 Prompt 提问部分，<b>只对标准答案区域的 Token 计算 Loss 扣分</b>！<br>
+          • <b>不匹配则大惩罚</b>：预测偏离标答越远，Loss 越高 ➔ 产生巨额梯度 ➔ 反向传播微调权重。<br>
+          • <b>工程避坑</b>：SFT 改变的是<b>行为习惯 (How to speak)</b>，不要用来记频繁变动的死知识。
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部：Loss 扣分算法与“带着新权重重新算”多轮迭代全景 -->
+    <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 14px; box-shadow:var(--shadow-card);">
+      <div style="font-size:12px; font-weight:800; color:var(--amber); margin-bottom:6px;">
+        🎯 Loss 扣分惩罚算法与“带着新权重重新算 (Epochs)”迭代全景
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:10px; font-size:11px; line-height:1.5;">
+        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.15); border-radius:8px; padding:8px 10px;">
+          <b style="color:var(--amber);">📐 1. Loss 扣分物理计算：</b><br>
+          假设标答第一字为 <code>"①"</code>，模型预测概率仅 $5\%$：<br>
+          $\text{Loss} = -\ln(0.05) \approx \mathbf{3.0}$（高扣分，大梯度反向修正）<br>
+          若模型预测概率升至 $99\%$：<br>
+          $\text{Loss} = -\ln(0.99) \approx \mathbf{0.01}$（Loss 接近 0，停止修正）
+        </div>
+        <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.15); border-radius:8px; padding:8px 10px;">
+          <b style="color:var(--accent);">🔄 2. “带着新权重重新算”迭代循环：</b><br>
+          • <b>第 1 轮 ($W_0$)</b>：猜错 ➔ 产生高 Loss (4.5) ➔ 反向传播更新为 $W_1 = W_0 + \Delta W$<br>
+          • <b>第 2 轮 ($W_1$)</b>：<b>带着新权重 $W_1$ 重新算！</b> ➔ 预测概率大幅提升 ➔ Loss 降至 0.8<br>
+          • <b>第 3 轮 ($W_2$)</b>：再次重新算 ➔ Loss 降至 0.05 (完美收敛) ➔ 导出最终权重出库。
         </div>
       </div>
     </div>
