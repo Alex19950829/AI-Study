@@ -1110,6 +1110,61 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 6.1: Prompt 工程进阶：拉开模型质量差距的 4 个实战杀招 -->
+  <section class="slide" data-slide="6.1">
+    <header class="lesson-header">
+      <h1>Prompt 工程进阶：拉开模型质量差距的 4 个实战杀招</h1>
+      <p class="subtitle">告别“盲盒式”问答，将 <b>Prompt 作为代码</b> 进行工程化精细控制，最高可使准确率翻 5 倍。</p>
+    </header>
+
+    <div class="grid-2" style="margin-bottom: 12px; grid-template-columns: 1fr 1fr; gap: 12px;">
+      <!-- Few-Shot -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow-card);">
+        <h4 style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:6px;">1. 少样本示例 (Few-Shot)</h4>
+        <p style="font-size:13px; color:var(--text); line-height:1.6; margin-bottom:8px;">不要费尽口舌解释格式，直接给例子。模型没有理解力，但<b>模式匹配能力极强</b>。</p>
+        <div style="background:rgba(0,0,0,0.04); padding:8px 10px; border-radius:6px; font-size:12px; font-family:monospace; color:var(--sub);">
+          <span style="color:var(--danger)">❌ 差：</span>帮我分类，并输出正向或负向<br>
+          <span style="color:var(--success)">✅ 优：</span>开心 → 正向 | 下雨 → 中性 | 天气真好 → 
+        </div>
+      </div>
+      <!-- CoT -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow-card);">
+        <h4 style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:6px;">2. 思维链 (Chain of Thought)</h4>
+        <p style="font-size:13px; color:var(--text); line-height:1.6; margin-bottom:8px;">在提示词末尾加上“<b>请一步步思考 (Let's think step by step)</b>”，防止模型跳步，提升复杂推理准确率。</p>
+        <div style="background:rgba(0,0,0,0.04); padding:8px 10px; border-radius:6px; font-size:12px; font-family:monospace; color:var(--sub);">
+          <span style="color:var(--danger)">❌ 差：</span>13 × 7 + 5 等于多少？(容易算错)<br>
+          <span style="color:var(--success)">✅ 优：</span>请一步步计算，先算乘法，列出过程，再算加法。
+        </div>
+      </div>
+      <!-- Constraints -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow-card);">
+        <h4 style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:6px;">3. 约束条件 (Constraints)</h4>
+        <p style="font-size:13px; color:var(--text); line-height:1.6; margin-bottom:8px;">用清晰的边界框住 AI，包括：字数限制、受众群体、预期语气、以及<b>明确的禁用词 (Negative Prompts)</b>。</p>
+        <div style="background:rgba(0,0,0,0.04); padding:8px 10px; border-radius:6px; font-size:12px; font-family:monospace; color:var(--sub);">
+          <span style="color:var(--danger)">❌ 差：</span>帮我写个产品描述<br>
+          <span style="color:var(--success)">✅ 优：</span>限50字以内，语气活泼，禁止使用“专业”“卓越”。
+        </div>
+      </div>
+      <!-- Decomposition -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:14px; box-shadow:var(--shadow-card);">
+        <h4 style="font-size:15px; font-weight:800; color:var(--accent); margin-bottom:6px;">4. 分而治之 (Task Decomposition)</h4>
+        <p style="font-size:13px; color:var(--text); line-height:1.6; margin-bottom:8px;">不要一句话让它干完所有事。把大任务拆分为流水线步骤，<b>每步单独优化</b>，质量比一次全问高 3~5 倍。</p>
+        <div style="background:rgba(0,0,0,0.04); padding:8px 10px; border-radius:6px; font-size:12px; font-family:monospace; color:var(--sub);">
+          <span style="color:var(--danger)">❌ 差：</span>分析竞品、写策略方案、然后输出 PPT 大纲<br>
+          <span style="color:var(--success)">✅ 优：</span>第1步分析竞品差异 → (等输出) → 第2步写策略
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部万能公式 -->
+    <div class="bottom-box" style="margin-top:0; padding:14px 18px; border-color:rgba(124,58,237,0.3); background:rgba(124,58,237,0.06);">
+      <div style="font-size:13px; font-weight:800; color:var(--purple); margin-bottom:6px;">💡 Prompt 万能公式：</div>
+      <div style="font-size:15px; font-weight:900; font-family:'Fira Code', monospace; color:var(--text); letter-spacing:0.5px;">
+        【角色】 + 【任务】 + 【上下文】 + 【约束条件】 + 【示例】 + 【格式】
+      </div>
+    </div>
+  </section>
+
   <!-- SLIDE 7: Agent 控制循环（Planning-Action-Observe 动态演练） -->
   <section class="slide" data-slide="7">
     <header class="lesson-header">
