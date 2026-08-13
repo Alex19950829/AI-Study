@@ -73,7 +73,7 @@ body {
 
 /* 顶部导航控制 */
 .top-nav {
-  height: 56px; background: var(--topbar); backdrop-filter: blur(12px);
+  height: 52px; background: var(--topbar); backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 20px; z-index: 100; flex-shrink: 0;
@@ -83,7 +83,7 @@ body {
 .controls { display: flex; align-items: center; gap: 10px; }
 .btn {
   background: var(--panel); border: 1px solid var(--border); color: var(--text);
-  padding: 6px 12px; border-radius: 8px; font-size: 12.5px; font-weight: 700; cursor: pointer;
+  padding: 5px 11px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
   display: flex; align-items: center; gap: 5px; transition: all 0.2s;
 }
 .btn:hover { border-color: var(--accent); color: var(--accent); }
@@ -94,23 +94,23 @@ body {
 }
 .slide {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  padding: 30px 40px 80px; overflow-y: auto; opacity: 0; pointer-events: none;
+  padding: 20px 36px 65px; overflow-y: auto; opacity: 0; pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease; transform: scale(0.98);
   display: flex; flex-direction: column; justify-content: flex-start;
 }
 .slide.active { opacity: 1; pointer-events: auto; transform: scale(1); }
 
 /* Lesson Header */
-.lesson-header { margin-bottom: 20px; text-align: left; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-.lesson-header h1 { font-size: 26px; font-weight: 900; color: var(--text); letter-spacing: -0.5px; margin-bottom: 4px; }
-.lesson-header .subtitle { font-size: 13.5px; color: var(--sub); line-height: 1.5; }
+.lesson-header { margin-bottom: 14px; text-align: left; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.lesson-header h1 { font-size: 24px; font-weight: 900; color: var(--text); letter-spacing: -0.5px; margin-bottom: 2px; }
+.lesson-header .subtitle { font-size: 13px; color: var(--sub); line-height: 1.4; }
 
 /* Grid / Flex Layout Helpers */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .card {
-  background: var(--card); border: 1.5px solid var(--border); border-radius: 12px;
-  padding: 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px;
+  background: var(--card); border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 12px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 6px;
 }
 
 /* Slide 1 Cover */
@@ -121,7 +121,7 @@ body {
 .cover-hero p { font-size: 16px; color: var(--sub); max-width: 680px; }
 
 /* Syntax & Live Demo Panels (6-0b) */
-.syntax-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 12px; }
+.syntax-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 10px; }
 .syn-btn {
   padding: 8px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--card);
   cursor: pointer; text-align: center; transition: all 0.2s; color: var(--text);
@@ -130,34 +130,34 @@ body {
 .syn-btn .syn-icon { font-size: 16px; font-weight: 800; font-family: monospace; }
 .syn-btn .syn-name { font-size: 11px; margin-top: 2px; font-weight: 700; }
 
-.compare-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex: 1; min-height: 240px; }
+.compare-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex: 1; min-height: 260px; }
 .cp-col { border-radius: 10px; border: 1.5px solid var(--border); overflow: hidden; display: flex; flex-direction: column; }
 .cp-header { padding: 6px 12px; background: var(--panel); border-bottom: 1px solid var(--border); font-size: 12px; font-weight: 800; color: var(--sub); }
 .cp-body { flex: 1; padding: 12px; overflow-y: auto; background: var(--card); }
 .src-view { font-family: "Fira Code", monospace; font-size: 12.5px; line-height: 1.6; color: var(--text); white-space: pre-wrap; }
 
 /* Front-end Library Cards */
-.lib-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
-.lib-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
-.lib-title { font-size: 14px; font-weight: 800; color: var(--text); display: flex; justify-content: space-between; }
+.lib-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 8px; }
+.lib-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 4px; }
+.lib-title { font-size: 13.5px; font-weight: 800; color: var(--text); display: flex; justify-content: space-between; }
 .lib-badge { font-size: 10px; font-weight: 800; padding: 1px 6px; border-radius: 4px; }
 
 /* Code Blocks */
 pre {
-  background: var(--code-bg); color: var(--code-text); padding: 12px; border-radius: 8px;
-  font-family: "Fira Code", monospace; font-size: 11.5px; line-height: 1.5; overflow-x: auto;
+  background: var(--code-bg); color: var(--code-text); padding: 8px 10px; border-radius: 6px;
+  font-family: "Fira Code", monospace; font-size: 11px; line-height: 1.45; overflow-x: auto;
 }
 
 /* Bottom Nav Controls */
 .bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+  position: fixed; bottom: 0; left: 0; right: 0; height: 46px;
   background: var(--topbar); backdrop-filter: blur(10px); border-top: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 100;
 }
 .counter { font-size: 13px; font-weight: 800; color: var(--sub); }
 .nav-btns { display: flex; gap: 8px; }
 .nav-arrow {
-  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border);
+  width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border);
   background: var(--panel); color: var(--text); font-weight: 800; cursor: pointer;
   display: flex; align-items: center; justify-content: center; transition: all 0.2s;
 }
@@ -188,126 +188,104 @@ pre {
     </div>
   </section>
 
-  <!-- SLIDE 2: 为什么大模型偏爱 Markdown？(Token 消耗对比) -->
+  <!-- SLIDE 2: 合并页（原第 2 页 + 第 3 页）：Token 效率与底层语言源码对比 -->
   <section class="slide" data-slide="2">
     <header class="lesson-header">
-      <h1>为什么大模型偏爱 Markdown？Token 消耗对比</h1>
-      <p class="subtitle">推演大模型的物理本质：<b>纯文本模型 + 用户排版需求 = 极简 Markdown 胜出</b>。同样一堆数据，各格式 Token 差距悬殊。</p>
+      <h1>大模型排版机制解密：Token 效率与底层语言源码对比</h1>
+      <p class="subtitle">推演纯文本模型与排版格式的物理碰撞：<b>Markdown 极简胜出、各种排版格式 Token 差值与后台源码解密</b>。</p>
     </header>
 
+    <!-- 上半部分：Markdown vs HTML vs JSON Token 消耗对比 -->
+    <div style="font-size:12px; font-weight:800; color:var(--accent); margin-bottom:6px;">
+      📊 1. 同样一堆数据：各种格式 Token 消耗对比
+    </div>
     <div class="grid-3" style="margin-bottom:12px;">
       <!-- Markdown -->
       <div class="card" style="border-color:var(--success);">
-        <div style="font-size:14px; font-weight:800; color:var(--success);">🟢 Markdown 格式 (最省 Token)</div>
+        <div style="font-size:12.5px; font-weight:800; color:var(--success);">🟢 Markdown 格式 (最省 Token)</div>
         <pre><code>| 姓名 | 年龄 | 岗位 |
 |---|---|---|
 | 张三 | 28 | 算法工程师 |
 | 李四 | 32 | 深度学习专家 |</code></pre>
-        <div style="font-size:11.5px; line-height:1.5; color:var(--sub);">
-          • <b>字符数</b>：约 90 字符<br>
-          • <b>Token 消耗</b>：<b style="color:var(--success);">仅 35~45 Token</b><br>
+        <div style="font-size:10.5px; line-height:1.4; color:var(--sub);">
+          • 字符数：约 90 字符 | Token 消耗：<b style="color:var(--success);">仅 35~45 Token</b><br>
           • <b>优势</b>：无冗余闭合标签，流式推流不会中断破版。
         </div>
       </div>
 
       <!-- HTML -->
       <div class="card" style="border-color:var(--danger);">
-        <div style="font-size:14px; font-weight:800; color:var(--danger);">🔴 HTML 格式 (极为臃肿)</div>
+        <div style="font-size:12.5px; font-weight:800; color:var(--danger);">🔴 HTML 格式 (极为臃肿)</div>
         <pre><code>&lt;table&gt;&lt;thead&gt;&lt;tr&gt;
   &lt;th&gt;姓名&lt;/th&gt;&lt;th&gt;岗位&lt;/th&gt;
 &lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;
   &lt;tr&gt;&lt;td&gt;张三&lt;/td&gt;...&lt;/tr&gt;
 &lt;/tbody&gt;&lt;/table&gt;</code></pre>
-        <div style="font-size:11.5px; line-height:1.5; color:var(--sub);">
-          • <b>字符数</b>：约 260 字符<br>
-          • <b>Token 消耗</b>：<b style="color:var(--danger);">高昂 130~160 Token</b><br>
+        <div style="font-size:10.5px; line-height:1.4; color:var(--sub);">
+          • 字符数：约 260 字符 | Token 消耗：<b style="color:var(--danger);">高昂 130~160 Token</b><br>
           • 💥 <b>差距</b>：<b>比 Markdown 多耗 3 ~ 4 倍 Token！</b>
         </div>
       </div>
 
       <!-- JSON/JS -->
       <div class="card" style="border-color:var(--amber);">
-        <div style="font-size:14px; font-weight:800; color:var(--amber);">🟠 JSON / JS 结构格式</div>
+        <div style="font-size:12.5px; font-weight:800; color:var(--amber);">🟠 JSON / JS 结构格式</div>
         <pre><code>[
   {"name":"张三", "age":28},
   {"name":"李四", "age":32}
 ]</code></pre>
-        <div style="font-size:11.5px; line-height:1.5; color:var(--sub);">
-          • <b>字符数</b>：约 150 字符<br>
-          • <b>Token 消耗</b>：<b style="color:var(--amber);">70~85 Token</b><br>
+        <div style="font-size:10.5px; line-height:1.4; color:var(--sub);">
+          • 字符数：约 150 字符 | Token 消耗：<b style="color:var(--amber);">70~85 Token</b><br>
           • <b>差距</b>：引号与键名重复，Token 比 MD 高出 80%+。
         </div>
       </div>
     </div>
 
-    <div style="background:var(--purple-light); border:1px solid rgba(124,58,237,0.2); border-radius:10px; padding:10px 14px; font-size:12px; line-height:1.6; color:var(--text);">
-      💡 <b>为什么多耗 Token 会摧毁用户体验？</b><br>
-      ① <b>API 费用乘以 3</b>：模型按 Token 计费，HTML 吐字直接导致成本暴涨。<br>
-      ② <b>打字机推流极慢</b>：模型每秒只能输出 30~50 Token。吐 40 个 Token 只需 1 秒，吐 160 个 HTML Token 需要 4 秒！<br>
-      ③ <b>语法崩塌风险</b>：HTML 缺少一个 `</div>` 就会摧毁整个前端 DOM 布局；Markdown 标记具有独立前缀性，天然适合流式推流。
+    <!-- 下半部分：LaTeX、Word、PDF 后台源码剖析 -->
+    <div style="font-size:12px; font-weight:800; color:var(--purple); margin-bottom:6px;">
+      🔍 2. LaTeX、Word、PDF 后台源码解密：为什么 AI 选 LaTeX 算公式？
     </div>
-  </section>
-
-  <!-- SLIDE 3: LaTeX、Word、PDF 的后台语言源码剖析 -->
-  <section class="slide" data-slide="3">
-    <header class="lesson-header">
-      <h1>LaTeX、Word、PDF 的后台语言源码剖析</h1>
-      <p class="subtitle">揭开排版格式的底层面纱：为什么 AI 选 LaTeX 算公式，却绝不直接生成 Word XML 或 PDF 坐标？</p>
-    </header>
-
     <div class="grid-3">
       <!-- LaTeX -->
       <div class="card">
-        <div style="font-size:13.5px; font-weight:800; color:var(--purple);">📐 LaTeX (学术与数学公式首选)</div>
-        <pre><code>\documentclass{article}
-\begin{document}
-已知勾股定理：
+        <div style="font-size:12.5px; font-weight:800; color:var(--purple);">📐 LaTeX (学术与数学公式首选)</div>
+        <pre><code>已知勾股定理：
 \[ a^2 + b^2 = c^2 \]
-求积分：\int_{a}^{b} f(x)dx
-\end{document}</code></pre>
-        <div style="font-size:11px; line-height:1.5; color:var(--sub);">
-          • <b>本质</b>：诞于 1980 年代的学术论文排版语言。<br>
-          • <b>大模型用法</b>：Markdown 无法表示复杂分式与矩阵，AI 遇到公式输出 <code>$$a^2+b^2=c^2$$</code>，前端使用 KaTeX 渲染。
+求积分：\int_{a}^{b} f(x)dx</code></pre>
+        <div style="font-size:10.5px; line-height:1.4; color:var(--sub);">
+          • <b>大模型用法</b>：Markdown 无法表示复杂分式与矩阵，AI 遇到公式输出 <code>$$a^2+b^2=c^2$$</code>，前端用 KaTeX 渲染。
         </div>
       </div>
 
       <!-- Word XML -->
       <div class="card">
-        <div style="font-size:13.5px; font-weight:800; color:var(--accent);">📄 Word (.docx 底层 OOXML)</div>
-        <pre><code>&lt;w:p&gt;
-  &lt;w:r&gt;
-    &lt;w:rPr&gt;&lt;w:b/&gt;&lt;/w:rPr&gt;
-    &lt;w:t&gt;这是加粗文本&lt;/w:t&gt;
-  &lt;/w:r&gt;
-&lt;/w:p&gt;</code></pre>
-        <div style="font-size:11px; line-height:1.5; color:var(--sub);">
-          • <b>本质</b>：把 .docx 解压后发现其实是庞大的 XML 压缩包！<br>
-          • <b>淘汰原因</b>：极其臃肿！为输出 6 个字要吐几十行 XML 样式 ID，95% 算力全浪费在废字上。
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent);">📄 Word (.docx 解压后 OOXML)</div>
+        <pre><code>&lt;w:p&gt;&lt;w:r&gt;
+  &lt;w:rPr&gt;&lt;w:b/&gt;&lt;/w:rPr&gt;
+  &lt;w:t&gt;这是加粗文本&lt;/w:t&gt;
+&lt;/w:r&gt;&lt;/w:p&gt;</code></pre>
+        <div style="font-size:10.5px; line-height:1.4; color:var(--sub);">
+          • <b>淘汰原因</b>：解压发现底层是庞大的 XML 包！为输出 6 个字要吐几十行样式 ID，95% 算力全浪费在废字上。
         </div>
       </div>
 
       <!-- PDF PostScript -->
       <div class="card">
-        <div style="font-size:13.5px; font-weight:800; color:var(--danger);">📕 PDF (绝对坐标 PostScript)</div>
-        <pre><code>2 0 obj
-<< /Length 64 >>
-stream
-  BT /F1 12 Tf
-  72 712 Td (Hello World) Tj ET
+        <div style="font-size:12.5px; font-weight:800; color:var(--danger);">📕 PDF (绝对坐标 PostScript)</div>
+        <pre><code>2 0 obj << /Length 64 >> stream
+  BT /F1 12 Tf 72 712 Td (Hello World) Tj ET
 endstream</code></pre>
-        <div style="font-size:11px; line-height:1.5; color:var(--sub);">
-          • <b>本质</b>：PDF 不是文本格式，而是低级矢量画笔绝对坐标指令！<br>
-          • <b>淘汰原因</b>：`72 712 Td` 代表在纸张坐标 X=72 Y=712 画出文字。大模型是做文本推理的，无法在二维空间算坐标。
+        <div style="font-size:10.5px; line-height:1.4; color:var(--sub);">
+          • <b>淘汰原因</b>：`72 712 Td` 代表在纸张 X=72 Y=712 画字。PDF 是绝对坐标绘图指令，LLM 无法在二维空间算坐标。
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 4: Markdown 语法与工程化渲染 (6-0b 交互式对比) -->
-  <section class="slide" data-slide="4">
+  <!-- SLIDE 3: Markdown 语法与工程化渲染实测 (标题文本清理版) -->
+  <section class="slide" data-slide="3">
     <header class="lesson-header">
-      <h1>Markdown 语法与工程化渲染实测 (6-0b 课程渲染效果)</h1>
-      <p class="subtitle">点击下方语法元素，对比大模型吐出的 <b>Markdown 源码</b> 与前端生成的 <b>DOM 渲染效果</b>。</p>
+      <h1>Markdown 语法与工程化渲染实测</h1>
     </header>
 
     <div class="syntax-grid">
@@ -330,8 +308,8 @@ endstream</code></pre>
     </div>
   </section>
 
-  <!-- SLIDE 5: 前端 Markdown 渲染库选型与 SSE 流式渲染坑点 -->
-  <section class="slide" data-slide="5">
+  <!-- SLIDE 4: 前端 Markdown 渲染库选型与 SSE 流式渲染坑点 -->
+  <section class="slide" data-slide="4">
     <header class="lesson-header">
       <h1>前端 Markdown 渲染库选型与 SSE 流式渲染坑点</h1>
       <p class="subtitle">前端工程化避坑指南：库选型 Benchmark 与 <b>SSE 流式推流时未闭合代码块自动补全</b>。</p>
@@ -393,7 +371,7 @@ function renderStreamMarkdown(bufferText) {
 
 <!-- 底部控制栏 -->
 <footer class="bottom-nav">
-  <div class="counter" id="slideCounter">1 / 5</div>
+  <div class="counter" id="slideCounter">1 / 4</div>
   <div class="nav-btns">
     <button class="nav-arrow" id="prevBtn">←</button>
     <button class="nav-arrow" id="nextBtn">→</button>
@@ -447,10 +425,7 @@ const SYNS = [
     ren: `<p>行内代码：<code>JSON.parse()</code></p><p>代码块：</p><pre>def hello():\n    print("Hello Markdown")</pre><p>LaTeX 数学公式：</p><div style="font-size:16px;color:var(--purple);font-weight:700;">a² + b² = c²</div>`
   },
   {
-    src: `引用：\n> 纯文本表达结构，这是 MD 的精髓\n\n表格：\n| 格式 | Token | 渲染 |
-|---|---|---|
-| MD | 省 | 优秀 |
-| HTML | 费 | 复杂 |`,
+    src: `引用：\n> 纯文本表达结构，这是 MD 的精髓\n\n表格：\n| 格式 | Token | 渲染 |\n|---|---|---|\n| MD | 省 | 优秀 |\n| HTML | 费 | 复杂 |`,
     ren: `<blockquote>纯文本表达结构，这是 MD 的精髓</blockquote><table border="1" style="border-collapse:collapse;width:100%;"><thead><tr><th>格式</th><th>Token</th><th>渲染</th></tr></thead><tbody><tr><td>MD</td><td>省</td><td>优秀</td></tr><tr><td>HTML</td><td>费</td><td>复杂</td></tr></tbody></table>`
   }
 ];
