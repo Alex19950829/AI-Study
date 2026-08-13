@@ -1616,116 +1616,110 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
   </section>
 
 
-  <!-- SLIDE 6.3: 大模型排版机制解密 (Token 消耗对比 + 源码解密) -->
+    <!-- SLIDE 6.3: 大模型排版机制与 Markdown 工程化渲染 -->
   <section class="slide" data-slide="6.3">
     <header class="lesson-header">
-      <h1>大模型排版机制解密</h1>
-      <div class="tip-banner">
-        💡 <b>体验影响</b>：模型按 Token 计费且每秒吐 30~50T；HTML 导致 API 费用暴涨 3 倍且打字机等待延迟增加 3~4 秒。
-      </div>
+      <h1>大模型排版机制与 Markdown 工程化</h1>
+      <p class="subtitle">模型按 Token 计费且每秒吐 30~50T；HTML 导致 API 费用暴涨 3 倍，Markdown 纯文本结构是大模型输出首选。</p>
     </header>
 
-    <div style="display:flex; flex-direction:column; flex:1; min-height:0; gap:8px;">
-      <div class="sec-title" style="color:var(--accent);">
-        📊 1. 各种格式 Token 消耗对比 (撑满屏幕)
-      </div>
-      <div class="full-grid-3">
+    <div style="display:flex; flex-direction:column; gap:12px; flex:1;">
+      
+      <!-- Top Section: 3-column Token & Format Comparison -->
+      <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;">
+        
         <!-- Markdown -->
-        <div class="card" style="border-color:var(--success);">
-          <div style="font-size:13.5px; font-weight:800; color:var(--success);">🟢 Markdown 格式 (最省 Token)</div>
-          <pre style="margin:6px 0;"><code>| 姓名 | 年龄 | 岗位 |
+        <div style="background:var(--card); border:1.5px solid var(--success); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:13px; font-weight:800; color:var(--success);">🟢 Markdown 格式 (最省 Token)</div>
+          <pre style="margin:2px 0; background:var(--code-bg); padding:6px 8px; border-radius:6px; font-size:11px; font-family:monospace; color:var(--code-text); flex:none; display:block;"><code style="background:none; padding:0;">| 姓名 | 年龄 | 岗位 |
 |---|---|---|
 | 张三 | 28 | 算法工程师 |</code></pre>
-          <div style="font-size:11.5px; color:var(--sub);">
-            字符数: ~90 | Token: <b style="color:var(--success);">35~45 T</b> (无冗余标签，流式推流安全)
+          <div style="font-size:11px; color:var(--sub);">
+            字符数: ~90 | Token: <b style="color:var(--success);">35~45 T</b> (无冗余标签，流式推流首选)
           </div>
         </div>
 
         <!-- HTML -->
-        <div class="card" style="border-color:var(--danger);">
-          <div style="font-size:13.5px; font-weight:800; color:var(--danger);">🔴 HTML 格式 (极为臃肿)</div>
-          <pre style="margin:6px 0;"><code>&lt;table&gt;&lt;tr&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;/tr&gt;
+        <div style="background:var(--card); border:1.5px solid var(--danger); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:13px; font-weight:800; color:var(--danger);">🔴 HTML 格式 (极为臃肿)</div>
+          <pre style="margin:2px 0; background:var(--code-bg); padding:6px 8px; border-radius:6px; font-size:11px; font-family:monospace; color:var(--code-text); flex:none; display:block;"><code style="background:none; padding:0;">&lt;table&gt;&lt;tr&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;张三&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre>
-          <div style="font-size:11.5px; color:var(--sub);">
-            字符数: ~260 | Token: <b style="color:var(--danger);">130~160 T</b> (💥 比 MD 多耗 3~4 倍 Token!)
+          <div style="font-size:11px; color:var(--sub);">
+            字符数: ~260 | Token: <b style="color:var(--danger);">130~160 T</b> (💥 比 MD 多耗 3~4 倍费用!)
           </div>
         </div>
 
-        <!-- JSON/JS -->
-        <div class="card" style="border-color:var(--amber);">
-          <div style="font-size:13.5px; font-weight:800; color:var(--amber);">🟠 JSON / JS 结构格式</div>
-          <pre style="margin:6px 0;"><code>[{"name":"张三", "age":28}]</code></pre>
-          <div style="font-size:11.5px; color:var(--sub);">
-            字符数: ~150 | Token: <b style="color:var(--amber);">70~85 T</b> (双引号与键名重复，高出 80%+)
+        <!-- JSON / Word / PDF / LaTeX -->
+        <div style="background:var(--card); border:1.5px solid var(--purple); border-radius:10px; padding:12px 14px; display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:13px; font-weight:800; color:var(--purple);">📐 LaTeX / Word / PDF 格式底细</div>
+          <div style="font-size:11.5px; color:var(--sub); line-height:1.45;">
+            • <b>LaTeX</b>: 复杂公式用 <code>$$a^2+b^2=c^2$$</code>，前端 KaTeX 渲染<br>
+            • <b>Word</b>: 底层庞大 OOXML，95% 算力全浪费在格式 ID<br>
+            • <b>PDF</b>: 绝对坐标指令，LLM 无法在二维空间算坐标
           </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Section: Markdown 核心语法标记速查 Grid (6 项) -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:10px; padding:12px 16px;">
+        <div style="font-size:13px; font-weight:800; color:var(--text); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+          <span>✨ Markdown 6 大核心标记与前端 HTML 渲染映射：</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(6, 1fr); gap:8px;">
+          
+          <!-- 1. # 标题 -->
+          <div style="background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:8px; text-align:center;">
+            <div style="font-size:16px; font-weight:900; color:var(--purple); font-family:monospace;">#</div>
+            <div style="font-size:12px; font-weight:800; color:var(--text); margin-top:2px;">标题</div>
+            <div style="font-size:10.5px; color:var(--sub); margin-top:4px;"><code>#</code> ➔ <code>&lt;h1&gt;~&lt;h6&gt;</code></div>
+          </div>
+
+          <!-- 2. ** 加粗斜体 -->
+          <div style="background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:8px; text-align:center;">
+            <div style="font-size:16px; font-weight:900; color:var(--purple); font-family:monospace;">**</div>
+            <div style="font-size:12px; font-weight:800; color:var(--text); margin-top:2px;">加粗 / 斜体</div>
+            <div style="font-size:10.5px; color:var(--sub); margin-top:4px;"><code>**b**</code> ➔ <code>&lt;strong&gt;</code></div>
+          </div>
+
+          <!-- 3. - 列表 -->
+          <div style="background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:8px; text-align:center;">
+            <div style="font-size:16px; font-weight:900; color:var(--purple); font-family:monospace;">-</div>
+            <div style="font-size:12px; font-weight:800; color:var(--text); margin-top:2px;">列表</div>
+            <div style="font-size:10.5px; color:var(--sub); margin-top:4px;"><code>- item</code> ➔ <code>&lt;ul&gt;&lt;li&gt;</code></div>
+          </div>
+
+          <!-- 4. ` 代码/公式 -->
+          <div style="background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:8px; text-align:center;">
+            <div style="font-size:16px; font-weight:900; color:var(--purple); font-family:monospace;">`</div>
+            <div style="font-size:12px; font-weight:800; color:var(--text); margin-top:2px;">代码 / 公式</div>
+            <div style="font-size:10.5px; color:var(--sub); margin-top:4px;"><code>`code`</code> ➔ <code>&lt;code&gt;</code></div>
+          </div>
+
+          <!-- 5. > 引用 -->
+          <div style="background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:8px; text-align:center;">
+            <div style="font-size:16px; font-weight:900; color:var(--purple); font-family:monospace;">&gt;</div>
+            <div style="font-size:12px; font-weight:800; color:var(--text); margin-top:2px;">引用</div>
+            <div style="font-size:10.5px; color:var(--sub); margin-top:4px;"><code>&gt; cite</code> ➔ <code>&lt;blockquote&gt;</code></div>
+          </div>
+
+          <!-- 6. | 表格 -->
+          <div style="background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:8px; text-align:center;">
+            <div style="font-size:16px; font-weight:900; color:var(--purple); font-family:monospace;">|</div>
+            <div style="font-size:12px; font-weight:800; color:var(--text); margin-top:2px;">表格</div>
+            <div style="font-size:10.5px; color:var(--sub); margin-top:4px;"><code>| A | B |</code> ➔ <code>&lt;table&gt;</code></div>
+          </div>
+
         </div>
       </div>
 
-      <div class="sec-title" style="color:var(--purple); margin-top:6px;">
-        🔍 2. LaTeX、Word、PDF 后台源码解密
-      </div>
-      <div class="full-grid-3">
-        <!-- LaTeX -->
-        <div class="card">
-          <div style="font-size:13.5px; font-weight:800; color:var(--purple);">📐 LaTeX (学术与数学公式首选)</div>
-          <pre style="margin:6px 0;"><code>已知勾股定理：\[ a^2 + b^2 = c^2 \]
-求积分：\int_{a}^{b} f(x)dx</code></pre>
-          <div style="font-size:11.5px; color:var(--sub);">
-            • <b>用法</b>：MD 无法表示复杂分式，AI 遇到公式输出 <code>$$a^2+b^2=c^2$$</code>，前端用 KaTeX 渲染。
-          </div>
-        </div>
-
-        <!-- Word XML -->
-        <div class="card">
-          <div style="font-size:13.5px; font-weight:800; color:var(--accent);">📄 Word (.docx 解压后 OOXML)</div>
-          <pre style="margin:6px 0;"><code>&lt;w:p&gt;&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:b/&gt;&lt;/w:rPr&gt;
-  &lt;w:t&gt;这是加粗文本&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:p&gt;</code></pre>
-          <div style="font-size:11.5px; color:var(--sub);">
-            • <b>淘汰原因</b>：解压发现底层庞大 XML！为输出 6 个字要吐几十行样式 ID，95% 算力全浪费在废字上。
-          </div>
-        </div>
-
-        <!-- PDF PostScript -->
-        <div class="card">
-          <div style="font-size:13.5px; font-weight:800; color:var(--danger);">📕 PDF (绝对坐标 PostScript)</div>
-          <pre style="margin:6px 0;"><code>2 0 obj << /Length 64 >> stream
-  BT /F1 12 Tf 72 712 Td (Hello World) Tj ET endstream</code></pre>
-          <div style="font-size:11.5px; color:var(--sub);">
-            • <b>淘汰原因</b>：`72 712 Td` 代表在纸张 X=72 Y=712 画字。是绝对坐标指令，LLM 无法在二维空间算坐标。
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
 
 
-  <!-- SLIDE 6.4: Markdown 语法与工程化渲染实测 -->
-  <section class="slide" data-slide="6.4">
-    <header class="lesson-header">
-      <h1>Markdown 语法与工程化渲染实测</h1>
-      <p class="subtitle">点击不同 Markdown 格式节点，观察大模型生成的原始文本与前端真实渲染后的 DOM 结构对比。</p>
-    </header>
-
-    <div class="syntax-grid">
-      <button class="syn-btn active" onclick="showSyn(0)"><div class="syn-icon">#</div><div class="syn-name">标题</div></button>
-      <button class="syn-btn" onclick="showSyn(1)"><div class="syn-icon">**</div><div class="syn-name">加粗/斜体</div></button>
-      <button class="syn-btn" onclick="showSyn(2)"><div class="syn-icon">-</div><div class="syn-name">列表</div></button>
-      <button class="syn-btn" onclick="showSyn(3)"><div class="syn-icon">`</div><div class="syn-name">代码/公式</div></button>
-      <button class="syn-btn" onclick="showSyn(4)"><div class="syn-icon">&gt;</div><div class="syn-name">引用/表格</div></button>
-    </div>
-
-    <div class="compare-panel">
-      <div class="cp-col">
-        <div class="cp-header">💻 Markdown 源码 (模型吐字)</div>
-        <div class="cp-body"><div class="src-view" id="srcView"></div></div>
-      </div>
-      <div class="cp-col">
-        <div class="cp-header">✨ 富文本渲染效果 (前端 DOM)</div>
-        <div class="cp-body"><div class="ren-view" id="renView"></div></div>
-      </div>
-    </div>
-  </section>
+  
 
 
 <section class="slide" data-slide="8">
