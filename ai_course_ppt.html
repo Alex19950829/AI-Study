@@ -1157,21 +1157,154 @@ body {
     </div>
   </section>
 
-  <!-- SLIDE 8: 上下文窗口全景拆解（含 OpenClaw 深度工程落地） -->
+  <!-- SLIDE 8: Agent 核心落地场景全景 -->
   <section class="slide" data-slide="8">
     <header class="lesson-header">
-      <h1>上下文窗口全景拆解</h1>
-      <p class="subtitle">工作台比喻、<b>三大物理算力硬伤 (KV Cache OOM / <i>O(N<sup>2</sup>)</i> 黑洞 / 注意力稀释)</b> 与 <b>OpenClaw 工程治理</b>。</p>
+      <h1>Agent 核心落地场景全景图</h1>
+      <p class="subtitle">打破单纯对话框限制，在研发自愈、商业分析、企业合规审查与个人 Copilot 领域全面落地。</p>
+    </header>
+
+    <div class="grid-4-col">
+      <div class="card c1">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>1. 研发与运维 (DevOps & SRE)</h4>
+          <p><b>• 跨语言/框架代码重构</b>：AST 解析 ➔ API 替换 ➔ 自动化构建校验<br><b>• 线上故障诊断自愈</b>：告警触发 ➔ 查日志追踪链路 ➔ 执行降级并通知</p>
+        </div>
+      </div>
+
+      <div class="card c2">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>2. 商业分析与 BI (Data Analyst)</h4>
+          <p><b>• 连库自主 SQL 探索</b>：业务追问 ➔ 动态生成并执行 SQL ➔ 关联挖掘<br><b>• 自动化可视化报告</b>：Python (Pandas) 分析 ➔ 导出图表与分析报告</p>
+        </div>
+      </div>
+
+      <div class="card c3">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>3. 企业业务自动化 (Enterprise Ops)</h4>
+          <p><b>• 发票/合同跨系统对账</b>：OCR 识别 ➔ 比对 ERP 订单 ➔ 发现差异并核实<br><b>• 二级复杂客服处理</b>：调物流/仓储 API ➔ 规则判断 ➔ 原路退款并致歉</p>
+        </div>
+      </div>
+
+      <div class="card c4">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>4. 深度调研与 Copilot (Research & Assist)</h4>
+          <p><b>• 竞品深度追踪</b>：自主浏览全网 ➔ 抓取官网/财报 ➔ 交叉验证生成 SWOT<br><b>• 多 API 行程/会议规划</b>：日历冲突规避 ➔ 酒店/航班比价 ➔ 自动预订</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-box" style="margin-top:10px;">
+      <p>
+        💡 <b>场景共同点</b>：不依赖硬编码路线，目标明确、路径未知，需通过<b>工具调用 + 环境反馈</b>自主探索交付。
+      </p>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: 黄金判定法则：你的业务适合做 AI Agent 吗？ -->
+  <section class="slide" data-slide="9">
+    <header class="lesson-header">
+      <h1>黄金判定法则：你的业务适合做 AI Agent 吗？</h1>
+      <p class="subtitle">避免盲目套用概念！通过 <b>3 大关键维度</b> 与 <b>控制权归属矩阵</b> 精准评估落地可行性。</p>
+    </header>
+
+    <div class="cols" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+      <div class="col">
+        <div class="card c1" style="height:100%;">
+          <h3 style="font-size:14px; font-weight:800; color:var(--accent); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            AI Agent 可行性三大硬性指标
+          </h3>
+          <div style="font-size:12px; line-height:1.65; color:var(--text);">
+            <div style="margin-bottom:8px;">
+              <b>1. 🔧 工具可感知性 (Tool Availability)</b><br>
+              是否有明确的 API、Shell 终端、数据库或 DOM 接口可供 Agent 调取并作用于真实环境。
+            </div>
+            <div style="margin-bottom:8px;">
+              <b>2. 🔄 过程容错与自愈性 (Fault Tolerance)</b><br>
+              中间步骤是否允许“试错”。Agent 的本质是探索反馈，环境报错能够作为新的 Observe 信号。
+            </div>
+            <div>
+              <b>3. 🎯 结果判定客观性 (Objective Criteria)</b><br>
+              人类或代码是否拥有确切的最终验收标准（如：测试全绿、SQL正常返回、导出的表格格式规范）。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card c2" style="height:100%;">
+          <h3 style="font-size:14px; font-weight:800; color:var(--purple); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+            控制权归属：AI 工作流 vs AI Agent
+          </h3>
+          <table style="width:100%; border-collapse:collapse; font-size:11.5px; text-align:left;">
+            <thead>
+              <tr style="border-bottom:1.5px solid var(--border); color:var(--sub);">
+                <th style="padding:4px 6px;">对比维度</th>
+                <th style="padding:4px 6px;">AI 工作流 (Workflow)</th>
+                <th style="padding:4px 6px;">AI Agent (智能体)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:6px; font-weight:700;">控制核心</td>
+                <td style="padding:6px; color:var(--sub);">程序员硬编码 If/Else</td>
+                <td style="padding:6px; color:var(--accent); font-weight:700;">LLM 大脑动态决策</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:6px; font-weight:700;">执行路线</td>
+                <td style="padding:6px; color:var(--sub);">确定性单向/分支流水线</td>
+                <td style="padding:6px; color:var(--accent); font-weight:700;">[Plan-Act-Obs] × N 闭环</td>
+              </tr>
+              <tr>
+                <td style="padding:6px; font-weight:700;">异常处理</td>
+                <td style="padding:6px; color:var(--sub);">抛出 Error / 预设中断</td>
+                <td style="padding:6px; color:var(--accent); font-weight:700;">抓取报错并自主修正</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-box" style="margin-top:10px; background:rgba(124,58,237,0.05); border-color:rgba(124,58,237,0.2);">
+      <p style="color:var(--text);">
+        ⚖️ <b>落地决策建议</b>：流程完全确定且不允许试错 ➔ 选择 <b>AI 工作流</b>；目标确定但路径未知、需要环境反馈与容错自愈 ➔ 选择 <b>AI Agent</b>。
+      </p>
+    </div>
+  </section>
+
+
+
+
+  <!-- SLIDE 8: 上下文窗口全景拆解与三大溢出治理策略（含 5-1 / 5-2 最新工程落地） -->
+  <section class="slide" data-slide="10">
+    <header class="lesson-header">
+      <h1>上下文窗口全景拆解与溢出治理</h1>
+      <p class="subtitle">工作台比喻、<b>三大物理硬伤</b>、<b>最新模型窗口对比</b>与<b>三大溢出处理策略 (截断/摘要压缩/RAG)</b>。</p>
     </header>
 
     <div class="cw-panorama">
-      <!-- 左：直觉比喻 + 三大物理算力硬伤 (优化视觉层级与自适应填充) -->
+      <!-- 左：直觉比喻 + 三大物理算力硬伤 + Token 预算构成 -->
       <div class="cw-pane" style="display:flex; flex-direction:column; gap:10px; justify-content:space-between;">
-        <!-- 比喻卡片 -->
+        <!-- 比喻卡片与预算 -->
         <div style="background:rgba(0,102,255,0.03); border:1px solid rgba(0,102,255,0.12); border-radius:10px; padding:10px 12px;">
-          <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:4px;">🪟 1. 直觉比喻：放纸条的工作台</div>
-          <div style="font-size:11.5px; line-height:1.6; color:var(--text);">
-            AI 每次回答只能看见工作台上放得下的最近内容。台面满了（超过 Context Window），<b>最早的纸条会被推下台面</b>，掉下去的信息再也无法参与推理。
+          <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:4px;">🪟 1. 直觉比喻与 Token 预算构成</div>
+          <div style="font-size:11.5px; line-height:1.5; color:var(--text);">
+            AI 每次回答只能看见工作台上放得下的最近内容（超出即完全推下台面失忆）。一次请求的 Token 由 <b>System 指令 + 历史对话 + 挂载文档 + 当前问题 + 预留回复</b> 共同挤占。
           </div>
         </div>
         
@@ -1181,12 +1314,12 @@ body {
           
           <div style="background:rgba(229,62,62,0.04); border:1px solid rgba(229,62,62,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
             <b style="color:var(--danger);">💥 ① KV Cache 显存暴胀 (OOM 崩溃)</b><br>
-            每个 Token 缓存约占 1.2 KB。无节制保留 MB/GB 级 session 会瞬间吃掉上百 GB 显存，引发 GPU OOM 全线崩溃！
+            每个 Token 缓存约占 1.2 KB。无节制保留 MB/GB 级 session 会瞬间吃掉上百 GB 显存引发 OOM 崩溃！
           </div>
 
           <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
             <b style="color:var(--amber);">⬛ ② 自注意力 <i>O(N<sup>2</sup>)</i> 算力黑洞与天价账单</b><br>
-            计算复杂度随 Token 呈平方级增加（10 万 Token 计算量暴增一万倍！），首字延迟飙升至分钟级，API 计费呈指数增长。
+            计算复杂度呈平方级增长（10 万 Token 计算量暴增一万倍！），首字延迟飙升，API 计费累加攀升。
           </div>
 
           <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
@@ -1196,39 +1329,198 @@ body {
         </div>
       </div>
 
-      <!-- 右：主流模型窗口对比 + OpenClaw 治理 -->
+      <!-- 右：主流模型窗口对比 + 三大溢出治理策略 -->
       <div class="cw-pane">
-        <h4>📊 3. 主流大模型窗口设定对比</h4>
+        <h4>📊 3. 最新主流大模型窗口对比</h4>
         <table class="model-table">
           <thead>
             <tr><th>模型家族</th><th>标准窗口容量</th><th>相当于内容量</th></tr>
           </thead>
           <tbody>
-            <tr><td><b>DeepSeek-V3/R1</b></td><td><b>128k Tokens</b></td><td>~10 万字小说</td></tr>
-            <tr><td><b>GPT-4o / o1</b></td><td><b>128k Tokens</b></td><td>300 页 PDF 电子书</td></tr>
-            <tr><td><b>Claude 3.5 Sonnet</b></td><td><b>200k Tokens</b></td><td>500 页长篇巨著</td></tr>
-            <tr><td><b>Gemini 1.5 Pro</b></td><td><b>2,000k Tokens</b></td><td><b>行业天花板(1小时视频)</b></td></tr>
+            <tr><td><b>Kimi K2.5</b></td><td><b>256k Tokens</b></td><td>~20 万字《三国演义》</td></tr>
+            <tr><td><b>Qwen3.6-Plus</b></td><td><b>256k (可扩1M)</b></td><td>大型工程项目全库</td></tr>
+            <tr><td><b>GPT-5</b></td><td><b>400k Tokens</b></td><td>32 万字 (Pro 专属)</td></tr>
+            <tr><td><b>Claude Sonnet 4.6</b></td><td><b>1,000k Tokens</b></td><td>80 万字 (《红楼梦》×5)</td></tr>
+            <tr><td><b>Gemini 2.5 Pro</b></td><td><b>1,000k+ Tokens</b></td><td><b>行业天花板(1小时视频)</b></td></tr>
           </tbody>
         </table>
 
         <div class="openclaw-box">
-          <h5>🤖 4. OpenClaw Agent 深度工程治理</h5>
+          <h5>🛠️ 4. 上下文溢出三大治理策略 (工程落地)</h5>
           <div class="openclaw-item">
-            📌 <b>System Prompt 钉住保护</b>：核心规则/角色/Tool Schema 放入 Immutable 区，永远 100% 留存。
+            ✂️ <b>1. 直接截断 / 滑动窗口</b>：保留最近 K 轮对话，直接裁掉远期历史。实现简单、0 额外开销，但易丢失早期关键约束。
           </div>
           <div class="openclaw-item">
-            ⚡ <b>纯代码规则一级修剪 (0 API 费)</b>：不调 LLM！代码直接检测 `tool_name === "run_terminal"` 等字段，超长自动截断 `[Output truncated]`。若 Token 仍超限，才依次触发<b>二级滑动窗口</b>与<b>三级轻量摘要</b>。
+            📝 <b>2. 摘要压缩 (Summarization)</b>：达到 Token 阈值时触发小模型（如 GPT-4o-mini）生成全局背景摘要。形如 <code>[System + 历史摘要 + 最近K轮]</code>，降本可达 90% 且连贯性强。
           </div>
           <div class="openclaw-item">
-            🧠 <b>本地 AST 目录 + 向量 RAG</b>：不强塞 50 万行源码！用 AST 定位精准行号切片（如只读 L10-L35），向量嵌入按需匹配相关片段。
+            🎯 <b>3. 向量检索 / RAG 按需注入</b>：将超长历史或文档存入向量库，新提问时仅检索 Top-K 最强相关切片注入上下文，Token 效率与精确度最高。
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- SLIDE 8.5: 上下文压缩的两种工程实现方式 (纯代码规则 vs LLM 增量摘要 + Prompt & 代码落地) -->
+  <section class="slide" data-slide="10.5">
+    <header class="lesson-header">
+      <h1>上下文压缩的两种工程实现与代码落地</h1>
+      <p class="subtitle">对比 <b>纯代码规则硬剪裁 (Rule-based)</b> 与 <b>LLM 增量摘要归纳 (Model-based)</b>，含实战 Prompt 模板与 Python 代码实现。</p>
+    </header>
+
+    <div class="cw-panorama">
+      <!-- 左：两种方式原理、特征对比与选型指南 (美化增强版) -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:10px; justify-content:space-between;">
+        <!-- 头部说明 -->
+        <div>
+          <h4 style="color:var(--text); margin-bottom:2px;">⚖️ 方式一 vs 方式二 架构选型对比</h4>
+          <p style="font-size:11.5px; color:var(--sub);">工程中通常配合使用：代码规则做首道修剪，模型摘要做深度保鲜。</p>
+        </div>
+
+        <!-- 方式一卡片 (蓝调) -->
+        <div style="background:rgba(0,102,255,0.03); border:1.5px solid rgba(0,102,255,0.18); border-radius:10px; padding:10px 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-size:12.5px; font-weight:800; color:var(--accent);">⚡ 方式一：纯代码规则硬剪裁 (Rule-based)</span>
+            <span style="font-size:10.5px; font-weight:800; background:rgba(0,102,255,0.1); color:var(--accent); padding:2px 7px; border-radius:4px;">0 费用 · 毫秒级</span>
+          </div>
+          <div style="font-size:11px; line-height:1.6; color:var(--text);">
+            • <b>处理逻辑：</b> 代码拦截 <code>history[-K:]</code> 强制切片，对 Terminal / API 超长输出做正则截断。
+            <br>
+            • <b>核心优势：</b> 零 API 费用、毫秒级响应、行为 100% 确定，适合无状态短任务。
+            <br>
+            • <b>主要缺点：</b> 盲目剪裁易误删早期关键约束（如用户姓名、角色定位），引发粗暴失忆。
+          </div>
+        </div>
+
+        <!-- 方式二卡片 (橙调) -->
+        <div style="background:rgba(217,119,6,0.03); border:1.5px solid rgba(217,119,6,0.18); border-radius:10px; padding:10px 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-size:12.5px; font-weight:800; color:var(--amber);">📝 方式二：LLM 增量摘要归纳 (Model-based)</span>
+            <span style="font-size:10.5px; font-weight:800; background:rgba(217,119,6,0.1); color:var(--amber); padding:2px 7px; border-radius:4px;">记忆保鲜 · 降本 90%</span>
+          </div>
+          <div style="font-size:11px; line-height:1.6; color:var(--text);">
+            • <b>处理逻辑：</b> 超限时唤醒轻量模型（如 <code>gpt-4o-mini</code>）将远期历史浓缩为 200 字全局摘要。
+            <br>
+            • <b>核心优势：</b> 保留用户身份、偏好与历史决策，对话连贯且大额节省主模型 Token。
+            <br>
+            • <b>最佳实践：</b> 摘要生成挂载到后台 Task（如 Celery）；强行保留最近 2~4 轮原始对话保障语境。
+          </div>
+        </div>
+
+        <!-- 底部选型指南矩阵 (补齐空间) -->
+        <div style="background:rgba(124,58,237,0.04); border:1px dashed rgba(124,58,237,0.22); border-radius:8px; padding:9px 11px;">
+          <div style="font-size:11.5px; font-weight:800; color:var(--purple); margin-bottom:4px;">💡 架构落地选型决策建议</div>
+          <div style="font-size:10.5px; line-height:1.5; color:var(--sub);">
+            <b>工具型单轮/短对话</b> ➔ 采用 <b>方式一 (代码截断)</b>，极致省钱快响应；<br>
+            <b>Agent / 陪伴学习 / 长客服</b> ➔ 采用 <b>方式二 (增量摘要)</b>，保障连续记忆与用户体验。
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：Prompt 模板 + Python 伪代码示例 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:8px;">
+        <h4 style="color:var(--amber); margin-bottom:2px;">📄 实战 Prompt 模板与 Python 代码落地</h4>
+        
+        <!-- Prompt 模板框 -->
+        <div style="background:rgba(217,119,6,0.06); border:1px solid rgba(217,119,6,0.2); border-radius:8px; padding:8px 10px; font-size:11px; line-height:1.45;">
+          <div style="font-weight:800; color:var(--amber); margin-bottom:2px;">📄 摘要归纳通用 Prompt 模板：</div>
+          <div style="font-family:monospace; color:var(--text); white-space:pre-wrap;">"你是一个对话整理助手。结合【已有摘要】与【待压缩对话】，更新【全局摘要】。
+【要求】：保留用户姓名、身份、关键偏好、已达成决策与未竟目标；字数控制在 200 字内。"</div>
+        </div>
+
+        <!-- Python 伪代码框 -->
+        <div style="background:rgba(0,0,0,0.05); border:1px solid var(--border); border-radius:8px; padding:8px 10px; font-family:monospace; font-size:10.5px; color:var(--text); line-height:1.45; overflow-x:auto;">
+          <div style="color:var(--accent); font-weight:800; font-family:sans-serif; margin-bottom:2px;">🐍 Python 核心压缩与组装伪代码：</div>
+          <span style="color:#7c3aed;"># 1. 检查 Token 是否超出上限</span><br>
+          <span style="color:#2563eb;">if</span> count_tokens(history) > MAX_TOKENS:<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7c3aed;"># 2. 拆分：提取旧对话，保留最近 K 轮原始对话</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;old_chat = history[:-KEEP_K * 2]<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;recent_chat = history[-KEEP_K * 2:]<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7c3aed;"># 3. 调用轻量模型更新全局摘要 (摘要 = 原摘要 + 旧对话)</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;summary = call_fast_llm(SUMMARIZE_PROMPT, old_chat, summary)<br>
+          <br>
+          <span style="color:#7c3aed;"># 4. 组装发送给主大模型的最终 messages 数组</span><br>
+          messages = [<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{"role": "system", "content": f"{SYS_PROMPT}\n【背景摘要】:\n{summary}"},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;*recent_chat,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{"role": "user", "content": current_query}<br>
+          ]
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8.6: 厂商 Prompt Caching 节约算力的底层物理原理 (单向注意力与 KV Cache 复用) -->
+  <section class="slide" data-slide="10.8">
+    <header class="lesson-header">
+      <h1>厂商 Prompt Caching 节约算力的底层物理原理</h1>
+      <p class="subtitle">破题解答：<b>系统提示词不变，但新提问每次都变，GPU 究竟是如何省下 90%+ 前向传播算力的？</b></p>
+    </header>
+
+    <div class="cw-panorama">
+      <!-- 左：核心破题 + 单向注意力物理特性 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:10px; justify-content:space-between;">
+        <div>
+          <h4 style="color:var(--accent); margin-bottom:4px;">💡 核心破题：单向注意力 (Causal Attention)</h4>
+          <p style="font-size:11.5px; line-height:1.6; color:var(--text);">
+            大模型注意力机制有一个铁律：<b>前面 Token 的特征向量 ($K,V$) 完全由前面内容本身决定，绝对不受后面新提问的影响！</b>
+          </p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
+            <b>1. 前缀无关性</b><br>
+            系统提示词（如 10,000 Token）过几十层 Transformer 算出的 $K, V$ 矩阵是<b>完全固定</b>的，不论后面新问题是“天气”还是“代码”。
+          </div>
+
+          <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
+            <b>2. 显存复用与 0 算力挂载</b><br>
+            开启 Cache 后，这 10,000 Token 的 $K,V$ 向量直接保留在 GPU 显存中，下次请求<b>直接挂载使用，神经网络前向传播计算量为 0！</b>
+          </div>
+
+          <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
+            <b>💰 为什么厂商愿意给 1 折 / 大额折扣？</b><br>
+            因为 GPU 物理浮点计算量 (FLOPs) 真正暴降了 90% 以上！DeepSeek / OpenAI 只是把节省的硬件算力红利返还给开发者。
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：无缓存 vs 开启缓存 GPU 算力消耗对比图解 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:10px; justify-content:space-between;">
+        <h4 style="color:var(--amber); margin-bottom:2px;">📊 GPU 实际算力消耗与运算流向对比</h4>
+
+        <!-- 无缓存 -->
+        <div style="background:rgba(220,38,38,0.04); border:1px solid rgba(220,38,38,0.18); border-radius:8px; padding:9px 11px;">
+          <div style="font-size:11.5px; font-weight:800; color:var(--danger); margin-bottom:3px;">❌ 无缓存模式 (每次请求全量重算)</div>
+          <div style="font-size:11px; line-height:1.5; color:var(--text);">
+            <code>[系统提示词 10,000T] + [新问题 100T]</code><br>
+            • GPU 必须把 10,100 个 Token <b>从头到尾重过几百层矩阵乘法</b>。<br>
+            • 💥 <b>GPU 实际矩阵计算量：10,100 Token 算力</b> (全额扣费)。
+          </div>
+        </div>
+
+        <!-- 开启缓存 -->
+        <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:9px 11px;">
+          <div style="font-size:11.5px; font-weight:800; color:var(--success); margin-bottom:3px;">🎉 开启 Prompt Caching (前缀复用模式)</div>
+          <div style="font-size:11px; line-height:1.5; color:var(--text);">
+            <code>[系统提示词 10,000T (显存只读)] + [新问题 100T (只算新Q)]</code><br>
+            • 系统提示词 $K,V$ 从显存 <b>0 算力秒级加载</b>；GPU <b>仅为新问题 100T 算矩阵</b>。<br>
+            • ⚡ <b>GPU 实际矩阵计算量：仅 100 Token 算力！</b> (省下 99% 前向计算)。
+          </div>
+        </div>
+
+        <!-- 生活比喻 -->
+        <div style="background:rgba(124,58,237,0.04); border:1px dashed rgba(124,58,237,0.22); border-radius:8px; padding:8px 10px; font-size:10.5px; line-height:1.5; color:var(--sub);">
+          <b>📖 图书馆员比喻：</b><br>
+          • <b>无缓存：</b> 每次回答你 1 页新问题前，图书员都必须把 1,000 页百科全书重新逐字读一遍；<br>
+          • <b>有缓存：</b> 图书员早就记住百科全书索引，直接拿脑子里的索引配合你的新问题快速回答！
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SLIDE 9: 深度思考与推理模型：同一道题，两种模式实测演示 -->
-  <section class="slide" data-slide="9">
+  <section class="slide" data-slide="11">
     <header class="lesson-header">
       <h1>同一道排座题：秒答 vs 豆包/DeepSeek 深度思考</h1>
       <p class="subtitle">点击下方模式按钮，亲眼看模型如何<b>自发输出草稿、自我怀疑、推翻假设并修正交卷</b>。</p>
@@ -1263,7 +1555,7 @@ body {
   </section>
 
   <!-- SLIDE 10: 深度思考物理机制：单次前向传播硬约束 vs <think> 草稿纸机制 -->
-  <section class="slide" data-slide="10">
+  <section class="slide" data-slide="12">
     <header class="lesson-header">
       <h1>深度思考物理机制：单次前向传播硬约束 vs &lt;think&gt; 草稿纸机制</h1>
       <p class="subtitle">单次前向传播物理瓶颈、网络深度计算步数硬约束与 <b>$a+b=10$ 的“无撤销锁死” vs “草稿自愈”实测剖析</b>。</p>
@@ -1322,7 +1614,7 @@ body {
   </section>
 
   <!-- SLIDE 11: 推理模型 3 大核心机制：模型如何实现「自发探索」？ -->
-  <section class="slide" data-slide="11">
+  <section class="slide" data-slide="13">
     <header class="lesson-header">
       <h1>推理模型 3 大核心机制：模型如何实现「自发探索」？</h1>
       <p class="subtitle">没有人类写一行 <code>if-else</code>，完全靠<b>强化学习、注意力重定向与树状分支搜索</b>自发涌现。</p>
@@ -1376,7 +1668,7 @@ body {
   </section>
 
   <!-- SLIDE 12: 向量碰撞与高熵激活：神经网络内部如何「发现」矛盾？ -->
-  <section class="slide" data-slide="12">
+  <section class="slide" data-slide="14">
     <header class="lesson-header">
       <h1>向量碰撞与高熵激活：神经网络内部如何「发现」矛盾？</h1>
       <p class="subtitle">模型内部没有 <code>if(a+b != 8)</code> 的代码，它靠的是<b>隐藏层向量排斥碰撞产生的「隐层高熵信号」</b>。</p>
@@ -1428,7 +1720,7 @@ body {
   </section>
 
   <!-- SLIDE 13: 深度思考的核心作用与「高性价比」降本平衡指南 -->
-  <section class="slide" data-slide="13">
+  <section class="slide" data-slide="15">
     <header class="lesson-header">
       <h1>深度思考的核心作用与「高性价比」降本平衡指南</h1>
       <p class="subtitle">既要利用深度思考<b>「解构逻辑漏洞、反向优化 Prompt」</b>，又要避免<b>频繁调用导致的成本暴增</b>。</p>
@@ -1470,7 +1762,7 @@ body {
   </section>
 
   <!-- SLIDE 14: 模型参数量全景拆解：参数到底是什么？ -->
-  <section class="slide" data-slide="14">
+  <section class="slide" data-slide="16">
     <header class="lesson-header">
       <h1>模型参数量全景拆解：参数到底是什么？</h1>
       <p class="subtitle">告别抽象数字！揭秘 7B / 70B / 671B 背后保存的<b>硬盘浮点数、旋钮比喻与三大核心概念辨析</b>。</p>
@@ -1520,7 +1812,7 @@ body {
   </section>
 
   <!-- SLIDE 15: 参数规模交互试用与小模型「反杀」选型指南 -->
-  <section class="slide" data-slide="15">
+  <section class="slide" data-slide="17">
     <header class="lesson-header">
       <h1>参数规模交互试用与小模型「反杀」选型指南</h1>
       <p class="subtitle">拖动滑块体验 <b>10亿级到万亿级吨位差异</b>，看清三大场景下小模型如何凭性价比打赢大块头。</p>
@@ -1570,7 +1862,7 @@ body {
   </section>
 
   <!-- SLIDE 16: 静态参数 vs 动态输入：模型发布后如何回答所有问题？ -->
-  <section class="slide" data-slide="16">
+  <section class="slide" data-slide="18">
     <header class="lesson-header">
       <h1>静态参数 vs 动态输入：模型发布后如何回答所有问题？</h1>
       <p class="subtitle">揭秘 <b>10万本考卷 vs 脑细胞比喻</b>、只读权重矩阵 (Freeze Weights) 与文件物理体积真相。</p>
@@ -1604,7 +1896,7 @@ body {
   </section>
 
   <!-- SLIDE 17: 为什么有的 AI「看不懂」图片？—— 多模态底层原理全景 -->
-  <section class="slide" data-slide="17">
+  <section class="slide" data-slide="19">
     <header class="lesson-header">
       <h1>为什么有的 AI「看不懂」图片？—— 多模态底层原理全景</h1>
       <p class="subtitle">揭秘纯文本 LLM 与多模态模型差异、<b>两大常见误区避坑</b>与视觉 Token 三步转译。</p>
@@ -1656,7 +1948,7 @@ body {
   </section>
 
   <!-- SLIDE 18: 微调是什么？和「喂资料」有什么区别？—— 技术选型决策指南 -->
-  <section class="slide" data-slide="18">
+  <section class="slide" data-slide="20">
     <header class="lesson-header">
       <h1>微调是什么？和「喂资料」有什么区别？</h1>
       <p class="subtitle">揭秘<b>微调 (SFT 重新上课) 与知识库 (RAG 开卷考试) 区别</b>、4 大场景对号入座与最省钱选型链。</p>
@@ -1708,7 +2000,7 @@ body {
   </section>
 
   <!-- SLIDE 19: 企业都在建的「知识库」是什么？—— 切片与 TopK 工程实操 -->
-  <section class="slide" data-slide="19">
+  <section class="slide" data-slide="21">
     <header class="lesson-header">
       <h1>企业都在建的「知识库」是什么？—— 切片与 TopK 工程实操</h1>
       <p class="subtitle">揭秘 <b>RAG 3 步运转闭环、Chunk Size 黄金法则与 TopK / Rerank 场景推荐</b>。</p>
@@ -1762,7 +2054,7 @@ body {
   </section>
 
   <!-- SLIDE 20: 知识库怎么切片？—— 4 大切片模式与配置指南 -->
-  <section class="slide" data-slide="20">
+  <section class="slide" data-slide="22">
     <header class="lesson-header">
       <h1>知识库怎么切片？—— 4 大切片模式与配置指南</h1>
       <p class="subtitle">揭秘<b>固定字符、递归字符、结构化 Markdown 与语义切片的原理、配置代码与适用场景</b>。</p>
@@ -1827,7 +2119,7 @@ body {
   </section>
 
 <!-- SLIDE 21: 大模型幻觉全景：物理成因、4 大幻觉类型与“小抄”认知 -->
-  <section class="slide" data-slide="21">
+  <section class="slide" data-slide="23">
     <header class="lesson-header">
       <h1>大模型幻觉全景：物理成因、4 大幻觉类型与“小抄”认知</h1>
       <p class="subtitle"><b>幻觉不是 Bug，而是概率采样的必然伴生物</b>。4 大常见类型与两大底层物理根因拆解。</p>
@@ -1880,7 +2172,7 @@ body {
   </section>
 
   <!-- SLIDE 22: 幻觉工程治理：RAG 进阶与 Sampling 采样控制 (Temperature & Top-P) -->
-  <section class="slide" data-slide="22">
+  <section class="slide" data-slide="24">
     <header class="lesson-header">
       <h1>幻觉工程治理：RAG 进阶与 Sampling 采样控制 (Temperature & Top-P)</h1>
       <p class="subtitle">从物理控制到事实增强：<b>采样参数（陡峭度/剪枝）与 RAG 4 大进阶检索招式</b>。</p>
@@ -1923,7 +2215,7 @@ body {
   </section>
 
   <!-- SLIDE 23: 『开源模型』等于免费吗？—— AI 圈“开源”真相与选型避坑 -->
-  <section class="slide" data-slide="23">
+  <section class="slide" data-slide="25">
     <header class="lesson-header">
       <h1>『开源模型』等于免费吗？—— AI 圈“开源”真相与选型避坑</h1>
       <p class="subtitle">点击下方交互组件，亲眼看<b>三件套亮灯检查器</b>与<b>满血 vs 蒸馏版参数性能动画对比</b>。</p>
@@ -2013,7 +2305,7 @@ body {
   </section>
 
   <!-- SLIDE 24: 开源 7B 模型实操与选型：我拿到了权重文件，然后呢？ -->
-  <section class="slide" data-slide="24">
+  <section class="slide" data-slide="26">
     <header class="lesson-header">
       <h1>开源 7B 模型实操与选型：我拿到了权重文件，然后呢？</h1>
       <p class="subtitle">揭秘 <b>7B 权重真实用途、QLoRA 低成本微调实操与动态企业文档 RAG 选型硬道理</b>。</p>
@@ -2065,7 +2357,7 @@ body {
   </section>
 
   <!-- SLIDE 25: LoRA 微调原理与物理拆解：如何用 50MB 插件改动 70 亿大脑？ -->
-  <section class="slide" data-slide="25">
+  <section class="slide" data-slide="27">
     <header class="lesson-header">
       <h1>LoRA 微调原理与物理拆解：如何用 50MB 插件改动 70 亿大脑？</h1>
       <p class="subtitle">揭秘 <b>B (Billion) 含义、低秩分解原理 ΔW = B × A、Prompt 骤减 90% 与物理插件双模式</b>。</p>
@@ -2116,7 +2408,7 @@ body {
   </section>
 
   <!-- SLIDE 26: 本地部署显存计算器与硬件选型 -->
-  <section class="slide" data-slide="26">
+  <section class="slide" data-slide="28">
     <header class="lesson-header">
       <h1>你的电脑能跑多大的模型？—— 本地部署显存计算器与硬件选型</h1>
       <p class="subtitle">选择<b>平台 (NVIDIA / Apple Silicon)</b>、<b>设备型号</b>与<b>精度 (INT4/INT8/FP16)</b>，实时计算模型匹配与显存硬开销。</p>
@@ -2167,7 +2459,7 @@ body {
   </section>
 
   <!-- SLIDE 27: 同一个问题，为什么每次答案不一样？—— 随机性原理与结果一致性控制 -->
-  <section class="slide" data-slide="27">
+  <section class="slide" data-slide="29">
     <header class="lesson-header">
       <h1>同一个问题，为什么每次答案不一样？—— 随机性原理与结果一致性控制</h1>
       <p class="subtitle">揭秘<b>“带权掷骰子”抽签机理、创意 vs 严肃场景分级，与 4 种消除答案漂移的硬核工程手段</b>。</p>
@@ -2219,7 +2511,7 @@ body {
   </section>
 
   <!-- SLIDE 28: AI 客服变迁全景：传统规则客服 vs 现代 LLM+RAG 智能体架构 -->
-  <section class="slide" data-slide="28">
+  <section class="slide" data-slide="30">
     <header class="lesson-header">
       <h1>AI 客服变迁全景：传统规则客服 vs 现代 LLM+RAG 智能体架构</h1>
       <p class="subtitle">揭秘<b>传统客服“蠢”的根源、传统 vs 现代链路图对比，与自建 5 步智能分流路由器</b>。</p>
@@ -2290,7 +2582,7 @@ body {
   </section>
 
   <!-- SLIDE 29: 大模型限流与用量治理：传统 QPS 滑动窗口 vs 现代 LLM TPM+显存多维限流 -->
-  <section class="slide" data-slide="29">
+  <section class="slide" data-slide="31">
     <header class="lesson-header">
       <h1>大模型限流与用量治理：传统 QPS 滑动窗口 vs 现代 LLM 多维限流</h1>
       <p class="subtitle">揭秘<b>豆包、Claude Code、ChatGPT 3小时/5小时滑动重置、Token 预扣返还与 GPU 显存级调度</b>。</p>
@@ -2362,7 +2654,7 @@ body {
   </section>
 
   <!-- SLIDE 30: 大模型训练 vs 推理全景：从“考场作答”到“权重文件物理重写” -->
-  <section class="slide" data-slide="30">
+  <section class="slide" data-slide="32">
     <header class="lesson-header">
       <h1>大模型训练 vs 推理全景：从“考场作答”到“权重文件物理重写”</h1>
       <p class="subtitle">揭秘<b>对话非学习/参数只读冻结、4 步物理训练流（二进制文件 ➔ GPU 梯度计算 ➔ 导出新文件），与全量 vs LoRA 差异</b>。</p>
@@ -2434,7 +2726,7 @@ body {
   </section>
 
   <!-- SLIDE 31: Token 与词表原理：1:1 动态分词与 Tokenizer 算法实验室 -->
-  <section class="slide" data-slide="31">
+  <section class="slide" data-slide="33">
     <header class="lesson-header">
       <h1>Token 与词表原理：1:1 动态分词与 Tokenizer 算法实验室</h1>
       <p class="subtitle">揭秘<b>分词器 (Tokenizer)、Trie 前缀树最长贪婪匹配、BPE (字节对编码) 算法，与跨语言压缩率</b>。</p>
@@ -2499,7 +2791,7 @@ body {
   </section>
 
   <!-- SLIDE 32: Base 模型原理：Token 推 Token 的预测机器与自回归推演 -->
-  <section class="slide" data-slide="32">
+  <section class="slide" data-slide="34">
     <header class="lesson-header">
       <h1>Base 模型：Token 推 Token 机器与自回归实时概率推演</h1>
       <p class="subtitle">训练结束后得到的原始模型只做一件事：<b>给定前文所有 Token，预测下一个最可能的 Token 概率分布</b>。</p>
@@ -2599,7 +2891,7 @@ body {
   </section>
 
   <!-- SLIDE 33: 4 代 AI 算法演进：为什么 GPT / ChatGPT 终结了 CNN、RNN 与 BERT？ -->
-  <section class="slide" data-slide="33">
+  <section class="slide" data-slide="35">
     <header class="lesson-header">
       <h1>4 代 AI 算法演进：为什么 ChatGPT 终结了 CNN、RNN 与 BERT？</h1>
       <p class="subtitle">对比<b>CNN 滑动窗口近视眼、RNN 记忆衰减与串行瓶颈、BERT 完形填空局限，与 GPT 预训练通用跃进</b>。</p>
@@ -2653,7 +2945,7 @@ body {
   </section>
 
   <!-- SLIDE 34: AI PM 架构选型决策矩阵与 4 大避坑清单 -->
-  <section class="slide" data-slide="34">
+  <section class="slide" data-slide="36">
     <header class="lesson-header">
       <h1>AI PM 架构选型决策矩阵与 4 大避坑清单</h1>
       <p class="subtitle">从单点 Prompt 到 RAG、微调 (SFT) 与 HITL 人工分级审核的全景决策框架。</p>
@@ -2723,7 +3015,7 @@ body {
   </section>
 
   <!-- SLIDE 35: 课程全景终章总结与实战自测 -->
-  <section class="slide" data-slide="35">
+  <section class="slide" data-slide="37">
     <header class="lesson-header">
       <h1>课程全景终章总结与实战自测</h1>
       <p class="subtitle">懂了 $\to$ 会用 $\to$ 能讲出来。全景 39 页大模型核心知识闭环与实战测评自测。</p>
@@ -3059,7 +3351,7 @@ body {
   }
 
   var distBtn = document.getElementById('distPlay');
-  var fills = document.querySelectorAll('#slide-24 .dist-fill, section[data-slide="24"] .dist-fill');
+  var fills = document.querySelectorAll('#slide-24 .dist-fill, section[data-slide="38"] .dist-fill');
   var distNote = document.getElementById('distNote');
   var distTimers = [];
 
@@ -3481,7 +3773,7 @@ body {
     });
   }, { threshold: 0.3 });
 
-  const s33El = document.querySelector('[data-slide="33"]');
+  const s33El = document.querySelector('[data-slide="39"]');
   if (s33El) observer.observe(s33El);
 })();
 
