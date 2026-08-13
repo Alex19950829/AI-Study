@@ -1165,55 +1165,8 @@ body {
     </div>
   </section>
 
-  <!-- SLIDE 7: Agent 控制循环（Planning-Action-Observe 动态演练） -->
-  <section class="slide" data-slide="7">
-    <header class="lesson-header">
-      <h1>Planning - Action - Observe 控制循环</h1>
-      <p class="subtitle">普通 LLM 是单向问答（Input ➔ Output）；Agent 是<b>闭环自愈系统（Input ➔ [Plan ➔ Act ➔ Observe] × N ➔ Output）</b>。</p>
-    </header>
-
-    <div class="pao-demo-box">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h4 style="font-size:14.5px; font-weight:800; color:var(--text);">⚙️ 真实案例演练：自动修复代码报错并部署</h4>
-        <button class="btn-run" id="btnPaoRun">运行 P-A-O 循环演练 →</button>
-      </div>
-
-      <div class="pao-steps-wrap" id="paoStepsWrap">
-        <div class="pao-step-row" data-s="0">
-          <span class="pao-badge plan">Planning 规划</span>
-          <div class="pao-step-content"><b>步骤 1：分析任务与制定方案</b><br>目标：修复 server.py 报错。计划先调用终端命令 <code>pytest</code> 捕获准确的失败堆栈。</div>
-        </div>
-
-        <div class="pao-step-row" data-s="1">
-          <span class="pao-badge act">Action 行动</span>
-          <div class="pao-step-content"><b>步骤 2：环境交互与工具调用</b><br>执行工具命令：<code>run_terminal("pytest test_auth.py")</code></div>
-        </div>
-
-        <div class="pao-step-row" data-s="2">
-          <span class="pao-badge obs">Observe 观察</span>
-          <div class="pao-step-content"><b>步骤 3：捕获真实环境反馈</b><br>终端返回报错：<code>NameError: name 'jwt' is not defined on line 42</code></div>
-        </div>
-
-        <div class="pao-step-row" data-s="3">
-          <span class="pao-badge plan">Planning 调整</span>
-          <div class="pao-step-content"><b>步骤 4：根据 Observe 反思并调整策略</b><br>发现缺少引用，计划读取 <code>server.py</code> 并在头部补全 <code>import jwt</code>。</div>
-        </div>
-
-        <div class="pao-step-row" data-s="4">
-          <span class="pao-badge act">Action 行动</span>
-          <div class="pao-step-content"><b>步骤 5：再次修改文件并运行验证</b><br>自动写入代码修补，并重新触发测试命令 <code>pytest</code>。</div>
-        </div>
-
-        <div class="pao-step-row" data-s="5">
-          <span class="pao-badge done">Observe 交付</span>
-          <div class="pao-step-content"><b>步骤 6：测试通过，交付结果</b><br>环境返回 <code>3 passed in 0.4s</code>！Agent 确认完成，交付修改总结。</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDE 7.1: 输出格式选择与流式渲染 -->
-  <section class="slide" data-slide="7.1">
+  <!-- SLIDE 6.2: 输出格式选择与流式渲染 -->
+  <section class="slide" data-slide="6.2">
     <header class="lesson-header">
       <h1>输出格式取舍：JSON / MD / XML 场景揭秘</h1>
       <p class="subtitle">大模型是逐字输出的。<b>格式直接决定了产品的“流式响应速度”与“前后端解析能力”</b>。</p>
@@ -1258,6 +1211,53 @@ body {
       <div style="font-size:13px; font-weight:700; color:var(--text); display:flex; align-items:center;">
         <span style="color:var(--muted); font-size:12px; font-family:monospace; background:#f0ede6; padding:2px 8px; border-radius:4px; margin-right:8px;">TXT / 纯文本</span>
         <span><b>适用场景：</b>TTS 语音对话（防止读出 MD 符号） 或 极简的分类逻辑判断器。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: Agent 控制循环（Planning-Action-Observe 动态演练） -->
+  <section class="slide" data-slide="7">
+    <header class="lesson-header">
+      <h1>Planning - Action - Observe 控制循环</h1>
+      <p class="subtitle">普通 LLM 是单向问答（Input ➔ Output）；Agent 是<b>闭环自愈系统（Input ➔ [Plan ➔ Act ➔ Observe] × N ➔ Output）</b>。</p>
+    </header>
+
+    <div class="pao-demo-box">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h4 style="font-size:14.5px; font-weight:800; color:var(--text);">⚙️ 真实案例演练：自动修复代码报错并部署</h4>
+        <button class="btn-run" id="btnPaoRun">运行 P-A-O 循环演练 →</button>
+      </div>
+
+      <div class="pao-steps-wrap" id="paoStepsWrap">
+        <div class="pao-step-row" data-s="0">
+          <span class="pao-badge plan">Planning 规划</span>
+          <div class="pao-step-content"><b>步骤 1：分析任务与制定方案</b><br>目标：修复 server.py 报错。计划先调用终端命令 <code>pytest</code> 捕获准确的失败堆栈。</div>
+        </div>
+
+        <div class="pao-step-row" data-s="1">
+          <span class="pao-badge act">Action 行动</span>
+          <div class="pao-step-content"><b>步骤 2：环境交互与工具调用</b><br>执行工具命令：<code>run_terminal("pytest test_auth.py")</code></div>
+        </div>
+
+        <div class="pao-step-row" data-s="2">
+          <span class="pao-badge obs">Observe 观察</span>
+          <div class="pao-step-content"><b>步骤 3：捕获真实环境反馈</b><br>终端返回报错：<code>NameError: name 'jwt' is not defined on line 42</code></div>
+        </div>
+
+        <div class="pao-step-row" data-s="3">
+          <span class="pao-badge plan">Planning 调整</span>
+          <div class="pao-step-content"><b>步骤 4：根据 Observe 反思并调整策略</b><br>发现缺少引用，计划读取 <code>server.py</code> 并在头部补全 <code>import jwt</code>。</div>
+        </div>
+
+        <div class="pao-step-row" data-s="4">
+          <span class="pao-badge act">Action 行动</span>
+          <div class="pao-step-content"><b>步骤 5：再次修改文件并运行验证</b><br>自动写入代码修补，并重新触发测试命令 <code>pytest</code>。</div>
+        </div>
+
+        <div class="pao-step-row" data-s="5">
+          <span class="pao-badge done">Observe 交付</span>
+          <div class="pao-step-content"><b>步骤 6：测试通过，交付结果</b><br>环境返回 <code>3 passed in 0.4s</code>！Agent 确认完成，交付修改总结。</div>
+        </div>
       </div>
     </div>
   </section>
