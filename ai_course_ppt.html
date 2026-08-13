@@ -1514,6 +1514,85 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
+
+  <!-- SLIDE 8.2: Prompt 防御架构：工程化三层拦截 -->
+  <section class="slide" data-slide="8.2">
+    <header class="lesson-header">
+      <h1>Prompt 防御架构：工程化三层拦截</h1>
+      <p class="subtitle">单靠 Prompt 软约束无法彻底防御注入。企业级系统需依靠 <b>前置网关 ➔ LLM推理 ➔ 后置检测</b> 三层工程化拦截。</p>
+    </header>
+
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+      <div style="width:100%; max-width:850px; background:#1e1e2e; border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:24px 30px; box-shadow:0 12px 32px rgba(0,0,0,0.3); font-family:'Fira Code', monospace, sans-serif; color:#cdd6f4;">
+        
+        <!-- Window Top Bar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:12px; margin-bottom:20px;">
+          <div style="display:flex; gap:6px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:#f38ba8;"></span>
+            <span style="width:10px; height:10px; border-radius:50%; background:#f9e2af;"></span>
+            <span style="width:10px; height:10px; border-radius:50%; background:#a6e3a1;"></span>
+          </div>
+          <span style="font-size:12px; color:#6c7086; font-weight:600;">Security Architecture Flow</span>
+        </div>
+
+        <!-- Flow Nodes -->
+        <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+          
+          <!-- Step 1: User Input -->
+          <div style="padding:6px 16px; background:rgba(255,255,255,0.06); border-radius:6px; font-size:13px; font-weight:700; color:#89b4fa;">
+            [ 用户输入 ]
+          </div>
+          
+          <div style="color:#6c7086; font-size:14px;">↓</div>
+
+          <!-- Step 2: Input Guardrails -->
+          <div style="width:100%; display:flex; align-items:center; gap:16px; background:rgba(243,139,168,0.08); border:1px dashed #f38ba8; border-radius:8px; padding:12px 18px;">
+            <div style="flex:1; font-weight:700; font-size:13.5px; color:#f38ba8;">
+              1. 前置安全网关 (Input Guardrails)
+            </div>
+            <div style="font-size:12.5px; color:#a6adc8;">
+              ➔ 匹配到 "System Prompt/Ignore" 强行阻断
+            </div>
+          </div>
+
+          <div style="color:#6c7086; font-size:14px;">↓</div>
+
+          <!-- Step 3: LLM Engine -->
+          <div style="width:100%; display:flex; align-items:center; gap:16px; background:rgba(137,180,250,0.08); border:1px dashed #89b4fa; border-radius:8px; padding:12px 18px;">
+            <div style="flex:1; font-weight:700; font-size:13.5px; color:#89b4fa;">
+              2. 大模型推理 (LLM Engine)
+            </div>
+            <div style="font-size:12.5px; color:#a6adc8;">
+              ➔ Prompt 内写基础约束（第一道软防护）
+            </div>
+          </div>
+
+          <div style="color:#6c7086; font-size:14px;">↓</div>
+
+          <!-- Step 4: Post-Filtering -->
+          <div style="width:100%; display:flex; align-items:center; gap:16px; background:rgba(166,227,161,0.08); border:1px dashed #a6e3a1; border-radius:8px; padding:12px 18px;">
+            <div style="flex:1; font-weight:700; font-size:13.5px; color:#a6e3a1;">
+              3. 后置检测网关 (Output Post-Filtering)
+            </div>
+            <div style="font-size:12.5px; color:#a6adc8;">
+              ➔ 计算生成文本与 System Prompt 的重合度<br><span style="font-size:11.5px; color:#6c7086;">（若重合度 &gt; 50%，直接在后端抹杀文本）</span>
+            </div>
+          </div>
+
+          <div style="color:#6c7086; font-size:14px;">↓</div>
+
+          <!-- Step 5: Output -->
+          <div style="padding:6px 16px; background:rgba(166,227,161,0.15); border-radius:6px; font-size:13px; font-weight:700; color:#a6e3a1;">
+            [ 返回给用户 ]
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
 <!-- SLIDE 8.2: 企业级 AI 落地绝对红线 -->
   <section class="slide" data-slide="8.4">
     <header class="lesson-header">
