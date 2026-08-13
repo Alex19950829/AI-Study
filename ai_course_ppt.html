@@ -1568,99 +1568,10 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
   </section>
 
   
-  <!-- SLIDE 8.2: Prompt 攻击案例实战演练 -->
-  <section class="slide" data-slide="8.2">
-    <header class="lesson-header">
-      <h1>Prompt Injection 真实攻击案例</h1>
-      <p class="subtitle">12 个经过真实验证的攻击案例，选一个案例，切换「中招版 vs 防御版」，观察同样的攻击在有无防护下的结局。</p>
-    </header>
-    <div style="flex:1; overflow-y:auto; padding-right:10px;">
-
-
-  <div class="nav-groups" id="navList"></div>
-
-  <div class="sec-label">案例演示</div>
-
-  <div class="demo">
-    <div class="demo-top">
-      <span class="demo-title" id="demoTitle"></span>
-      <div class="toggle">
-        <button class="t-btn on-bad" id="btnBad" onclick="window.atkSetR('bad')">中招版</button>
-        <button class="t-btn" id="btnGood" onclick="window.atkSetR('good')">防御版</button>
-      </div>
-    </div>
-    <div class="demo-body" id="demoBody"></div>
-  </div>
   
-<div class="ana-row" id="anaRow"></div>
-    </div>
-  </section>
 
 
-  <!-- SLIDE 8.3: 防御实战：三层拦截模拟器 -->
-  <section class="slide" data-slide="8.3">
-    <header class="lesson-header">
-      <h1>Prompt 防御实战：三层拦截模拟器</h1>
-      <p class="subtitle">点击不同攻击场景，观察企业级安全网关是如何在 <b>输入层、系统提示词层、输出层</b> 逐级拦截恶意指令的。</p>
-    </header>
-    <div style="flex:1; overflow-y:auto; padding-right:10px;">
-<div class="sim-wrap">
-    <div class="sim-left">
-      <div class="sim-lbl">选择攻击场景</div>
-      <div class="scene-picker" id="scenePicker"></div>
-      <div class="input-preview" id="inputPreview">选择一个场景查看输入内容</div>
-
-      <div class="sim-lbl" style="margin-top:4px">三层防护架构</div>
-      <div class="layers" id="layers">
-        <div class="layer" id="ly1">
-          <div class="ln c1">1</div>
-          <div class="layer-info"><h6>输入层 · 正则关键词过滤</h6><p>命中即拦截，不进 LLM</p></div>
-          <span class="layer-stat" id="ls1"></span>
-        </div>
-        <div class="layer-arr">↓</div>
-        <div class="layer" id="ly2">
-          <div class="ln c2">2</div>
-          <div class="layer-info"><h6>提示词层 · System Prompt 安全约束</h6><p>LLM 自身识别注入意图</p></div>
-          <span class="layer-stat" id="ls2"></span>
-        </div>
-        <div class="layer-arr">↓</div>
-        <div class="layer" id="ly3">
-          <div class="ln c3">3</div>
-          <div class="layer-info"><h6>输出层 · 提示词泄漏检测</h6><p>扫描输出中的系统提示词片段</p></div>
-          <span class="layer-stat" id="ls3"></span>
-        </div>
-      </div>
-
-      <div class="sim-btn-row">
-        <button class="btn-run" id="btnRun" onclick="window.defRunSim()">▶ 模拟请求</button>
-        <button class="btn-rst" onclick="window.defResetSim()">重置</button>
-        <span class="sim-status" id="simStatus"></span>
-      </div>
-    </div>
-
-    <div class="sim-right">
-      <div class="sim-lbl">模拟结果</div>
-      <div class="result-panel">
-        <div class="rp-head" id="rpHead" style="color:var(--muted)">运行模拟后查看拦截详情</div>
-        <div class="rp-body" id="rpBody">
-          <div class="r-card">
-            <h6>防护层说明</h6>
-            <p>不同场景会触发不同防护层，右侧展示每层的处理逻辑和最终返回给用户的内容。</p>
-          </div>
-          <div class="r-card">
-            <h6>拒绝统一措辞</h6>
-            <p>无论哪层拦截，用户看到的都是平台语境的自然语句，<b>绝不暴露检测逻辑</b>：</p>
-            <div style="margin-top:8px;padding:10px;background:rgba(22,163,74,.06);border-radius:7px;border:1px solid rgba(22,163,74,.2);font-size:14px;font-weight:800;color:var(--green);text-align:center">「这片星空只接受真实的心声。」</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="pm-insight">
-        <b>PM 必须知道：</b>没有单一手段能防住所有攻击。安全 = <b>多层叠加</b>，每层拦截一部分，层层递减。只依赖模型自身对齐是最危险的设计。
-      </div>
-    </div></div>
-    </div>
-  </section>
+  
 
 <!-- SLIDE 8.2: 企业级 AI 落地绝对红线 -->
   <section class="slide" data-slide="8.4">
