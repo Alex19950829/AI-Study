@@ -94,14 +94,14 @@ body {
 }
 .slide {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  padding: 24px 36px 65px; overflow-y: auto; opacity: 0; pointer-events: none;
+  padding: 24px 36px 65px; opacity: 0; pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease; transform: scale(0.98);
   display: flex; flex-direction: column; justify-content: flex-start;
 }
 .slide.active { opacity: 1; pointer-events: auto; transform: scale(1); }
 
 /* Lesson Header */
-.lesson-header { margin-bottom: 12px; text-align: left; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+.lesson-header { margin-bottom: 8px; text-align: left; padding-bottom: 8px; flex-shrink: 0; }
 .lesson-header h1 { font-size: 24px; font-weight: 900; color: var(--text); letter-spacing: -0.5px; margin-bottom: 4px; }
 
 /* 体验影响横幅 Banner (标题下一行) */
@@ -111,15 +111,24 @@ body {
   margin-top: 6px; font-weight: 600;
 }
 
-/* 100% 满屏 3 列 Grid */
-.sec-title {
-  font-size: 12.5px; font-weight: 800; margin: 12px 0 6px; display: flex; align-items: center; gap: 6px;
+/* 核心内容包裹区：利用 flex: 1 填满剩余垂直空间 */
+.content-wrapper {
+  display: flex; flex-direction: column; flex: 1; min-height: 0; gap: 8px;
 }
-.full-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; width: 100%; }
+
+/* 100% 满屏 3 列 Grid，开启 flex: 1 让高度拉伸 */
+.sec-title {
+  font-size: 12.5px; font-weight: 800; margin: 6px 0 2px; display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+}
+.full-grid-3 {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; flex: 1; min-height: 0;
+}
 
 .card {
   background: var(--card); border: 1.5px solid var(--border); border-radius: 10px;
-  padding: 12px 14px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 6px;
+  padding: 16px 20px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; gap: 10px;
+  justify-content: center; /* 垂直拉伸时内部居中对齐 */
 }
 
 /* Syntax & Live Demo Panels (6-0b) */
@@ -140,9 +149,12 @@ body {
 
 /* Code Blocks */
 pre {
-  background: var(--code-bg); color: var(--code-text); padding: 8px 10px; border-radius: 6px;
-  font-family: "Fira Code", monospace; font-size: 11px; line-height: 1.45; overflow-x: auto;
+  background: var(--code-bg); color: var(--code-text); padding: 12px 14px; border-radius: 8px;
+  font-family: "Fira Code", monospace; font-size: 12px; line-height: 1.5; overflow-x: auto;
+  flex: 1; display: flex; align-items: center; margin: 0;
 }
+/* Slide 2 的 pre 不需要 flex 居中 */
+.compare-panel pre { flex: none; display: block; padding: 8px 10px; font-size: 11px; }
 
 /* Bottom Nav Controls */
 .bottom-nav {
@@ -184,74 +196,76 @@ pre {
       </div>
     </header>
 
-    <!-- 各种 Token 消耗对比撑满屏幕 (100% 满屏 3 列) -->
-    <div class="sec-title" style="color:var(--accent);">
-      📊 1. 各种格式 Token 消耗对比 (撑满屏幕)
-    </div>
-    <div class="full-grid-3">
-      <!-- Markdown -->
-      <div class="card" style="border-color:var(--success);">
-        <div style="font-size:12.5px; font-weight:800; color:var(--success);">🟢 Markdown 格式 (最省 Token)</div>
-        <pre><code>| 姓名 | 年龄 | 岗位 |
+    <div class="content-wrapper">
+      <!-- 各种 Token 消耗对比撑满屏幕 (100% 满屏 3 列，垂直拉伸) -->
+      <div class="sec-title" style="color:var(--accent);">
+        📊 1. 各种格式 Token 消耗对比 (撑满屏幕)
+      </div>
+      <div class="full-grid-3">
+        <!-- Markdown -->
+        <div class="card" style="border-color:var(--success);">
+          <div style="font-size:13.5px; font-weight:800; color:var(--success);">🟢 Markdown 格式 (最省 Token)</div>
+          <pre><code>| 姓名 | 年龄 | 岗位 |
 |---|---|---|
 | 张三 | 28 | 算法工程师 |</code></pre>
-        <div style="font-size:10.5px; color:var(--sub);">
-          字符数: ~90 | Token: <b style="color:var(--success);">35~45 T</b> (无冗余标签，流式推流安全)
+          <div style="font-size:11.5px; color:var(--sub);">
+            字符数: ~90 | Token: <b style="color:var(--success);">35~45 T</b> (无冗余标签，流式推流安全)
+          </div>
         </div>
-      </div>
 
-      <!-- HTML -->
-      <div class="card" style="border-color:var(--danger);">
-        <div style="font-size:12.5px; font-weight:800; color:var(--danger);">🔴 HTML 格式 (极为臃肿)</div>
-        <pre><code>&lt;table&gt;&lt;tr&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;/tr&gt;
+        <!-- HTML -->
+        <div class="card" style="border-color:var(--danger);">
+          <div style="font-size:13.5px; font-weight:800; color:var(--danger);">🔴 HTML 格式 (极为臃肿)</div>
+          <pre><code>&lt;table&gt;&lt;tr&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;/tr&gt;
   &lt;tr&gt;&lt;td&gt;张三&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre>
-        <div style="font-size:10.5px; color:var(--sub);">
-          字符数: ~260 | Token: <b style="color:var(--danger);">130~160 T</b> (💥 比 MD 多耗 3~4 倍 Token!)
+          <div style="font-size:11.5px; color:var(--sub);">
+            字符数: ~260 | Token: <b style="color:var(--danger);">130~160 T</b> (💥 比 MD 多耗 3~4 倍 Token!)
+          </div>
+        </div>
+
+        <!-- JSON/JS -->
+        <div class="card" style="border-color:var(--amber);">
+          <div style="font-size:13.5px; font-weight:800; color:var(--amber);">🟠 JSON / JS 结构格式</div>
+          <pre><code>[{"name":"张三", "age":28}]</code></pre>
+          <div style="font-size:11.5px; color:var(--sub);">
+            字符数: ~150 | Token: <b style="color:var(--amber);">70~85 T</b> (双引号与键名重复，高出 80%+)
+          </div>
         </div>
       </div>
 
-      <!-- JSON/JS -->
-      <div class="card" style="border-color:var(--amber);">
-        <div style="font-size:12.5px; font-weight:800; color:var(--amber);">🟠 JSON / JS 结构格式</div>
-        <pre><code>[{"name":"张三", "age":28}]</code></pre>
-        <div style="font-size:10.5px; color:var(--sub);">
-          字符数: ~150 | Token: <b style="color:var(--amber);">70~85 T</b> (双引号与键名重复，高出 80%+)
-        </div>
+      <!-- 下方：LaTeX、Word、PDF 源码解密 (100% 满屏 3 列，垂直拉伸) -->
+      <div class="sec-title" style="color:var(--purple); margin-top:10px;">
+        🔍 2. LaTeX、Word、PDF 后台源码解密
       </div>
-    </div>
-
-    <!-- 下方：LaTeX、Word、PDF 源码解密 (100% 满屏 3 列) -->
-    <div class="sec-title" style="color:var(--purple); margin-top:14px;">
-      🔍 2. LaTeX、Word、PDF 后台源码解密
-    </div>
-    <div class="full-grid-3">
-      <!-- LaTeX -->
-      <div class="card">
-        <div style="font-size:12.5px; font-weight:800; color:var(--purple);">📐 LaTeX (学术与数学公式首选)</div>
-        <pre><code>已知勾股定理：\[ a^2 + b^2 = c^2 \]
+      <div class="full-grid-3">
+        <!-- LaTeX -->
+        <div class="card">
+          <div style="font-size:13.5px; font-weight:800; color:var(--purple);">📐 LaTeX (学术与数学公式首选)</div>
+          <pre><code>已知勾股定理：\[ a^2 + b^2 = c^2 \]
 求积分：\int_{a}^{b} f(x)dx</code></pre>
-        <div style="font-size:10.5px; color:var(--sub);">
-          • <b>用法</b>：MD 无法表示复杂分式，AI 遇到公式输出 <code>$$a^2+b^2=c^2$$</code>，前端用 KaTeX 渲染。
+          <div style="font-size:11.5px; color:var(--sub);">
+            • <b>用法</b>：MD 无法表示复杂分式，AI 遇到公式输出 <code>$$a^2+b^2=c^2$$</code>，前端用 KaTeX 渲染。
+          </div>
         </div>
-      </div>
 
-      <!-- Word XML -->
-      <div class="card">
-        <div style="font-size:12.5px; font-weight:800; color:var(--accent);">📄 Word (.docx 解压后 OOXML)</div>
-        <pre><code>&lt;w:p&gt;&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:b/&gt;&lt;/w:rPr&gt;
+        <!-- Word XML -->
+        <div class="card">
+          <div style="font-size:13.5px; font-weight:800; color:var(--accent);">📄 Word (.docx 解压后 OOXML)</div>
+          <pre><code>&lt;w:p&gt;&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:b/&gt;&lt;/w:rPr&gt;
   &lt;w:t&gt;这是加粗文本&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:p&gt;</code></pre>
-        <div style="font-size:10.5px; color:var(--sub);">
-          • <b>淘汰原因</b>：解压发现底层是庞大 XML！为输出 6 个字要吐几十行样式 ID，95% 算力全浪费在废字上。
+          <div style="font-size:11.5px; color:var(--sub);">
+            • <b>淘汰原因</b>：解压发现底层庞大 XML！为输出 6 个字要吐几十行样式 ID，95% 算力全浪费在废字上。
+          </div>
         </div>
-      </div>
 
-      <!-- PDF PostScript -->
-      <div class="card">
-        <div style="font-size:12.5px; font-weight:800; color:var(--danger);">📕 PDF (绝对坐标 PostScript)</div>
-        <pre><code>2 0 obj << /Length 64 >> stream
+        <!-- PDF PostScript -->
+        <div class="card">
+          <div style="font-size:13.5px; font-weight:800; color:var(--danger);">📕 PDF (绝对坐标 PostScript)</div>
+          <pre><code>2 0 obj << /Length 64 >> stream
   BT /F1 12 Tf 72 712 Td (Hello World) Tj ET endstream</code></pre>
-        <div style="font-size:10.5px; color:var(--sub);">
-          • <b>淘汰原因</b>：`72 712 Td` 代表在纸张 X=72 Y=712 画字。PDF 是绝对坐标指令，LLM 无法在二维空间算坐标。
+          <div style="font-size:11.5px; color:var(--sub);">
+            • <b>淘汰原因</b>：`72 712 Td` 代表在纸张 X=72 Y=712 画字。是绝对坐标指令，LLM 无法在二维空间算坐标。
+          </div>
         </div>
       </div>
     </div>
