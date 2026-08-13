@@ -1212,6 +1212,56 @@ body {
     </div>
   </section>
 
+  <!-- SLIDE 7.1: 输出格式选择与流式渲染 -->
+  <section class="slide" data-slide="7.1">
+    <header class="lesson-header">
+      <h1>输出格式取舍：JSON / MD / XML 场景揭秘</h1>
+      <p class="subtitle">大模型是逐字输出的。<b>格式直接决定了产品的“流式响应速度”与“前后端解析能力”</b>。</p>
+    </header>
+
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 14px; flex: 1;">
+      <!-- JSON / YAML (程序后端向) -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:16px; box-shadow:var(--shadow-card); display:flex; flex-direction:column; justify-content:center;">
+        <h4 style="font-size:15px; font-weight:800; color:#92400e; margin-bottom:8px;"><span style="background:#fef3c7; padding:2px 6px; border-radius:4px; font-family:monospace; margin-right:4px;">JSON / YAML</span>后端解析专用</h4>
+        <p style="font-size:13px; color:var(--text); line-height:1.6; margin-bottom:12px;"><b>适用场景</b>：Agent 接入后端代码，直接反序列化为 Entity 实体供业务逻辑处理；生成配置文件（YAML 省 Token）。</p>
+        <div style="background:rgba(220,38,38,0.06); padding:10px 12px; border-radius:6px; font-size:12px; color:var(--danger); border:1px solid rgba(220,38,38,0.15);">
+          <b>致命缺陷：流式体验极差！</b>少一个右括号 `}` 都会报错，前端必须等几秒甚至十几秒全文接收完毕才能解析渲染，用户面临“白屏干等”。
+        </div>
+      </div>
+
+      <!-- Markdown (人类视觉向) -->
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:16px; box-shadow:var(--shadow-card); display:flex; flex-direction:column; justify-content:center;">
+        <h4 style="font-size:15px; font-weight:800; color:#6d28d9; margin-bottom:8px;"><span style="background:#ede9fe; padding:2px 6px; border-radius:4px; font-family:monospace; margin-right:4px;">Markdown (MD)</span>人类视觉专用</h4>
+        <p style="font-size:13px; color:var(--text); line-height:1.6; margin-bottom:12px;"><b>适用场景</b>：标准 ChatBot 对话框、写作助手。适合前端配合渲染库展示美观的表格、加粗、代码高亮等打字机效果。</p>
+        <div style="background:rgba(234,88,12,0.06); padding:10px 12px; border-radius:6px; font-size:12px; color:var(--orange); border:1px solid rgba(234,88,12,0.15);">
+          <b>缺陷：极难提取结构化字段。</b>如果想从 Markdown 里把“价格”和“原因”剥离出来作为代码变量，写正则会是一场灾难。
+        </div>
+      </div>
+    </div>
+
+    <!-- XML (终极杀器) -->
+    <div style="background:var(--card); border:1.5px solid var(--purple); border-radius:12px; padding:16px; box-shadow:0 4px 12px rgba(124,58,237,0.15); margin-bottom: 14px;">
+      <h4 style="font-size:15px; font-weight:800; color:#1e40af; margin-bottom:8px;"><span style="background:#dbeafe; padding:2px 6px; border-radius:4px; font-family:monospace; margin-right:4px;">XML / 自定义标签</span>AI 产品前端终极杀器</h4>
+      <p style="font-size:13px; color:var(--text); line-height:1.6; margin-bottom:10px;"><b>适用场景</b>：流式动态 UI 组件、交互式 AI 卡片（如商品推荐卡片、Claude Artifacts）。</p>
+      <div style="display:flex; gap: 12px; align-items: stretch;">
+        <div style="flex:1; background:rgba(124,58,237,0.05); padding:10px 12px; border-radius:6px; font-size:13px; color:var(--sub); font-family:'SF Mono', monospace; line-height:1.6;">
+          &lt;item&gt;iPhone 16&lt;/item&gt;<br>
+          <span style="color:var(--purple);font-weight:700;">&lt;item&gt;MacBook&lt;/item&gt;</span>
+        </div>
+        <div style="flex:1.5; background:rgba(22,163,74,0.06); padding:10px 12px; border-radius:6px; font-size:12px; color:var(--success); border:1px solid rgba(22,163,74,0.15); display:flex; align-items:center;">
+          <div><b>零延迟秒级响应：</b>前端只要流式监听到 <code>&lt;/item&gt;</code> 闭合标签，哪怕后面的数据还没吐出来，<b>立刻就能在屏幕弹出一张精美卡片！</b>完美兼顾“结构化数据”与“极速渲染体验”。</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bottom-box" style="margin-top:0; padding:12px 16px;">
+      <div style="font-size:13px; font-weight:700; color:var(--text); display:flex; align-items:center;">
+        <span style="color:var(--muted); font-size:12px; font-family:monospace; background:#f0ede6; padding:2px 8px; border-radius:4px; margin-right:8px;">TXT / 纯文本</span>
+        <span><b>适用场景：</b>TTS 语音对话（防止读出 MD 符号） 或 极简的分类逻辑判断器。</span>
+      </div>
+    </div>
+  </section>
+
   <!-- SLIDE 8: Agent 核心落地场景全景 -->
   <section class="slide" data-slide="8">
     <header class="lesson-header">
