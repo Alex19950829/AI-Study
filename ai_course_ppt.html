@@ -935,6 +935,42 @@ body {
 .xa-tldr{margin:18px 0 4px;padding:14px 18px;background:rgba(0,102,255,0.04);border:1px solid rgba(0,102,255,0.16);border-radius:10px}.xa-tldr .xa-tldr-tag{display:block;font-size:11px;font-weight:800;letter-spacing:1px;color:var(--accent,#0066ff);margin-bottom:6px}.xa-tldr p{margin:0;font-size:15px;line-height:1.8;color:var(--text,#1f2937)}
 html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-locked .xa-peek{max-height:132px;overflow:hidden;pointer-events:none;user-select:none;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%);mask-image:linear-gradient(180deg,#000 0,#000 14%,transparent 94%)}
 </style>
+
+<style>
+/* ── AI Harness 专题样式 ── */
+.tip-banner {
+  background: var(--purple-light); border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: 8px; padding: 8px 14px; font-size: 12.5px; line-height: 1.5; color: var(--text);
+  margin-top: 6px; font-weight: 600;
+}
+.sec-title {
+  font-size: 12.5px; font-weight: 800; margin: 6px 0 2px; display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+}
+.full-grid-3 {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; width: 100%; flex: 1; min-height: 0;
+}
+.syntax-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 12px; }
+.syn-btn {
+  padding: 10px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--card);
+  cursor: pointer; text-align: center; transition: all 0.2s; color: var(--text);
+}
+.syn-btn.active { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
+.syn-btn .syn-icon { font-size: 18px; font-weight: 800; font-family: monospace; }
+.syn-btn .syn-name { font-size: 11.5px; margin-top: 3px; font-weight: 700; }
+
+.compare-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; min-height: 280px; }
+.cp-col { border-radius: 10px; border: 1.5px solid var(--border); overflow: hidden; display: flex; flex-direction: column; }
+.cp-header { padding: 8px 14px; background: var(--panel); border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 800; color: var(--sub); }
+.cp-body { flex: 1; padding: 14px; overflow-y: auto; background: var(--card); }
+.src-view { font-family: "Fira Code", monospace; font-size: 13px; line-height: 1.65; color: var(--text); white-space: pre-wrap; }
+.ren-view { font-size: 13px; line-height: 1.6; color: var(--text); }
+.ren-view h1 { font-size: 20px; font-weight: 800; margin-bottom: 8px; color: var(--text); }
+.ren-view h2 { font-size: 17px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+.ren-view h3 { font-size: 15px; font-weight: 800; margin-bottom: 4px; color: var(--text); }
+.ren-view ul, .ren-view ol { padding-left: 20px; margin-bottom: 8px; }
+.ren-view blockquote { border-left: 3px solid var(--purple); padding-left: 10px; color: var(--sub); font-style: italic; margin-bottom: 8px; }
+.compare-panel pre { flex: none; display: block; padding: 8px 10px; font-size: 11px; background: var(--code-bg); color: var(--code-text); border-radius: 6px; }
+</style>
 </head>
 <body>
 
@@ -1578,6 +1614,119 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
 
     </div>
   </section>
+
+
+  <!-- SLIDE 6.3: 大模型排版机制解密 (Token 消耗对比 + 源码解密) -->
+  <section class="slide" data-slide="6.3">
+    <header class="lesson-header">
+      <h1>大模型排版机制解密</h1>
+      <div class="tip-banner">
+        💡 <b>体验影响</b>：模型按 Token 计费且每秒吐 30~50T；HTML 导致 API 费用暴涨 3 倍且打字机等待延迟增加 3~4 秒。
+      </div>
+    </header>
+
+    <div style="display:flex; flex-direction:column; flex:1; min-height:0; gap:8px;">
+      <div class="sec-title" style="color:var(--accent);">
+        📊 1. 各种格式 Token 消耗对比 (撑满屏幕)
+      </div>
+      <div class="full-grid-3">
+        <!-- Markdown -->
+        <div class="card" style="border-color:var(--success);">
+          <div style="font-size:13.5px; font-weight:800; color:var(--success);">🟢 Markdown 格式 (最省 Token)</div>
+          <pre style="margin:6px 0;"><code>| 姓名 | 年龄 | 岗位 |
+|---|---|---|
+| 张三 | 28 | 算法工程师 |</code></pre>
+          <div style="font-size:11.5px; color:var(--sub);">
+            字符数: ~90 | Token: <b style="color:var(--success);">35~45 T</b> (无冗余标签，流式推流安全)
+          </div>
+        </div>
+
+        <!-- HTML -->
+        <div class="card" style="border-color:var(--danger);">
+          <div style="font-size:13.5px; font-weight:800; color:var(--danger);">🔴 HTML 格式 (极为臃肿)</div>
+          <pre style="margin:6px 0;"><code>&lt;table&gt;&lt;tr&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;/tr&gt;
+  &lt;tr&gt;&lt;td&gt;张三&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre>
+          <div style="font-size:11.5px; color:var(--sub);">
+            字符数: ~260 | Token: <b style="color:var(--danger);">130~160 T</b> (💥 比 MD 多耗 3~4 倍 Token!)
+          </div>
+        </div>
+
+        <!-- JSON/JS -->
+        <div class="card" style="border-color:var(--amber);">
+          <div style="font-size:13.5px; font-weight:800; color:var(--amber);">🟠 JSON / JS 结构格式</div>
+          <pre style="margin:6px 0;"><code>[{"name":"张三", "age":28}]</code></pre>
+          <div style="font-size:11.5px; color:var(--sub);">
+            字符数: ~150 | Token: <b style="color:var(--amber);">70~85 T</b> (双引号与键名重复，高出 80%+)
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-title" style="color:var(--purple); margin-top:6px;">
+        🔍 2. LaTeX、Word、PDF 后台源码解密
+      </div>
+      <div class="full-grid-3">
+        <!-- LaTeX -->
+        <div class="card">
+          <div style="font-size:13.5px; font-weight:800; color:var(--purple);">📐 LaTeX (学术与数学公式首选)</div>
+          <pre style="margin:6px 0;"><code>已知勾股定理：\[ a^2 + b^2 = c^2 \]
+求积分：\int_{a}^{b} f(x)dx</code></pre>
+          <div style="font-size:11.5px; color:var(--sub);">
+            • <b>用法</b>：MD 无法表示复杂分式，AI 遇到公式输出 <code>$$a^2+b^2=c^2$$</code>，前端用 KaTeX 渲染。
+          </div>
+        </div>
+
+        <!-- Word XML -->
+        <div class="card">
+          <div style="font-size:13.5px; font-weight:800; color:var(--accent);">📄 Word (.docx 解压后 OOXML)</div>
+          <pre style="margin:6px 0;"><code>&lt;w:p&gt;&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:b/&gt;&lt;/w:rPr&gt;
+  &lt;w:t&gt;这是加粗文本&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:p&gt;</code></pre>
+          <div style="font-size:11.5px; color:var(--sub);">
+            • <b>淘汰原因</b>：解压发现底层庞大 XML！为输出 6 个字要吐几十行样式 ID，95% 算力全浪费在废字上。
+          </div>
+        </div>
+
+        <!-- PDF PostScript -->
+        <div class="card">
+          <div style="font-size:13.5px; font-weight:800; color:var(--danger);">📕 PDF (绝对坐标 PostScript)</div>
+          <pre style="margin:6px 0;"><code>2 0 obj << /Length 64 >> stream
+  BT /F1 12 Tf 72 712 Td (Hello World) Tj ET endstream</code></pre>
+          <div style="font-size:11.5px; color:var(--sub);">
+            • <b>淘汰原因</b>：`72 712 Td` 代表在纸张 X=72 Y=712 画字。是绝对坐标指令，LLM 无法在二维空间算坐标。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- SLIDE 6.4: Markdown 语法与工程化渲染实测 -->
+  <section class="slide" data-slide="6.4">
+    <header class="lesson-header">
+      <h1>Markdown 语法与工程化渲染实测</h1>
+      <p class="subtitle">点击不同 Markdown 格式节点，观察大模型生成的原始文本与前端真实渲染后的 DOM 结构对比。</p>
+    </header>
+
+    <div class="syntax-grid">
+      <button class="syn-btn active" onclick="showSyn(0)"><div class="syn-icon">#</div><div class="syn-name">标题</div></button>
+      <button class="syn-btn" onclick="showSyn(1)"><div class="syn-icon">**</div><div class="syn-name">加粗/斜体</div></button>
+      <button class="syn-btn" onclick="showSyn(2)"><div class="syn-icon">-</div><div class="syn-name">列表</div></button>
+      <button class="syn-btn" onclick="showSyn(3)"><div class="syn-icon">`</div><div class="syn-name">代码/公式</div></button>
+      <button class="syn-btn" onclick="showSyn(4)"><div class="syn-icon">&gt;</div><div class="syn-name">引用/表格</div></button>
+    </div>
+
+    <div class="compare-panel">
+      <div class="cp-col">
+        <div class="cp-header">💻 Markdown 源码 (模型吐字)</div>
+        <div class="cp-body"><div class="src-view" id="srcView"></div></div>
+      </div>
+      <div class="cp-col">
+        <div class="cp-header">✨ 富文本渲染效果 (前端 DOM)</div>
+        <div class="cp-body"><div class="ren-view" id="renView"></div></div>
+      </div>
+    </div>
+  </section>
+
 
 <section class="slide" data-slide="8">
     <header class="lesson-header">
@@ -4423,6 +4572,46 @@ buildNav();atkRender();
 try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.add('xa-locked')}catch(e){document.documentElement.classList.add('xa-locked')}
 })();
 
+</script>
+
+<script>
+/* ── Markdown 语法与工程化渲染实测 ── */
+(function() {
+  const SYNS = [
+    {
+      src: `# 一级标题\n## 二级标题\n### 三级标题\n\n标题用 # 号开头，# 越多层级越深`,
+      ren: `<h1>一级标题</h1><h2>二级标题</h2><h3>三级标题</h3><p>标题用 # 号开头，# 越多层级越深</p>`
+    },
+    {
+      src: `普通文本\n\n**加粗文本**\n\n*斜体文本*\n\n***加粗+斜体***`,
+      ren: `<p>普通文本</p><p><strong>加粗文本</strong></p><p><em>斜体文本</em></p><p><strong><em>加粗+斜体</em></strong></p>`
+    },
+    {
+      src: `无序列表：\n- Notion AI\n- DeepSeek\n- Claude\n\n有序列表：\n1. 注册账号\n2. 配置 API Key`,
+      ren: `<p>无序列表：</p><ul><li>Notion AI</li><li>DeepSeek</li><li>Claude</li></ul><p>有序列表：</p><ol><li>注册账号</li><li>配置 API Key</li></ol>`
+    },
+    {
+      src: `行内代码：\`JSON.parse()\`\n\n代码块：\n\`\`\`python\ndef hello():\n    print("Hello Markdown")\n\`\`\`\n\nLaTeX 数学公式：\n$$a^2 + b^2 = c^2$$`,
+      ren: `<p>行内代码：<code>JSON.parse()</code></p><p>代码块：</p><pre>def hello():\n    print("Hello Markdown")</pre><p>LaTeX 数学公式：</p><div style="font-size:16px;color:var(--purple);font-weight:700;">a² + b² = c²</div>`
+    },
+    {
+      src: `引用：\n> 纯文本表达结构，这是 MD 的精髓\n\n表格：\n| 格式 | Token | 渲染 |\n|---|---|---|\n| MD | 省 | 优秀 |\n| HTML | 费 | 复杂 |`,
+      ren: `<blockquote>纯文本表达结构，这是 MD 的精髓</blockquote><table border="1" style="border-collapse:collapse;width:100%;margin-top:8px;"><thead><tr><th>格式</th><th>Token</th><th>渲染</th></tr></thead><tbody><tr><td>MD</td><td>省</td><td>优秀</td></tr><tr><td>HTML</td><td>费</td><td>复杂</td></tr></tbody></table>`
+    }
+  ];
+
+  window.showSyn = function(i) {
+    const btns = document.querySelectorAll('.syn-btn');
+    if (!btns.length) return;
+    btns.forEach((b, j) => b.classList.toggle('active', j === i));
+    const srcEl = document.getElementById('srcView');
+    const renEl = document.getElementById('renView');
+    if (srcEl) srcEl.textContent = SYNS[i].src;
+    if (renEl) renEl.innerHTML = SYNS[i].ren;
+  };
+
+  setTimeout(() => { if (window.showSyn) window.showSyn(0); }, 300);
+})();
 </script>
 </body>
 </html>
