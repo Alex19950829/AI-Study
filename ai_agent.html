@@ -1172,8 +1172,166 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
+<section class="slide" data-slide="4">
+    <header class="lesson-header">
+      <h1>上下文窗口全景拆解与溢出治理</h1>
+      <p class="subtitle">工作台比喻、<b>三大物理硬伤</b>、<b>最新模型窗口对比</b>与<b>三大溢出处理策略 (截断/摘要压缩/RAG)</b>。</p>
+    </header>
+
+    <div class="cw-panorama">
+      <!-- 左：直觉比喻 + 三大物理算力硬伤 + Token 预算构成 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:10px; justify-content:space-between;">
+        <!-- 比喻卡片与预算 -->
+        <div style="background:rgba(0,102,255,0.03); border:1px solid rgba(0,102,255,0.12); border-radius:10px; padding:10px 12px;">
+          <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:4px;">🪟 1. 直觉比喻与 Token 预算构成</div>
+          <div style="font-size:11.5px; line-height:1.5; color:var(--text);">
+            AI 每次回答只能看见工作台上放得下的最近内容（超出即完全推下台面失忆）。一次请求的 Token 由 <b>System 指令 + 历史对话 + 挂载文档 + 当前问题 + 预留回复</b> 共同挤占。
+          </div>
+        </div>
+        
+        <!-- 三大物理硬伤 -->
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:12.5px; font-weight:800; color:var(--text);">⚡ 2. 为什么必须设窗口？三大物理算力硬伤</div>
+          
+          <div style="background:rgba(229,62,62,0.04); border:1px solid rgba(229,62,62,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
+            <b style="color:var(--danger);">💥 ① KV Cache 显存暴胀 (OOM 崩溃)</b><br>
+            每个 Token 缓存约占 1.2 KB。无节制保留 MB/GB 级 session 会瞬间吃掉上百 GB 显存引发 OOM 崩溃！
+          </div>
+
+          <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
+            <b style="color:var(--amber);">⬛ ② 自注意力 <i>O(N<sup>2</sup>)</i> 算力黑洞与天价账单</b><br>
+            计算复杂度呈平方级增长（10 万 Token 计算量暴增一万倍！），首字延迟飙升，API 计费累加攀升。
+          </div>
+
+          <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.15); border-radius:8px; padding:8px 10px; font-size:11.5px; line-height:1.55;">
+            <b style="color:var(--purple);">🧠 ③ 注意力稀释 (中间失忆 Lost in the Middle)</b><br>
+            上下文过长会导致自注意力概率被极度平摊，模型极易遗忘中段核心约束与 System Prompt。
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：主流模型窗口对比 + 三大溢出治理策略 -->
+      <div class="cw-pane">
+        <h4>📊 3. 最新主流大模型窗口对比</h4>
+        <table class="model-table">
+          <thead>
+            <tr><th>模型家族</th><th>标准窗口容量</th><th>相当于内容量</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>Kimi K2.5</b></td><td><b>256k Tokens</b></td><td>~20 万字《三国演义》</td></tr>
+            <tr><td><b>Qwen3.6-Plus</b></td><td><b>256k (可扩1M)</b></td><td>大型工程项目全库</td></tr>
+            <tr><td><b>GPT-5</b></td><td><b>400k Tokens</b></td><td>32 万字 (Pro 专属)</td></tr>
+            <tr><td><b>Claude Sonnet 4.6</b></td><td><b>1,000k Tokens</b></td><td>80 万字 (《红楼梦》×5)</td></tr>
+            <tr><td><b>Gemini 2.5 Pro</b></td><td><b>1,000k+ Tokens</b></td><td><b>行业天花板(1小时视频)</b></td></tr>
+          </tbody>
+        </table>
+
+        <div class="openclaw-box">
+          <h5>🛠️ 4. 上下文溢出三大治理策略 (工程落地)</h5>
+          <div class="openclaw-item">
+            ✂️ <b>1. 直接截断 / 滑动窗口</b>：保留最近 K 轮对话，直接裁掉远期历史。实现简单、0 额外开销，但易丢失早期关键约束。
+          </div>
+          <div class="openclaw-item">
+            📝 <b>2. 摘要压缩 (Summarization)</b>：达到 Token 阈值时触发小模型（如 GPT-4o-mini）生成全局背景摘要。形如 <code>[System + 历史摘要 + 最近K轮]</code>，降本可达 90% 且连贯性强。
+          </div>
+          <div class="openclaw-item">
+            🎯 <b>3. 向量检索 / RAG 按需注入</b>：将超长历史或文档存入向量库，新提问时仅检索 Top-K 最强相关切片注入上下文，Token 效率与精确度最高。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section class="slide" data-slide="5">
+    <header class="lesson-header">
+      <h1>上下文压缩的两种工程实现与代码落地</h1>
+      <p class="subtitle">对比 <b>纯代码规则硬剪裁 (Rule-based)</b> 与 <b>LLM 增量摘要归纳 (Model-based)</b>，含实战 Prompt 模板与 Python 代码实现。</p>
+    </header>
+
+    <div class="cw-panorama">
+      <!-- 左：两种方式原理、特征对比与选型指南 (美化增强版) -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:10px; justify-content:space-between;">
+        <!-- 头部说明 -->
+        <div>
+          <h4 style="color:var(--text); margin-bottom:2px;">⚖️ 方式一 vs 方式二 架构选型对比</h4>
+          <p style="font-size:11.5px; color:var(--sub);">工程中通常配合使用：代码规则做首道修剪，模型摘要做深度保鲜。</p>
+        </div>
+
+        <!-- 方式一卡片 (蓝调) -->
+        <div style="background:rgba(0,102,255,0.03); border:1.5px solid rgba(0,102,255,0.18); border-radius:10px; padding:10px 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-size:12.5px; font-weight:800; color:var(--accent);">⚡ 方式一：纯代码规则硬剪裁 (Rule-based)</span>
+            <span style="font-size:10.5px; font-weight:800; background:rgba(0,102,255,0.1); color:var(--accent); padding:2px 7px; border-radius:4px;">0 费用 · 毫秒级</span>
+          </div>
+          <div style="font-size:11px; line-height:1.6; color:var(--text);">
+            • <b>处理逻辑：</b> 代码拦截 <code>history[-K:]</code> 强制切片，对 Terminal / API 超长输出做正则截断。
+            <br>
+            • <b>核心优势：</b> 零 API 费用、毫秒级响应、行为 100% 确定，适合无状态短任务。
+            <br>
+            • <b>主要缺点：</b> 盲目剪裁易误删早期关键约束（如用户姓名、角色定位），引发粗暴失忆。
+          </div>
+        </div>
+
+        <!-- 方式二卡片 (橙调) -->
+        <div style="background:rgba(217,119,6,0.03); border:1.5px solid rgba(217,119,6,0.18); border-radius:10px; padding:10px 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-size:12.5px; font-weight:800; color:var(--amber);">📝 方式二：LLM 增量摘要归纳 (Model-based)</span>
+            <span style="font-size:10.5px; font-weight:800; background:rgba(217,119,6,0.1); color:var(--amber); padding:2px 7px; border-radius:4px;">记忆保鲜 · 降本 90%</span>
+          </div>
+          <div style="font-size:11px; line-height:1.6; color:var(--text);">
+            • <b>处理逻辑：</b> 超限时唤醒轻量模型（如 <code>gpt-4o-mini</code>）将远期历史浓缩为 200 字全局摘要。
+            <br>
+            • <b>核心优势：</b> 保留用户身份、偏好与历史决策，对话连贯且大额节省主模型 Token。
+            <br>
+            • <b>最佳实践：</b> 摘要生成挂载到后台 Task（如 Celery）；强行保留最近 2~4 轮原始对话保障语境。
+          </div>
+        </div>
+
+        <!-- 底部选型指南矩阵 (补齐空间) -->
+        <div style="background:rgba(124,58,237,0.04); border:1px dashed rgba(124,58,237,0.22); border-radius:8px; padding:9px 11px;">
+          <div style="font-size:11.5px; font-weight:800; color:var(--purple); margin-bottom:4px;">💡 架构落地选型决策建议</div>
+          <div style="font-size:10.5px; line-height:1.5; color:var(--sub);">
+            <b>工具型单轮/短对话</b> ➔ 采用 <b>方式一 (代码截断)</b>，极致省钱快响应；<br>
+            <b>Agent / 陪伴学习 / 长客服</b> ➔ 采用 <b>方式二 (增量摘要)</b>，保障连续记忆与用户体验。
+          </div>
+        </div>
+      </div>
+
+      <!-- 右：Prompt 模板 + Python 伪代码示例 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:8px;">
+        <h4 style="color:var(--amber); margin-bottom:2px;">📄 实战 Prompt 模板与 Python 代码落地</h4>
+        
+        <!-- Prompt 模板框 -->
+        <div style="background:rgba(217,119,6,0.06); border:1px solid rgba(217,119,6,0.2); border-radius:8px; padding:8px 10px; font-size:11px; line-height:1.45;">
+          <div style="font-weight:800; color:var(--amber); margin-bottom:2px;">📄 摘要归纳通用 Prompt 模板：</div>
+          <div style="font-family:monospace; color:var(--text); white-space:pre-wrap;">"你是一个对话整理助手。结合【已有摘要】与【待压缩对话】，更新【全局摘要】。
+【要求】：保留用户姓名、身份、关键偏好、已达成决策与未竟目标；字数控制在 200 字内。"</div>
+        </div>
+
+        <!-- Python 伪代码框 -->
+        <div style="background:rgba(0,0,0,0.05); border:1px solid var(--border); border-radius:8px; padding:8px 10px; font-family:monospace; font-size:10.5px; color:var(--text); line-height:1.45; overflow-x:auto;">
+          <div style="color:var(--accent); font-weight:800; font-family:sans-serif; margin-bottom:2px;">🐍 Python 核心压缩与组装伪代码：</div>
+          <span style="color:#7c3aed;"># 1. 检查 Token 是否超出上限</span><br>
+          <span style="color:#2563eb;">if</span> count_tokens(history) > MAX_TOKENS:<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7c3aed;"># 2. 拆分：提取旧对话，保留最近 K 轮原始对话</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;old_chat = history[:-KEEP_K * 2]<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;recent_chat = history[-KEEP_K * 2:]<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7c3aed;"># 3. 调用轻量模型更新全局摘要 (摘要 = 原摘要 + 旧对话)</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;summary = call_fast_llm(SUMMARIZE_PROMPT, old_chat, summary)<br>
+          <br>
+          <span style="color:#7c3aed;"># 4. 组装发送给主大模型的最终 messages 数组</span><br>
+          messages = [<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{"role": "system", "content": f"{SYS_PROMPT}\n【背景摘要】:\n{summary}"},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;*recent_chat,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;{"role": "user", "content": current_query}<br>
+          ]
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SLIDE 4: 上下文压缩：四层防线与工程实现 -->
-  <section class="slide" data-slide="4">
+  <section class="slide" data-slide="6">
     <header class="lesson-header">
       <h1>上下文压缩：四层防线与工程实现</h1>
       <p class="subtitle">上下文窗口有限（如 256K 窗口 / 200K 安全空间），通过<b>四层渐进式防线</b>实现长链路 Agent 不中断崩溃。</p>
@@ -1255,64 +1413,10 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 5: Agent 核心落地场景全景图 -->
-  <section class="slide" data-slide="5">
-    <header class="lesson-header">
-      <h1>Agent 核心落地场景全景图</h1>
-      <p class="subtitle">打破单纯对话框限制，在研发自愈、商业分析、企业合规审查与个人 Copilot 领域全面落地。</p>
-    </header>
+  
 
-    <div class="grid-4-col">
-      <div class="card c1">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>1. 研发与运维 (DevOps & SRE)</h4>
-          <p><b>• 跨语言/框架代码重构</b>：AST 解析 ➔ API 替换 ➔ 自动化构建校验<br><b>• 线上故障诊断自愈</b>：告警触发 ➔ 查日志追踪链路 ➔ 执行降级并通知</p>
-        </div>
-      </div>
-
-      <div class="card c2">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>2. 商业分析与 BI (Data Analyst)</h4>
-          <p><b>• 连库自主 SQL 探索</b>：业务追问 ➔ 动态生成并执行 SQL ➔ 关联挖掘<br><b>• 自动化可视化报告</b>：Python (Pandas) 分析 ➔ 导出图表与分析报告</p>
-        </div>
-      </div>
-
-      <div class="card c3">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>3. 企业业务自动化 (Enterprise Ops)</h4>
-          <p><b>• 发票/合同跨系统对账</b>：OCR 识别 ➔ 比对 ERP 订单 ➔ 发现差异并核实<br><b>• 二级复杂客服处理</b>：调物流/仓储 API ➔ 规则判断 ➔ 原路退款并致歉</p>
-        </div>
-      </div>
-
-      <div class="card c4">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>4. 深度调研与 Copilot (Research & Assist)</h4>
-          <p><b>• 竞品深度追踪</b>：自主浏览全网 ➔ 抓取官网/财报 ➔ 交叉验证生成 SWOT<br><b>• 多 API 行程/会议规划</b>：日历冲突规避 ➔ 酒店/航班比价 ➔ 自动预订</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="bottom-box" style="margin-top:10px;">
-      <p>
-        💡 <b>场景共同点</b>：不依赖硬编码路线，目标明确、路径未知，需通过<b>工具调用 + 环境反馈</b>自主探索交付。
-      </p>
-    </div>
-  </section>
-
-<!-- SLIDE 6: 黄金判定法则：你的业务适合做 AI Agent 吗？ -->
-  <section class="slide" data-slide="6">
+<!-- SLIDE 5: 黄金判定法则：你的业务适合做 AI Agent 吗？ -->
+  <section class="slide" data-slide="7">
     <header class="lesson-header">
       <h1>黄金判定法则：你的业务适合做 AI Agent 吗？</h1>
       <p class="subtitle">避免盲目套用概念！通过 <b>3 大关键维度</b> 与 <b>控制权归属矩阵</b> 精准评估落地可行性。</p>
@@ -1381,6 +1485,62 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     <div class="bottom-box" style="margin-top:10px; background:rgba(124,58,237,0.05); border-color:rgba(124,58,237,0.2);">
       <p style="color:var(--text);">
         ⚖️ <b>落地决策建议</b>：流程完全确定且不允许试错 ➔ 选择 <b>AI 工作流</b>；目标确定但路径未知、需要环境反馈与容错自愈 ➔ 选择 <b>AI Agent</b>。
+      </p>
+    </div>
+  </section>
+
+<!-- SLIDE 6: Agent 核心落地场景全景图 -->
+  <section class="slide" data-slide="8">
+    <header class="lesson-header">
+      <h1>Agent 核心落地场景全景图</h1>
+      <p class="subtitle">打破单纯对话框限制，在研发自愈、商业分析、企业合规审查与个人 Copilot 领域全面落地。</p>
+    </header>
+
+    <div class="grid-4-col">
+      <div class="card c1">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>1. 研发与运维 (DevOps & SRE)</h4>
+          <p><b>• 跨语言/框架代码重构</b>：AST 解析 ➔ API 替换 ➔ 自动化构建校验<br><b>• 线上故障诊断自愈</b>：告警触发 ➔ 查日志追踪链路 ➔ 执行降级并通知</p>
+        </div>
+      </div>
+
+      <div class="card c2">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>2. 商业分析与 BI (Data Analyst)</h4>
+          <p><b>• 连库自主 SQL 探索</b>：业务追问 ➔ 动态生成并执行 SQL ➔ 关联挖掘<br><b>• 自动化可视化报告</b>：Python (Pandas) 分析 ➔ 导出图表与分析报告</p>
+        </div>
+      </div>
+
+      <div class="card c3">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>3. 企业业务自动化 (Enterprise Ops)</h4>
+          <p><b>• 发票/合同跨系统对账</b>：OCR 识别 ➔ 比对 ERP 订单 ➔ 发现差异并核实<br><b>• 二级复杂客服处理</b>：调物流/仓储 API ➔ 规则判断 ➔ 原路退款并致歉</p>
+        </div>
+      </div>
+
+      <div class="card c4">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>4. 深度调研与 Copilot (Research & Assist)</h4>
+          <p><b>• 竞品深度追踪</b>：自主浏览全网 ➔ 抓取官网/财报 ➔ 交叉验证生成 SWOT<br><b>• 多 API 行程/会议规划</b>：日历冲突规避 ➔ 酒店/航班比价 ➔ 自动预订</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-box" style="margin-top:10px;">
+      <p>
+        💡 <b>场景共同点</b>：不依赖硬编码路线，目标明确、路径未知，需通过<b>工具调用 + 环境反馈</b>自主探索交付。
       </p>
     </div>
   </section>

@@ -1,8 +1,8 @@
 # 🤖 AI 从入门到精通 · 交互式全景课程 PPT & 工程指南
 
 > 本项目包含全套大模型底层原理与工程实操 HTML 全景 PPT 项目：
-> - 📄 **全景主课程 PPT**：[ai_course_ppt.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_course_ppt.html) (包含 40 页精美卡片与丰富交互组件)
-> - 🤖 **AI Agent 独立专题 PPT**：[ai_agent.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_agent.html) (精选 6 页 Lilian Weng 拓扑、P-A-O 循环演练、多工具并发编排、上下文四层压缩防线、落地场景全景图与黄金判定法则)
+> - 📄 **全景主课程 PPT**：[ai_course_ppt.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_course_ppt.html) (包含 38 页精美卡片与丰富交互组件)
+> - 🤖 **AI Agent 独立专题 PPT**：[ai_agent.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_agent.html) (精选 8 页 Lilian Weng 拓扑、P-A-O 循环演练、多工具并发编排、上下文窗口拆解、压缩工程实现、四层防线、黄金判定法则与落地场景全景图)
 
 ---
 
