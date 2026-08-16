@@ -1501,8 +1501,113 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 8: 通用 Agent 消息列表 4 大压缩算法与四层防线 -->
+<!-- SLIDE 8: Claude Code 自动压缩与代码状态锁定 -->
   <section class="slide" data-slide="8">
+    <header class="lesson-header">
+      <h1>Claude Code 自动压缩与代码状态锁定</h1>
+      <p class="subtitle">解剖 Anthropic 官方 CLI Agent：160K 警戒线、Git 与文件修改锁定、<code>.jsonl</code> 追加存储。</p>
+    </header>
+
+    <div class="cw-panorama">
+      <!-- 左栏：存储路径与 5 步工程动作 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--purple); margin-bottom:2px;">📁 1. Claude Code 本地存储位置</div>
+
+        <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
+          • <b>核心会话日志</b>：<code>~/.claude/transcripts/&lt;session_id&gt;.jsonl</code> (JSON Lines)<br>
+          • <b>会话元数据</b>：<code>~/.claude/projects/&lt;slug&gt;/state.json</code> (关联 Git 与开销)<br>
+          • <b>全局配置/缓存</b>：<code>~/.claude/config.json</code> 与 <code>cache/</code> (文件树全景图)
+        </div>
+
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-top:4px; margin-bottom:2px;">⚙️ 2. 执行 /compact 的 5 个工程动作</div>
+
+        <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--accent);">1. 代码与 Git 状态锁定</b> ➔ 强行保护已被修改的文件路径、Diff 与项目树
+        </div>
+
+        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--amber);">2. 超长工具报文二次清洗</b> ➔ 截断 Bash/Grep/Log（如 5000 行 test log 切为关键报错）
+        </div>
+
+        <div style="background:rgba(234,88,12,0.04); border:1px solid rgba(234,88,12,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--orange);">3. 唤醒工程背景摘要</b> ➔ 总结已改代码、测试通过情况与待办 Task
+        </div>
+      </div>
+
+      <!-- 右栏：重构与写回 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--success); margin-bottom:2px;">🔄 3. 消息重构、追加写回与 UI 反馈</div>
+
+        <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
+          <b style="color:var(--success);">4. 消息数组极简重构</b><br>
+          组装全新的 <code>[System + 代码工程摘要 + 最近 2~4 轮原始对话]</code>。
+        </div>
+
+        <div style="background:rgba(8,145,178,0.04); border:1px solid rgba(8,145,178,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
+          <b style="color:var(--cyan);">5. 追加写入 .jsonl 与 UI 清零</b><br>
+          • 覆盖更新 <code>state.json</code> 元数据，并将压缩结果追加写入 <code>.jsonl</code> 日志。<br>
+          • 终端转圈提示：<code style="font-size:10.5px; color:var(--success);">✓ Compacting context (165.4K ➔ 12.3K tokens)...</code>
+        </div>
+
+        <div style="background:rgba(124,58,237,0.05); border:1px dashed rgba(124,58,237,0.22); border-radius:8px; padding:8px 10px; font-size:11px; color:var(--text); line-height:1.5;">
+          💡 <b>核心特色</b>：不同于普通对话聊天，Claude Code <b>优先保证代码改动与 Git 分支上下文不丢</b>，专门针对代码重构与大型工程修补设计。
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- SLIDE 9: OpenClaw vs Claude Code 上下文治理全景对比 -->
+  <section class="slide" data-slide="9">
+    <header class="lesson-header">
+      <h1>OpenClaw vs Claude Code 上下文治理全景对比</h1>
+      <p class="subtitle">通用 Agent 框架与代码重构 Agent 框架在<b>存储介质、压缩侧重、代码保护与报文清洗</b>四大维度的深度对比。</p>
+    </header>
+
+    <div class="cw-panorama" style="grid-template-columns: 1fr;">
+      <table class="model-table" style="font-size:11.5px; line-height:1.55;">
+        <thead>
+          <tr style="background:rgba(0,102,255,0.06);">
+            <th style="width:18%;">对比维度</th>
+            <th style="width:41%;">🤖 OpenClaw (通用 Agent 框架)</th>
+            <th style="width:41%;">💻 Claude Code (代码重构 CLI Agent)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>1. 存储介质与格式</b></td>
+            <td>本地 <b>SQLite 数据库 (<code>openclaw.db</code>)</b> 或按 Session 划分的独立 <code>.json</code> 文件。</td>
+            <td>项目级 <b>JSON Lines (<code>~/.claude/transcripts/*.jsonl</code>)</b> 文本日志 + <code>state.json</code>。</td>
+          </tr>
+          <tr>
+            <td><b>2. 压缩关注焦点</b></td>
+            <td>偏向<b>通用对话与业务状态</b>：保留用户原始诉求、核心身份偏好、已达成决策与未竟目标。</td>
+            <td>偏向<b>工程代码与测试状态</b>：保留已修改文件路径、构建报错信息、已通过测试与待办 Task。</td>
+          </tr>
+          <tr>
+            <td><b>3. 代码与状态保护</b></td>
+            <td>依赖通用 System Prompt 归纳背景摘要。</td>
+            <td><b>强行锁定机制</b>：绝不删除已修改文件清单、Git Diff 变更与项目文件树结构。</td>
+          </tr>
+          <tr>
+            <td><b>4. 工具报文清洗</b></td>
+            <td>正则匹配 <code>role="tool"</code> 消息，提取 <code>summary</code> 字段清洗 raw JSON/HTML。</td>
+            <td>针对 <code>Bash</code> / <code>Grep</code> / <code>Edit</code> 终端输出，按<b>行数与报错关键字</b>做硬裁切（如 5000 行切为前 200 行）。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="bottom-box" style="margin-top:10px;">
+        <p>
+          💡 <b>选型结论</b>：通用业务 Agent 优先参考 <b>OpenClaw</b> 的 SQLite + 全局结构化摘要模式；代码重构与 IDE 插件 Agent 必须参考 <b>Claude Code</b> 的文件修改锁定与超大日志截断机制。
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+
+<!-- SLIDE 10: 通用 Agent 消息列表 4 大压缩算法与四层防线 -->
+  <section class="slide" data-slide="10">
     <header class="lesson-header">
       <h1>通用 Agent 消息列表 4 大压缩算法与四层防线</h1>
       <p class="subtitle">从基础滑动窗口到向量 RAG 检索，结合<b>水位阶梯式防线</b>实现极端长对话不中断崩溃。</p>
@@ -1561,8 +1666,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 9: 上下文压缩：四层防线动态水箱演练实验室 -->
-  <section class="slide" data-slide="9">
+<!-- SLIDE 11: 上下文压缩：四层防线动态水箱演练实验室 -->
+  <section class="slide" data-slide="11">
     <header class="lesson-header">
       <h1>上下文压缩：四层防线动态水箱演练实验室</h1>
       <p class="subtitle">拖动下方滑块模拟对话 Token 持续增长，实时观察四层防线如何自动“泄洪”延长上下文寿命。</p>
