@@ -1052,7 +1052,7 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 2: SFT 有监督微调物理机制与 Loss 扣分惩罚全景 -->
+<!-- SLIDE 2: SFT 有监督微调物理机制与 Loss 扣分惩罚全景 -->
   <section class="slide" data-slide="2">
     <header class="lesson-header">
       <h1>SFT 有监督微调物理机制与 Loss 扣分惩罚全景</h1>
@@ -1108,7 +1108,7 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 3: 提示词到底怎么写才好？万能骨架与 3 大技巧 -->
+<!-- SLIDE 3: 提示词到底怎么写才好？万能骨架与 3 大技巧 -->
   <section class="slide" data-slide="3">
     <header class="lesson-header">
       <h1>提示词到底怎么写才好？</h1>
@@ -1173,7 +1173,7 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 4: 「提示词工程」有什么意义？+ 废话放大计算器 -->
+<!-- SLIDE 4: 「提示词工程」有什么意义？+ 废话放大计算器 -->
   <section class="slide" data-slide="4">
     <header class="lesson-header">
       <h1>「提示词工程」有什么意义？</h1>
@@ -1218,7 +1218,7 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 5: 提示词生效的物理本质：2D 向量激活空间与逻辑锁定 -->
+<!-- SLIDE 5: 提示词生效的物理本质：2D 向量激活空间与逻辑锁定 -->
   <section class="slide" data-slide="5">
     <header class="lesson-header">
       <h1>提示词生效的物理本质：2D 向量激活空间与逻辑锁定</h1>
@@ -1281,64 +1281,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 6: Agent 的四大核心能力图谱（推理、规划、环境交互、状态） -->
+<!-- SLIDE 6.1: Prompt 工程进阶：拉开模型质量差距的 4 个实战杀招 -->
   <section class="slide" data-slide="6">
-    <header class="lesson-header">
-      <h1>Agent 的四大核心能力图谱</h1>
-      <p class="subtitle">聊天式 AI 只有「对话大脑」，Agent 则具备<b>推理、规划、环境交互与状态记忆</b>构成的完备能力体系。</p>
-    </header>
-
-    <div class="grid-4-col">
-      <div class="card c1">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>1. 推理能力 (Reasoning)</h4>
-          <p>基于 LLM 上下文进行<b>逻辑链推演 (Chain of Thought / ReAct)</b>。在行动前先“思考”，评估方案的可行性与副作用。</p>
-        </div>
-      </div>
-
-      <div class="card c2">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 17 22 12"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>2. 规划能力 (Planning)</h4>
-          <p>把模糊的大目标拆解为<b>串行/并行微型任务流</b>。遇到障碍时能动态修改后续执行清单，具备策略调整能力。</p>
-        </div>
-      </div>
-
-      <div class="card c3">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>3. 环境交互 (Environment Interaction)</h4>
-          <p>打破纯对话输入框！<b>感知环境输入</b>（API 返回、网页元素、终端 Error）并对环境<b>产生真实副作用</b>（修改代码、发邮件）。</p>
-        </div>
-      </div>
-
-      <div class="card c4">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>4. 状态与记忆 (State & Memory)</h4>
-          <p>记录长流程中的<b>中间变量、工具执行历史与环境反馈</b>，确保多轮迭代中不丢失上下文，实现复杂的自愈循环。</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="bottom-box" style="margin-top:10px;">
-      <p>
-        💡 <b>一句话总结</b>：大模型是脑细胞，而 Agent 是将<b>推理、规划、工具与环境闭环</b>组合在一起的整车结构。
-      </p>
-    </div>
-  </section>
-
-  <!-- SLIDE 6.1: Prompt 工程进阶：拉开模型质量差距的 4 个实战杀招 -->
-  <section class="slide" data-slide="6.1">
     <header class="lesson-header">
       <h1>Prompt 工程进阶：拉开模型质量差距的 4 个实战杀招</h1>
       <p class="subtitle">告别“盲盒式”问答，将 <b>Prompt 作为代码</b> 进行工程化精细控制，最高可使准确率翻 5 倍。</p>
@@ -1392,8 +1336,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 6.2: 输出格式选择与流式渲染 -->
-  <section class="slide" data-slide="6.2">
+<!-- SLIDE 6.2: 输出格式选择与流式渲染 -->
+  <section class="slide" data-slide="7">
     <header class="lesson-header">
       <h1>输出格式取舍：JSON / MD / XML 场景揭秘</h1>
       <p class="subtitle">大模型是逐字输出的。<b>格式直接决定了产品的“流式响应速度”与“前后端解析能力”</b>。</p>
@@ -1442,58 +1386,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 7: Agent 控制循环（Planning-Action-Observe 动态演练） -->
-  <section class="slide" data-slide="7">
-    <header class="lesson-header">
-      <h1>Planning - Action - Observe 控制循环</h1>
-      <p class="subtitle">普通 LLM 是单向问答（Input ➔ Output）；Agent 是<b>闭环自愈系统（Input ➔ [Plan ➔ Act ➔ Observe] × N ➔ Output）</b>。</p>
-    </header>
-
-    <div class="pao-demo-box">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h4 style="font-size:14.5px; font-weight:800; color:var(--text);">⚙️ 真实案例演练：自动修复代码报错并部署</h4>
-        <button class="btn-run" id="btnPaoRun">运行 P-A-O 循环演练 →</button>
-      </div>
-
-      <div class="pao-steps-wrap" id="paoStepsWrap">
-        <div class="pao-step-row" data-s="0">
-          <span class="pao-badge plan">Planning 规划</span>
-          <div class="pao-step-content"><b>步骤 1：分析任务与制定方案</b><br>目标：修复 server.py 报错。计划先调用终端命令 <code>pytest</code> 捕获准确的失败堆栈。</div>
-        </div>
-
-        <div class="pao-step-row" data-s="1">
-          <span class="pao-badge act">Action 行动</span>
-          <div class="pao-step-content"><b>步骤 2：环境交互与工具调用</b><br>执行工具命令：<code>run_terminal("pytest test_auth.py")</code></div>
-        </div>
-
-        <div class="pao-step-row" data-s="2">
-          <span class="pao-badge obs">Observe 观察</span>
-          <div class="pao-step-content"><b>步骤 3：捕获真实环境反馈</b><br>终端返回报错：<code>NameError: name 'jwt' is not defined on line 42</code></div>
-        </div>
-
-        <div class="pao-step-row" data-s="3">
-          <span class="pao-badge plan">Planning 调整</span>
-          <div class="pao-step-content"><b>步骤 4：根据 Observe 反思并调整策略</b><br>发现缺少引用，计划读取 <code>server.py</code> 并在头部补全 <code>import jwt</code>。</div>
-        </div>
-
-        <div class="pao-step-row" data-s="4">
-          <span class="pao-badge act">Action 行动</span>
-          <div class="pao-step-content"><b>步骤 5：再次修改文件并运行验证</b><br>自动写入代码修补，并重新触发测试命令 <code>pytest</code>。</div>
-        </div>
-
-        <div class="pao-step-row" data-s="5">
-          <span class="pao-badge done">Observe 交付</span>
-          <div class="pao-step-content"><b>步骤 6：测试通过，交付结果</b><br>环境返回 <code>3 passed in 0.4s</code>！Agent 确认完成，交付修改总结。</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDE 8: Agent 核心落地场景全景 -->
-  
-
 <!-- SLIDE 8.1: Prompt 注入攻击与防御图鉴 -->
-  <section class="slide" data-slide="8.1">
+  <section class="slide" data-slide="8">
     <header class="lesson-header">
       <h1>Prompt 注入攻击与防御图鉴</h1>
       <p class="subtitle">大模型天生无法区分“系统指令”与“用户输入”。这是 <b>AI 时代最致命的底层安全漏洞</b>。</p>
@@ -1563,12 +1457,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-
-  
-
-
 <!-- SLIDE 8.2: 企业级 AI 落地绝对红线 -->
-  <section class="slide" data-slide="8.4">
+  <section class="slide" data-slide="9">
     <header class="lesson-header">
       <h1>企业级 AI 落地的 4 条安全红线</h1>
       <p class="subtitle">AI 不是法外之地。记住这四条底线，帮你<b>避开 90% 的企业级 AI 安全事故</b>。</p>
@@ -1615,9 +1505,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-
-    <!-- SLIDE 6.3: 大模型排版机制与 Markdown 工程化渲染 -->
-  <section class="slide" data-slide="6.3">
+<!-- SLIDE 6.3: 大模型排版机制与 Markdown 工程化渲染 -->
+  <section class="slide" data-slide="10">
     <header class="lesson-header">
       <h1>大模型排版机制与 Markdown 工程化</h1>
       <p class="subtitle">模型按 Token 计费且每秒吐 30~50T；HTML 导致 API 费用暴涨 3 倍，Markdown 纯文本结构是大模型输出首选。</p>
@@ -1717,154 +1606,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-
-
-  
-
-
-<section class="slide" data-slide="8">
-    <header class="lesson-header">
-      <h1>Agent 核心落地场景全景图</h1>
-      <p class="subtitle">打破单纯对话框限制，在研发自愈、商业分析、企业合规审查与个人 Copilot 领域全面落地。</p>
-    </header>
-
-    <div class="grid-4-col">
-      <div class="card c1">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>1. 研发与运维 (DevOps & SRE)</h4>
-          <p><b>• 跨语言/框架代码重构</b>：AST 解析 ➔ API 替换 ➔ 自动化构建校验<br><b>• 线上故障诊断自愈</b>：告警触发 ➔ 查日志追踪链路 ➔ 执行降级并通知</p>
-        </div>
-      </div>
-
-      <div class="card c2">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>2. 商业分析与 BI (Data Analyst)</h4>
-          <p><b>• 连库自主 SQL 探索</b>：业务追问 ➔ 动态生成并执行 SQL ➔ 关联挖掘<br><b>• 自动化可视化报告</b>：Python (Pandas) 分析 ➔ 导出图表与分析报告</p>
-        </div>
-      </div>
-
-      <div class="card c3">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>3. 企业业务自动化 (Enterprise Ops)</h4>
-          <p><b>• 发票/合同跨系统对账</b>：OCR 识别 ➔ 比对 ERP 订单 ➔ 发现差异并核实<br><b>• 二级复杂客服处理</b>：调物流/仓储 API ➔ 规则判断 ➔ 原路退款并致歉</p>
-        </div>
-      </div>
-
-      <div class="card c4">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>4. 深度调研与 Copilot (Research & Assist)</h4>
-          <p><b>• 竞品深度追踪</b>：自主浏览全网 ➔ 抓取官网/财报 ➔ 交叉验证生成 SWOT<br><b>• 多 API 行程/会议规划</b>：日历冲突规避 ➔ 酒店/航班比价 ➔ 自动预订</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="bottom-box" style="margin-top:10px;">
-      <p>
-        💡 <b>场景共同点</b>：不依赖硬编码路线，目标明确、路径未知，需通过<b>工具调用 + 环境反馈</b>自主探索交付。
-      </p>
-    </div>
-  </section>
-
-  
-
-  
-  
-
-
-  
-
-
-<!-- SLIDE 9: 黄金判定法则：你的业务适合做 AI Agent 吗？ -->
-  <section class="slide" data-slide="9">
-    <header class="lesson-header">
-      <h1>黄金判定法则：你的业务适合做 AI Agent 吗？</h1>
-      <p class="subtitle">避免盲目套用概念！通过 <b>3 大关键维度</b> 与 <b>控制权归属矩阵</b> 精准评估落地可行性。</p>
-    </header>
-
-    <div class="cols" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-      <div class="col">
-        <div class="card c1" style="height:100%;">
-          <h3 style="font-size:14px; font-weight:800; color:var(--accent); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            AI Agent 可行性三大硬性指标
-          </h3>
-          <div style="font-size:12px; line-height:1.65; color:var(--text);">
-            <div style="margin-bottom:8px;">
-              <b>1. 🔧 工具可感知性 (Tool Availability)</b><br>
-              是否有明确的 API、Shell 终端、数据库或 DOM 接口可供 Agent 调取并作用于真实环境。
-            </div>
-            <div style="margin-bottom:8px;">
-              <b>2. 🔄 过程容错与自愈性 (Fault Tolerance)</b><br>
-              中间步骤是否允许“试错”。Agent 的本质是探索反馈，环境报错能够作为新的 Observe 信号。
-            </div>
-            <div>
-              <b>3. 🎯 结果判定客观性 (Objective Criteria)</b><br>
-              人类或代码是否拥有确切的最终验收标准（如：测试全绿、SQL正常返回、导出的表格格式规范）。
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col">
-        <div class="card c2" style="height:100%;">
-          <h3 style="font-size:14px; font-weight:800; color:var(--purple); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
-            控制权归属：AI 工作流 vs AI Agent
-          </h3>
-          <table style="width:100%; border-collapse:collapse; font-size:11.5px; text-align:left;">
-            <thead>
-              <tr style="border-bottom:1.5px solid var(--border); color:var(--sub);">
-                <th style="padding:4px 6px;">对比维度</th>
-                <th style="padding:4px 6px;">AI 工作流 (Workflow)</th>
-                <th style="padding:4px 6px;">AI Agent (智能体)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:6px; font-weight:700;">控制核心</td>
-                <td style="padding:6px; color:var(--sub);">程序员硬编码 If/Else</td>
-                <td style="padding:6px; color:var(--accent); font-weight:700;">LLM 大脑动态决策</td>
-              </tr>
-              <tr style="border-bottom:1px solid var(--border);">
-                <td style="padding:6px; font-weight:700;">执行路线</td>
-                <td style="padding:6px; color:var(--sub);">确定性单向/分支流水线</td>
-                <td style="padding:6px; color:var(--accent); font-weight:700;">[Plan-Act-Obs] × N 闭环</td>
-              </tr>
-              <tr>
-                <td style="padding:6px; font-weight:700;">异常处理</td>
-                <td style="padding:6px; color:var(--sub);">抛出 Error / 预设中断</td>
-                <td style="padding:6px; color:var(--accent); font-weight:700;">抓取报错并自主修正</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div class="bottom-box" style="margin-top:10px; background:rgba(124,58,237,0.05); border-color:rgba(124,58,237,0.2);">
-      <p style="color:var(--text);">
-        ⚖️ <b>落地决策建议</b>：流程完全确定且不允许试错 ➔ 选择 <b>AI 工作流</b>；目标确定但路径未知、需要环境反馈与容错自愈 ➔ 选择 <b>AI Agent</b>。
-      </p>
-    </div>
-  </section>
-
-
-
-
-  <!-- SLIDE 8: 上下文窗口全景拆解与三大溢出治理策略（含 5-1 / 5-2 最新工程落地） -->
-  <section class="slide" data-slide="10">
+<!-- SLIDE 8: 上下文窗口全景拆解与三大溢出治理策略（含 5-1 / 5-2 最新工程落地） -->
+  <section class="slide" data-slide="11">
     <header class="lesson-header">
       <h1>上下文窗口全景拆解与溢出治理</h1>
       <p class="subtitle">工作台比喻、<b>三大物理硬伤</b>、<b>最新模型窗口对比</b>与<b>三大溢出处理策略 (截断/摘要压缩/RAG)</b>。</p>
@@ -1934,8 +1677,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 8.5: 上下文压缩的两种工程实现方式 (纯代码规则 vs LLM 增量摘要 + Prompt & 代码落地) -->
-  <section class="slide" data-slide="10.5">
+<!-- SLIDE 8.5: 上下文压缩的两种工程实现方式 (纯代码规则 vs LLM 增量摘要 + Prompt & 代码落地) -->
+  <section class="slide" data-slide="12">
     <header class="lesson-header">
       <h1>上下文压缩的两种工程实现与代码落地</h1>
       <p class="subtitle">对比 <b>纯代码规则硬剪裁 (Rule-based)</b> 与 <b>LLM 增量摘要归纳 (Model-based)</b>，含实战 Prompt 模板与 Python 代码实现。</p>
@@ -2023,8 +1766,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 8.6: 厂商 Prompt Caching 节约算力的底层物理原理 (单向注意力与 KV Cache 复用) -->
-  <section class="slide" data-slide="10.8">
+<!-- SLIDE 8.6: 厂商 Prompt Caching 节约算力的底层物理原理 (单向注意力与 KV Cache 复用) -->
+  <section class="slide" data-slide="13">
     <header class="lesson-header">
       <h1>厂商 Prompt Caching 节约算力的底层物理原理</h1>
       <p class="subtitle">破题解答：<b>系统提示词不变，但新提问每次都变，GPU 究竟是如何省下 90%+ 前向传播算力的？</b></p>
@@ -2092,8 +1835,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 9: 深度思考与推理模型：同一道题，两种模式实测演示 -->
-  <section class="slide" data-slide="8.5">
+<!-- SLIDE 9: 深度思考与推理模型：同一道题，两种模式实测演示 -->
+  <section class="slide" data-slide="14">
     <header class="lesson-header">
       <h1>同一道排座题：秒答 vs 豆包/DeepSeek 深度思考</h1>
       <p class="subtitle">点击下方模式按钮，亲眼看模型如何<b>自发输出草稿、自我怀疑、推翻假设并修正交卷</b>。</p>
@@ -2126,8 +1869,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
       </div>
     </div>
   </section>
-<!-- SLIDE 10: 深度思考物理机制：单次前向传播硬约束 vs <think> 草稿纸机制 -->
-  <section class="slide" data-slide="8.6">
+
+<section class="slide" data-slide="15">
     <header class="lesson-header">
       <h1>深度思考物理机制：单次前向传播硬约束 vs &lt;think&gt; 草稿纸机制</h1>
       <p class="subtitle">单次前向传播物理瓶颈、网络深度计算步数硬约束与 <b>$a+b=10$ 的“无撤销锁死” vs “草稿自愈”实测剖析</b>。</p>
@@ -2185,12 +1928,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  
-
-  
-
-  <!-- SLIDE 11: 推理模型 3 大核心机制：模型如何实现「自发探索」？ -->
-  <section class="slide" data-slide="13">
+<!-- SLIDE 11: 推理模型 3 大核心机制：模型如何实现「自发探索」？ -->
+  <section class="slide" data-slide="16">
     <header class="lesson-header">
       <h1>推理模型 3 大核心机制：模型如何实现「自发探索」？</h1>
       <p class="subtitle">没有人类写一行 <code>if-else</code>，完全靠<b>强化学习、注意力重定向与树状分支搜索</b>自发涌现。</p>
@@ -2243,8 +1982,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 12: 向量碰撞与高熵激活：神经网络内部如何「发现」矛盾？ -->
-  <section class="slide" data-slide="14">
+<!-- SLIDE 12: 向量碰撞与高熵激活：神经网络内部如何「发现」矛盾？ -->
+  <section class="slide" data-slide="17">
     <header class="lesson-header">
       <h1>向量碰撞与高熵激活：神经网络内部如何「发现」矛盾？</h1>
       <p class="subtitle">模型内部没有 <code>if(a+b != 8)</code> 的代码，它靠的是<b>隐藏层向量排斥碰撞产生的「隐层高熵信号」</b>。</p>
@@ -2295,8 +2034,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 13: 深度思考的核心作用与「高性价比」降本平衡指南 -->
-  <section class="slide" data-slide="15">
+<!-- SLIDE 13: 深度思考的核心作用与「高性价比」降本平衡指南 -->
+  <section class="slide" data-slide="18">
     <header class="lesson-header">
       <h1>深度思考的核心作用与「高性价比」降本平衡指南</h1>
       <p class="subtitle">既要利用深度思考<b>「解构逻辑漏洞、反向优化 Prompt」</b>，又要避免<b>频繁调用导致的成本暴增</b>。</p>
@@ -2337,8 +2076,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 14: 模型参数量全景拆解：参数到底是什么？ -->
-  <section class="slide" data-slide="16">
+<!-- SLIDE 14: 模型参数量全景拆解：参数到底是什么？ -->
+  <section class="slide" data-slide="19">
     <header class="lesson-header">
       <h1>模型参数量全景拆解：参数到底是什么？</h1>
       <p class="subtitle">告别抽象数字！揭秘 7B / 70B / 671B 背后保存的<b>硬盘浮点数、旋钮比喻与三大核心概念辨析</b>。</p>
@@ -2387,8 +2126,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 15: 参数规模交互试用与小模型「反杀」选型指南 -->
-  <section class="slide" data-slide="17">
+<!-- SLIDE 15: 参数规模交互试用与小模型「反杀」选型指南 -->
+  <section class="slide" data-slide="20">
     <header class="lesson-header">
       <h1>参数规模交互试用与小模型「反杀」选型指南</h1>
       <p class="subtitle">拖动滑块体验 <b>10亿级到万亿级吨位差异</b>，看清三大场景下小模型如何凭性价比打赢大块头。</p>
@@ -2437,8 +2176,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 16: 静态参数 vs 动态输入：模型发布后如何回答所有问题？ -->
-  <section class="slide" data-slide="18">
+<!-- SLIDE 16: 静态参数 vs 动态输入：模型发布后如何回答所有问题？ -->
+  <section class="slide" data-slide="21">
     <header class="lesson-header">
       <h1>静态参数 vs 动态输入：模型发布后如何回答所有问题？</h1>
       <p class="subtitle">揭秘 <b>10万本考卷 vs 脑细胞比喻</b>、只读权重矩阵 (Freeze Weights) 与文件物理体积真相。</p>
@@ -2471,8 +2210,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 17: 为什么有的 AI「看不懂」图片？—— 多模态底层原理全景 -->
-  <section class="slide" data-slide="19">
+<!-- SLIDE 17: 为什么有的 AI「看不懂」图片？—— 多模态底层原理全景 -->
+  <section class="slide" data-slide="22">
     <header class="lesson-header">
       <h1>为什么有的 AI「看不懂」图片？—— 多模态底层原理全景</h1>
       <p class="subtitle">揭秘纯文本 LLM 与多模态模型差异、<b>两大常见误区避坑</b>与视觉 Token 三步转译。</p>
@@ -2523,8 +2262,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 18: 微调是什么？和「喂资料」有什么区别？—— 技术选型决策指南 -->
-  <section class="slide" data-slide="20">
+<!-- SLIDE 18: 微调是什么？和「喂资料」有什么区别？—— 技术选型决策指南 -->
+  <section class="slide" data-slide="23">
     <header class="lesson-header">
       <h1>微调是什么？和「喂资料」有什么区别？</h1>
       <p class="subtitle">揭秘<b>微调 (SFT 重新上课) 与知识库 (RAG 开卷考试) 区别</b>、4 大场景对号入座与最省钱选型链。</p>
@@ -2575,8 +2314,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 19: 企业都在建的「知识库」是什么？—— 切片与 TopK 工程实操 -->
-  <section class="slide" data-slide="21">
+<!-- SLIDE 19: 企业都在建的「知识库」是什么？—— 切片与 TopK 工程实操 -->
+  <section class="slide" data-slide="24">
     <header class="lesson-header">
       <h1>企业都在建的「知识库」是什么？—— 切片与 TopK 工程实操</h1>
       <p class="subtitle">揭秘 <b>RAG 3 步运转闭环、Chunk Size 黄金法则与 TopK / Rerank 场景推荐</b>。</p>
@@ -2629,8 +2368,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 20: 知识库怎么切片？—— 4 大切片模式与配置指南 -->
-  <section class="slide" data-slide="22">
+<!-- SLIDE 20: 知识库怎么切片？—— 4 大切片模式与配置指南 -->
+  <section class="slide" data-slide="25">
     <header class="lesson-header">
       <h1>知识库怎么切片？—— 4 大切片模式与配置指南</h1>
       <p class="subtitle">揭秘<b>固定字符、递归字符、结构化 Markdown 与语义切片的原理、配置代码与适用场景</b>。</p>
@@ -2695,7 +2434,7 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
   </section>
 
 <!-- SLIDE 21: 大模型幻觉全景：物理成因、4 大幻觉类型与“小抄”认知 -->
-  <section class="slide" data-slide="23">
+  <section class="slide" data-slide="26">
     <header class="lesson-header">
       <h1>大模型幻觉全景：物理成因、4 大幻觉类型与“小抄”认知</h1>
       <p class="subtitle"><b>幻觉不是 Bug，而是概率采样的必然伴生物</b>。4 大常见类型与两大底层物理根因拆解。</p>
@@ -2747,8 +2486,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 22: 幻觉工程治理：RAG 进阶与 Sampling 采样控制 (Temperature & Top-P) -->
-  <section class="slide" data-slide="24">
+<!-- SLIDE 22: 幻觉工程治理：RAG 进阶与 Sampling 采样控制 (Temperature & Top-P) -->
+  <section class="slide" data-slide="27">
     <header class="lesson-header">
       <h1>幻觉工程治理：RAG 进阶与 Sampling 采样控制 (Temperature & Top-P)</h1>
       <p class="subtitle">从物理控制到事实增强：<b>采样参数（陡峭度/剪枝）与 RAG 4 大进阶检索招式</b>。</p>
@@ -2790,8 +2529,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 23: 『开源模型』等于免费吗？—— AI 圈“开源”真相与选型避坑 -->
-  <section class="slide" data-slide="25">
+<!-- SLIDE 23: 『开源模型』等于免费吗？—— AI 圈“开源”真相与选型避坑 -->
+  <section class="slide" data-slide="28">
     <header class="lesson-header">
       <h1>『开源模型』等于免费吗？—— AI 圈“开源”真相与选型避坑</h1>
       <p class="subtitle">点击下方交互组件，亲眼看<b>三件套亮灯检查器</b>与<b>满血 vs 蒸馏版参数性能动画对比</b>。</p>
@@ -2880,8 +2619,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 24: 开源 7B 模型实操与选型：我拿到了权重文件，然后呢？ -->
-  <section class="slide" data-slide="26">
+<!-- SLIDE 24: 开源 7B 模型实操与选型：我拿到了权重文件，然后呢？ -->
+  <section class="slide" data-slide="29">
     <header class="lesson-header">
       <h1>开源 7B 模型实操与选型：我拿到了权重文件，然后呢？</h1>
       <p class="subtitle">揭秘 <b>7B 权重真实用途、QLoRA 低成本微调实操与动态企业文档 RAG 选型硬道理</b>。</p>
@@ -2932,8 +2671,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 25: LoRA 微调原理与物理拆解：如何用 50MB 插件改动 70 亿大脑？ -->
-  <section class="slide" data-slide="27">
+<!-- SLIDE 25: LoRA 微调原理与物理拆解：如何用 50MB 插件改动 70 亿大脑？ -->
+  <section class="slide" data-slide="30">
     <header class="lesson-header">
       <h1>LoRA 微调原理与物理拆解：如何用 50MB 插件改动 70 亿大脑？</h1>
       <p class="subtitle">揭秘 <b>B (Billion) 含义、低秩分解原理 ΔW = B × A、Prompt 骤减 90% 与物理插件双模式</b>。</p>
@@ -2983,8 +2722,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 26: 本地部署显存计算器与硬件选型 -->
-  <section class="slide" data-slide="28">
+<!-- SLIDE 26: 本地部署显存计算器与硬件选型 -->
+  <section class="slide" data-slide="31">
     <header class="lesson-header">
       <h1>你的电脑能跑多大的模型？—— 本地部署显存计算器与硬件选型</h1>
       <p class="subtitle">选择<b>平台 (NVIDIA / Apple Silicon)</b>、<b>设备型号</b>与<b>精度 (INT4/INT8/FP16)</b>，实时计算模型匹配与显存硬开销。</p>
@@ -3034,8 +2773,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 27: 同一个问题，为什么每次答案不一样？—— 随机性原理与结果一致性控制 -->
-  <section class="slide" data-slide="29">
+<!-- SLIDE 27: 同一个问题，为什么每次答案不一样？—— 随机性原理与结果一致性控制 -->
+  <section class="slide" data-slide="32">
     <header class="lesson-header">
       <h1>同一个问题，为什么每次答案不一样？—— 随机性原理与结果一致性控制</h1>
       <p class="subtitle">揭秘<b>“带权掷骰子”抽签机理、创意 vs 严肃场景分级，与 4 种消除答案漂移的硬核工程手段</b>。</p>
@@ -3086,8 +2825,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 28: AI 客服变迁全景：传统规则客服 vs 现代 LLM+RAG 智能体架构 -->
-  <section class="slide" data-slide="30">
+<!-- SLIDE 28: AI 客服变迁全景：传统规则客服 vs 现代 LLM+RAG 智能体架构 -->
+  <section class="slide" data-slide="33">
     <header class="lesson-header">
       <h1>AI 客服变迁全景：传统规则客服 vs 现代 LLM+RAG 智能体架构</h1>
       <p class="subtitle">揭秘<b>传统客服“蠢”的根源、传统 vs 现代链路图对比，与自建 5 步智能分流路由器</b>。</p>
@@ -3157,8 +2896,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 29: 大模型限流与用量治理：传统 QPS 滑动窗口 vs 现代 LLM TPM+显存多维限流 -->
-  <section class="slide" data-slide="31">
+<!-- SLIDE 29: 大模型限流与用量治理：传统 QPS 滑动窗口 vs 现代 LLM TPM+显存多维限流 -->
+  <section class="slide" data-slide="34">
     <header class="lesson-header">
       <h1>大模型限流与用量治理：传统 QPS 滑动窗口 vs 现代 LLM 多维限流</h1>
       <p class="subtitle">揭秘<b>豆包、Claude Code、ChatGPT 3小时/5小时滑动重置、Token 预扣返还与 GPU 显存级调度</b>。</p>
@@ -3229,8 +2968,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 30: 大模型训练 vs 推理全景：从“考场作答”到“权重文件物理重写” -->
-  <section class="slide" data-slide="32">
+<!-- SLIDE 30: 大模型训练 vs 推理全景：从“考场作答”到“权重文件物理重写” -->
+  <section class="slide" data-slide="35">
     <header class="lesson-header">
       <h1>大模型训练 vs 推理全景：从“考场作答”到“权重文件物理重写”</h1>
       <p class="subtitle">揭秘<b>对话非学习/参数只读冻结、4 步物理训练流（二进制文件 ➔ GPU 梯度计算 ➔ 导出新文件），与全量 vs LoRA 差异</b>。</p>
@@ -3301,8 +3040,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 31: Token 与词表原理：1:1 动态分词与 Tokenizer 算法实验室 -->
-  <section class="slide" data-slide="33">
+<!-- SLIDE 31: Token 与词表原理：1:1 动态分词与 Tokenizer 算法实验室 -->
+  <section class="slide" data-slide="36">
     <header class="lesson-header">
       <h1>Token 与词表原理：1:1 动态分词与 Tokenizer 算法实验室</h1>
       <p class="subtitle">揭秘<b>分词器 (Tokenizer)、Trie 前缀树最长贪婪匹配、BPE (字节对编码) 算法，与跨语言压缩率</b>。</p>
@@ -3366,8 +3105,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 32: Base 模型原理：Token 推 Token 的预测机器与自回归推演 -->
-  <section class="slide" data-slide="34">
+<!-- SLIDE 32: Base 模型原理：Token 推 Token 的预测机器与自回归推演 -->
+  <section class="slide" data-slide="37">
     <header class="lesson-header">
       <h1>Base 模型：Token 推 Token 机器与自回归实时概率推演</h1>
       <p class="subtitle">训练结束后得到的原始模型只做一件事：<b>给定前文所有 Token，预测下一个最可能的 Token 概率分布</b>。</p>
@@ -3466,8 +3205,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 33: 4 代 AI 算法演进：为什么 GPT / ChatGPT 终结了 CNN、RNN 与 BERT？ -->
-  <section class="slide" data-slide="35">
+<!-- SLIDE 33: 4 代 AI 算法演进：为什么 GPT / ChatGPT 终结了 CNN、RNN 与 BERT？ -->
+  <section class="slide" data-slide="38">
     <header class="lesson-header">
       <h1>4 代 AI 算法演进：为什么 ChatGPT 终结了 CNN、RNN 与 BERT？</h1>
       <p class="subtitle">对比<b>CNN 滑动窗口近视眼、RNN 记忆衰减与串行瓶颈、BERT 完形填空局限，与 GPT 预训练通用跃进</b>。</p>
@@ -3520,8 +3259,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 34: AI PM 架构选型决策矩阵与 4 大避坑清单 -->
-  <section class="slide" data-slide="36">
+<!-- SLIDE 34: AI PM 架构选型决策矩阵与 4 大避坑清单 -->
+  <section class="slide" data-slide="39">
     <header class="lesson-header">
       <h1>AI PM 架构选型决策矩阵与 4 大避坑清单</h1>
       <p class="subtitle">从单点 Prompt 到 RAG、微调 (SFT) 与 HITL 人工分级审核的全景决策框架。</p>
@@ -3590,8 +3329,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 35: 课程全景终章总结与实战自测 -->
-  <section class="slide" data-slide="37">
+<!-- SLIDE 35: 课程全景终章总结与实战自测 -->
+  <section class="slide" data-slide="40">
     <header class="lesson-header">
       <h1>课程全景终章总结与实战自测</h1>
       <p class="subtitle">懂了 $\to$ 会用 $\to$ 能讲出来。全景 39 页大模型核心知识闭环与实战测评自测。</p>
@@ -3641,7 +3380,7 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-</main>
+  </main>
 
 <!-- 底栏翻页控制 -->
 <footer class="bottom-bar">
