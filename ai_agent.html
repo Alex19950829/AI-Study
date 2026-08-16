@@ -1103,8 +1103,65 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 3: Agent 核心落地场景全景图 -->
-<section class="slide" data-slide="3">
+  <!-- SLIDE 3: 多工具编排：并发 vs 串行与智能分批 -->
+  <section class="slide" data-slide="3">
+    <header class="lesson-header">
+      <h1>多工具编排：并发 vs 串行与智能分批</h1>
+      <p class="subtitle">模型一次返回多个 <code>tool_calls</code> 请求，框架层如何高效、安全地调度与并发执行。</p>
+    </header>
+
+    <!-- 顶部理论核心论述 (使用全局 thesis-box 机制) -->
+    <div class="thesis-box">
+      <div class="thesis-icon" style="font-size:22px; background:rgba(8,145,178,0.1); color:var(--cyan);">⚡</div>
+      <div class="thesis-text">
+        <h3>原生 Parallel Tool Calling：LLM 预测多个请求，框架控制并发策略</h3>
+        <p>当用户发出复合需求时，大模型在单次响应中返回 <b>多个 <code>tool_calls</code> 数组</b>。模型始终只输出结构化 JSON，<b>真正的并发调度、写冲突防护与异步执行由工程框架代码掌控</b>。</p>
+      </div>
+    </div>
+
+    <!-- 中间 3 种编排策略对比 (.grid-3-col + card 组合) -->
+    <div class="grid-3-col">
+      <div class="card c1">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>1. 绝对串行 (Serial)</h4>
+          <p><b>• 执行逻辑</b>：一个接一个 <code>await execute()</code><br><b>• 耗时</b>：Sum(t1+t2+t3) ➔ <b>最慢 (3.5s)</b><br><b>• 适用</b>：强依赖关系（如：查用户ID ➔ 查对应订单）</p>
+        </div>
+      </div>
+
+      <div class="card c2">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>2. 完全并发 (Parallel)</h4>
+          <p><b>• 执行逻辑</b>：<code>Promise.all()</code> / <code>asyncio.gather()</code><br><b>• 耗时</b>：Max(t1,t2,t3) ➔ <b>最快 (1.5s)</b><br><b>• 适用</b>：纯读查询（同时搜机票、搜天气、搜酒店）</p>
+        </div>
+      </div>
+
+      <div class="card c3">
+        <div class="card-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <div class="card-body">
+          <h4>3. 智能分批 (Smart Batching)</h4>
+          <p><b>• 执行逻辑</b>：按 <code>isConcurrencySafe</code> 标记分组<br><b>• 耗时</b>：分批交错 ➔ <b>工程最佳方案 (2.7s)</b><br><b>• 适用</b>：写/预订单独跑，只读查询合并并发跑</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部一句话总结 (与全局 bottom-box 统一) -->
+    <div class="bottom-box">
+      <p>
+        💡 <b>工程最佳实践</b>：工具定义中标注 <code>isConcurrencySafe</code> 安全等级。只读查询用 <b><code>asyncio.gather() / Promise.all()</code></b> 并发提速，有副作用或数据竞争的写操作分批串行，兼顾体验与安全。
+      </p>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: Agent 核心落地场景全景图 -->
+  <section class="slide" data-slide="4">
     <header class="lesson-header">
       <h1>Agent 核心落地场景全景图</h1>
       <p class="subtitle">打破单纯对话框限制，在研发自愈、商业分析、企业合规审查与个人 Copilot 领域全面落地。</p>
@@ -1159,8 +1216,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 4: 黄金判定法则：你的业务适合做 AI Agent 吗？ -->
-  <section class="slide" data-slide="4">
+<!-- SLIDE 5: 黄金判定法则：你的业务适合做 AI Agent 吗？ -->
+  <section class="slide" data-slide="5">
     <header class="lesson-header">
       <h1>黄金判定法则：你的业务适合做 AI Agent 吗？</h1>
       <p class="subtitle">避免盲目套用概念！通过 <b>3 大关键维度</b> 与 <b>控制权归属矩阵</b> 精准评估落地可行性。</p>
