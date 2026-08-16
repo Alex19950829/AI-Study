@@ -2,7 +2,7 @@
 
 > 本项目包含全套大模型底层原理与工程实操 HTML 全景 PPT 项目：
 > - 📄 **全景主课程 PPT**：[ai_course_ppt.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_course_ppt.html) (包含 40 页精美卡片与丰富交互组件)
-> - 🤖 **AI Agent 独立专题 PPT**：[ai_agent.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_agent.html) (精选 4 页 Agent 架构、P-A-O 循环演练、落地场景与可行性判定法则)
+> - 🤖 **AI Agent 独立专题 PPT**：[ai_agent.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_agent.html) (精选 5 页 Lilian Weng 经典架构图、四大能力图谱、P-A-O 循环演练、落地场景与可行性判定法则)
 
 ---
 
