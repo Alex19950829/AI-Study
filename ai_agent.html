@@ -992,55 +992,69 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
   <!-- SLIDE 6: Agent 的四大核心能力图谱（推理、规划、环境交互、状态） -->
   <section class="slide active" data-slide="1">
     <header class="lesson-header">
-      <h1>Agent 的四大核心能力图谱</h1>
-      <p class="subtitle">聊天式 AI 只有「对话大脑」，Agent 则具备<b>推理、规划、环境交互与状态记忆</b>构成的完备能力体系。</p>
+      <h1>Agent 四大能力图谱与经典架构</h1>
+      <p class="subtitle">聊天式 AI 只有「对话大脑」，Agent 则是由<b>推理/规划、环境交互、工具调用与状态记忆</b>构成的完备能力体系。</p>
     </header>
+
+    <!-- Lilian Weng 经典架构致敬卡片 -->
+    <div class="card" style="margin-bottom:12px; padding:12px 16px; background:rgba(79,123,255,0.04); border:1.5px solid rgba(79,123,255,0.18);">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:22px;">🦀</span>
+          <div>
+            <h4 style="font-size:13.5px; font-weight:800; color:var(--text);">经典理论出处：Lilian Weng (翁荔) · 螃蟹架构拓扑 (LLM Powered Autonomous Agents)</h4>
+            <p style="font-size:11.5px; color:var(--sub); margin-top:2px;">源自前 OpenAI 研究副总裁 2023 年开创性博客：<b>Agent (LLM) 居中当大脑</b>，向四周延伸出 <b>Planning、Memory、Tools、Action</b> 4 大核心器官。</p>
+          </div>
+        </div>
+        <span style="font-size:11px; font-weight:800; padding:3px 10px; border-radius:999px; background:var(--accent); color:white;">权威理论基石</span>
+      </div>
+    </div>
 
     <div class="grid-4-col">
       <div class="card c1">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         </div>
         <div class="card-body">
-          <h4>1. 推理能力 (Reasoning)</h4>
-          <p>基于 LLM 上下文进行<b>逻辑链推演 (Chain of Thought / ReAct)</b>。在行动前先“思考”，评估方案的可行性与副作用。</p>
+          <h4>1. Planning 规划</h4>
+          <p><b>• 任务拆解</b>：将模糊的大目标分解为串行/并行微型步骤<br><b>• 反思自修</b>：分析执行偏差，在失败后自我重规划</p>
         </div>
       </div>
 
       <div class="card c2">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 17 22 12"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         </div>
         <div class="card-body">
-          <h4>2. 规划能力 (Planning)</h4>
-          <p>把模糊的大目标拆解为<b>串行/并行微型任务流</b>。遇到障碍时能动态修改后续执行清单，具备策略调整能力。</p>
+          <h4>2. Memory 记忆</h4>
+          <p><b>• 短期记忆</b>：Context Window 维持当前会话上下文<br><b>• 长期记忆</b>：向量数据库 (RAG) 实现跨会话持久化召回</p>
         </div>
       </div>
 
       <div class="card c3">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
         </div>
         <div class="card-body">
-          <h4>3. 环境交互 (Environment Interaction)</h4>
-          <p>打破纯对话输入框！<b>感知环境输入</b>（API 返回、网页元素、终端 Error）并对环境<b>产生真实副作用</b>（修改代码、发邮件）。</p>
+          <h4>3. Tools 工具调用</h4>
+          <p><b>• 外部能力延伸</b>：调用 Web 搜索、Python 执行环境、API<br><b>• 状态获取</b>：通过工具抓取环境真实 Observe 返回值</p>
         </div>
       </div>
 
       <div class="card c4">
         <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
         <div class="card-body">
-          <h4>4. 状态与记忆 (State & Memory)</h4>
-          <p>记录长流程中的<b>中间变量、工具执行历史与环境反馈</b>，确保多轮迭代中不丢失上下文，实现复杂的自愈循环。</p>
+          <h4>4. Action 行动/交互</h4>
+          <p><b>• 环境副作用</b>：修改真实代码、发送邮件、提交订单<br><b>• 闭环交付</b>：完成复杂长链路任务后交付结构化成果</p>
         </div>
       </div>
     </div>
 
     <div class="bottom-box" style="margin-top:10px;">
       <p>
-        💡 <b>一句话总结</b>：大模型是脑细胞，而 Agent 是将<b>推理、规划、工具与环境闭环</b>组合在一起的整车结构。
+        💡 <b>一句话总结</b>：LLM 是脑细胞（Brain），而 <b>Planning + Memory + Tools + Action</b> 是赋予大模型手脚与自我修正能力的“全车装配结构”。
       </p>
     </div>
   </section>
