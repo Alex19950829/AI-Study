@@ -1442,57 +1442,60 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 7: OpenClaw 消息列表存储与压缩全流程 -->
+<!-- SLIDE 7: OpenClaw /compact 自动压缩与写回全流程 -->
   <section class="slide" data-slide="7">
     <header class="lesson-header">
-      <h1>OpenClaw 消息列表存储与压缩全流程</h1>
-      <p class="subtitle">解剖 OpenClaw 生命周期：读数据库 ➔ 算 Token ➔ 分流压缩 ➔ 覆盖写回与 Python 代码落地。</p>
+      <h1>OpenClaw /compact 自动压缩与写回全流程</h1>
+      <p class="subtitle">解剖 OpenClaw 上下文警示与 <code>/compact</code> 斜杠指令：从消息分割、后台摘要到持久化覆盖写回。</p>
     </header>
 
     <div class="cw-panorama">
-      <!-- 左：OpenClaw 4 步治理流水线 -->
+      <!-- 左栏：触发机制与 6 步底层动作 -->
       <div class="cw-pane" style="display:flex; flex-direction:column; gap:8px;">
-        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:2px;">🔄 OpenClaw 消息处理与压缩 4 步闭环</div>
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:2px;">⚠️ 1. OpenClaw 水位警示与 /compact 触发</div>
 
-        <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
-          <b style="color:var(--accent);">1. 读存储 (Load)</b>：从 <code>openclaw.db</code> (SQLite) 读取历史消息列表 <code>messages</code>。
+        <div style="background:rgba(217,119,6,0.05); border:1px solid rgba(217,119,6,0.2); border-radius:8px; padding:7px 10px; font-size:11.5px; line-height:1.45;">
+          <b style="color:var(--amber);">CLI 水位警示：</b> 当上下文占用达到 ~78% 时，CLI 自动输出：<br>
+          <code style="font-size:10.5px; color:var(--text);">Context window is 78% full. Run /compact to condense history.</code>
         </div>
 
-        <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
-          <b style="color:var(--purple);">2. 算 Token (Count)</b>：Tiktoken 实时计算当前 <code>messages</code> 上下文 Token 总量。
+        <div style="font-size:12.5px; font-weight:800; color:var(--purple); margin-top:4px; margin-bottom:2px;">🔄 2. 执行 /compact 后底层 6 步动作</div>
+
+        <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--accent);">Step 1: 消息冻结与三段分割</b> ➔ 拆分为 System + 待压缩旧历史 + 最近3轮
         </div>
 
-        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
-          <b style="color:var(--amber);">3. 触发压缩 (Compress)</b>：工具输出截断 (Snip) ➔ 唤醒小模型 <code>gpt-4o-mini</code> 归纳增量摘要。
+        <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--purple);">Step 2: 构造专用 Summary Prompt</b> ➔ 要求保留需求、决策、未竟目标，抛弃废话
         </div>
 
-        <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
-          <b style="color:var(--success);">4. 覆盖写回 (Save)</b>：组装 <code>[system, summary, *recent_k]</code> 并覆盖写回 SQLite / JSON 文件。
+        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--amber);">Step 3: 唤醒后台 LLM 摘要</b> ➔ 独立 API 请求，将上万 Token 浓缩为 300 字
+        </div>
+
+        <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--success);">Step 4: 消息数组极简重构</b> ➔ 组装 <code>[system+summary, *recent_3_turns]</code>
         </div>
       </div>
 
-      <!-- 右：OpenClaw 核心 Python 代码 -->
-      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
-        <div style="font-size:12.5px; font-weight:800; color:var(--amber); margin-bottom:2px;">🐍 OpenClaw 核心压缩与写回 Python 实现</div>
-        
-        <div style="background:rgba(0,0,0,0.05); border:1px solid var(--border); border-radius:8px; padding:8px 10px; font-family:monospace; font-size:10.5px; color:var(--text); line-height:1.4; overflow-x:auto;">
-          <span style="color:#7c3aed;">async def</span> prepare_openclaw_messages(session_id, user_input):<br>
-          &nbsp;&nbsp;<span style="color:#7c3aed;"># 1. 从 openclaw.db 加载历史</span><br>
-          &nbsp;&nbsp;messages = await db.load_session(session_id)<br>
-          &nbsp;&nbsp;messages.append({"role": "user", "content": user_input})<br>
-          <br>
-          &nbsp;&nbsp;<span style="color:#7c3aed;"># 2. 超限触发压缩处理</span><br>
-          &nbsp;&nbsp;<span style="color:#2563eb;">if</span> count_tokens(messages) > MAX_TOKENS:<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;old_msgs = messages[1:-6] <span style="color:#7c3aed;"># 提取旧历史</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;recent_msgs = messages[-6:] <span style="color:#7c3aed;"># 留近3轮</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;summary = await call_llm_summarize(old_msgs)<br>
-          <br>
-          &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#7c3aed;"># 3. 组装新数组并覆盖写回数据库</span><br>
-          &nbsp;&nbsp;&nbsp;&nbsp;messages = [{"role":"system","content":f"{SYS}
-摘要:{summary}"}, *recent_msgs]<br>
-          &nbsp;&nbsp;&nbsp;&nbsp;await db.save_session(session_id, summary, messages)<br>
-          <br>
-          &nbsp;&nbsp;<span style="color:#2563eb;">return</span> messages
+      <!-- 右栏：写回持久化与 Token 重置 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:8px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--success); margin-bottom:2px;">💾 3. 本地写回与 CLI 反馈</div>
+
+        <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
+          <b style="color:var(--success);">Step 5: 覆盖写回持久化存储</b><br>
+          • <b>SQLite 模式</b>：更新 <code>openclaw.db</code> 的 <code>session_id</code> 消息记录。<br>
+          • <b>JSON 模式</b>：覆盖更新 <code>~/.openclaw/storage/sessions/&lt;id&gt;.json</code>。
+        </div>
+
+        <div style="background:rgba(8,145,178,0.04); border:1px solid rgba(8,145,178,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
+          <b style="color:var(--cyan);">Step 6: Token 重置与 CLI 成功反馈</b><br>
+          • Tiktoken 重新计算 Token (从 182,400 降至 14,200 Token)。<br>
+          • 终端打印：<code style="font-size:10.5px; color:var(--success);">✓ Context compacted! Reduced from 182.4K to 14.2K (Saved 92%).</code>
+        </div>
+
+        <div style="background:rgba(124,58,237,0.05); border:1px dashed rgba(124,58,237,0.22); border-radius:8px; padding:8px 10px; font-size:11px; color:var(--text); line-height:1.5;">
+          💡 <b>架构实战意义</b>：通过斜杠指令或自动检测，将复杂的摘要、切片与数据库覆盖写回封装为无感命令，既保障了记忆连续，又免除了显存 OOM 崩溃。
         </div>
       </div>
     </div>
