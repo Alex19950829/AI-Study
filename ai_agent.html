@@ -1119,35 +1119,47 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
       </div>
     </div>
 
-    <!-- 中间 3 种编排策略对比 (.grid-3-col + card 组合) -->
+    <!-- 中间 3 种编排策略对比 (.grid-3-col + block card 消除侧边留白) -->
     <div class="grid-3-col">
-      <div class="card c1">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      <div class="card c1" style="display:block; padding:16px 18px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <div class="card-icon" style="margin-top:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+          </div>
+          <h4 style="font-size:15px; font-weight:800; color:var(--text); margin:0;">1. 绝对串行 (Serial)</h4>
         </div>
-        <div class="card-body">
-          <h4>1. 绝对串行 (Serial)</h4>
-          <p><b>• 调度机制</b>：一个接一个顺序执行<br><b>• 安全评估</b>：防数据竞争，最安全但整体响应较慢<br><b>• 适用场景</b>：强依赖任务（查用户ID ➔ 查订单）</p>
-        </div>
-      </div>
-
-      <div class="card c2">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        </div>
-        <div class="card-body">
-          <h4>2. 完全并发 (Parallel)</h4>
-          <p><b>• 调度机制</b>：所有工具异步同时发起<br><b>• 响应速度</b>：体验最好，耗时由最慢工具决定<br><b>• 适用场景</b>：无写冲突的纯只读查询</p>
+        <div style="font-size:13px; color:var(--sub); line-height:1.65;">
+          <div style="margin-bottom:6px;"><b>• 调度机制</b>：一个接一个顺序执行</div>
+          <div style="margin-bottom:6px;"><b>• 安全评估</b>：防数据竞争，最安全但整体响应较慢</div>
+          <div><b>• 适用场景</b>：强依赖任务（查用户ID ➔ 查订单）</div>
         </div>
       </div>
 
-      <div class="card c3">
-        <div class="card-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <div class="card c2" style="display:block; padding:16px 18px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <div class="card-icon" style="margin-top:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h4 style="font-size:15px; font-weight:800; color:var(--text); margin:0;">2. 完全并发 (Parallel)</h4>
         </div>
-        <div class="card-body">
-          <h4>3. 智能分批 (Smart Batching)</h4>
-          <p><b>• 调度机制</b>：按安全标记自动分组调度<br><b>• 架构选型</b>：兼顾体验与安全的工程最佳实践<br><b>• 适用场景</b>：写操作单独跑，查询操作合并跑</p>
+        <div style="font-size:13px; color:var(--sub); line-height:1.65;">
+          <div style="margin-bottom:6px;"><b>• 调度机制</b>：所有工具异步同时发起</div>
+          <div style="margin-bottom:6px;"><b>• 响应速度</b>：体验最好，耗时由最慢工具决定</div>
+          <div><b>• 适用场景</b>：无写冲突的纯只读查询</div>
+        </div>
+      </div>
+
+      <div class="card c3" style="display:block; padding:16px 18px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+          <div class="card-icon" style="margin-top:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <h4 style="font-size:15px; font-weight:800; color:var(--text); margin:0;">3. 智能分批 (Smart Batching)</h4>
+        </div>
+        <div style="font-size:13px; color:var(--sub); line-height:1.65;">
+          <div style="margin-bottom:6px;"><b>• 调度机制</b>：按安全标记自动分组调度</div>
+          <div style="margin-bottom:6px;"><b>• 架构选型</b>：兼顾体验与安全的工程最佳实践</div>
+          <div><b>• 适用场景</b>：写操作单独跑，查询操作合并跑</div>
         </div>
       </div>
     </div>
