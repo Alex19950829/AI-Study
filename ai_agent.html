@@ -1127,7 +1127,7 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
         </div>
         <div class="card-body">
           <h4>1. 绝对串行 (Serial)</h4>
-          <p><b>• 执行逻辑</b>：一个接一个 <code>await execute()</code><br><b>• 耗时</b>：Sum(t1+t2+t3) ➔ <b>最慢 (3.5s)</b><br><b>• 适用</b>：强依赖关系（如：查用户ID ➔ 查对应订单）</p>
+          <p><b>• 执行逻辑</b>：一个接一个 <code>await execute()</code> 依次执行<br><b>• 安全性</b>：防数据竞争，最安全但整体响应较慢<br><b>• 适用场景</b>：步骤间有强上下文依赖（如查用户ID ➔ 查订单）</p>
         </div>
       </div>
 
@@ -1137,7 +1137,7 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
         </div>
         <div class="card-body">
           <h4>2. 完全并发 (Parallel)</h4>
-          <p><b>• 执行逻辑</b>：<code>Promise.all()</code> / <code>asyncio.gather()</code><br><b>• 耗时</b>：Max(t1,t2,t3) ➔ <b>最快 (1.5s)</b><br><b>• 适用</b>：纯读查询（同时搜机票、搜天气、搜酒店）</p>
+          <p><b>• 执行逻辑</b>：<code>Promise.all()</code> / <code>asyncio.gather()</code><br><b>• 响应速度</b>：所有工具同时发起，响应速度最高<br><b>• 适用场景</b>：无写冲突的纯只读查询（同时搜机票/天气/酒店）</p>
         </div>
       </div>
 
@@ -1147,7 +1147,7 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
         </div>
         <div class="card-body">
           <h4>3. 智能分批 (Smart Batching)</h4>
-          <p><b>• 执行逻辑</b>：按 <code>isConcurrencySafe</code> 标记分组<br><b>• 耗时</b>：分批交错 ➔ <b>工程最佳方案 (2.7s)</b><br><b>• 适用</b>：写/预订单独跑，只读查询合并并发跑</p>
+          <p><b>• 执行逻辑</b>：按 <code>isConcurrencySafe</code> 安全标记自动分组调度<br><b>• 架构选型</b>：兼顾体验与安全的工程最佳落地方案<br><b>• 适用场景</b>：写/预订单独跑，只读查询合并并发跑</p>
         </div>
       </div>
     </div>
