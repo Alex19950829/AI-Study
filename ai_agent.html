@@ -1172,8 +1172,91 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-  <!-- SLIDE 4: Agent 核心落地场景全景图 -->
+  <!-- SLIDE 4: 上下文压缩：四层防线与工程实现 -->
   <section class="slide" data-slide="4">
+    <header class="lesson-header">
+      <h1>上下文压缩：四层防线与工程实现</h1>
+      <p class="subtitle">上下文窗口有限（如 256K 窗口 / 200K 安全空间），通过<b>四层渐进式防线</b>实现长链路 Agent 不中断崩溃。</p>
+    </header>
+
+    <!-- 顶部理论核心论述 (使用全局 thesis-box 机制) -->
+    <div class="thesis-box">
+      <div class="thesis-icon" style="font-size:22px; background:rgba(22,163,74,0.1); color:var(--success);">🛡️</div>
+      <div class="thesis-text">
+        <h3>长上下文治理：像防洪堤一样动态“泄洪”，用 200K 支撑 5 倍以上对话量</h3>
+        <p>Agent 多轮工具调用极易爆内存。通过 <b>60% 裁剪 ➔ 75% 微压缩 ➔ 85% 折叠 ➔ 95% 紧急压缩</b> 四层防线，在<b>实现原理、用户体验与信息保留度</b>之间取得工程最佳平衡。</p>
+      </div>
+    </div>
+
+    <!-- 中间 4 种压缩方式对比 (.grid-4-col + block card) -->
+    <div class="grid-4-col">
+      <div class="card c1" style="display:block; padding:14px 16px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <div class="card-icon" style="margin-top:0; background:rgba(22,163,74,0.1); color:var(--success);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h4 style="font-size:14px; font-weight:800; color:var(--text); margin:0;">1. 裁剪 (Snip) · 60% 触发</h4>
+        </div>
+        <div style="font-size:12px; color:var(--sub); line-height:1.6;">
+          <div style="margin-bottom:4px;"><b>• 实现原理</b>：正则/规则清洗，提炼工具原始输出大 JSON/HTML</div>
+          <div style="margin-bottom:4px;"><b>• 用户体验</b>：<b>0 损失完全无感</b>（1200 Token 压缩为 80 Token）</div>
+          <div><b>• 针对对象</b>：<code>role="tool"</code> 冗余接口返回结果</div>
+        </div>
+      </div>
+
+      <div class="card c2" style="display:block; padding:14px 16px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <div class="card-icon" style="margin-top:0; background:rgba(217,119,6,0.1); color:var(--amber);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h4 style="font-size:14px; font-weight:800; color:var(--text); margin:0;">2. 微压缩 (Micro) · 75% 触发</h4>
+        </div>
+        <div style="font-size:12px; color:var(--sub); line-height:1.6;">
+          <div style="margin-bottom:4px;"><b>• 实现原理</b>：启发式窗口滑动，剔除修饰词与冗余拉扯</div>
+          <div style="margin-bottom:4px;"><b>• 用户体验</b>：<b>极低损失</b>（保留核心修改意图与约定）</div>
+          <div><b>• 针对对象</b>：早期单条 User / Assistant 消息</div>
+        </div>
+      </div>
+
+      <div class="card c3" style="display:block; padding:14px 16px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <div class="card-icon" style="margin-top:0; background:rgba(234,88,12,0.1); color:var(--orange);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>
+          </div>
+          <h4 style="font-size:14px; font-weight:800; color:var(--text); margin:0;">3. 折叠 (Collapse) · 85% 触发</h4>
+        </div>
+        <div style="font-size:12px; color:var(--sub); line-height:1.6;">
+          <div style="margin-bottom:4px;"><b>• 实现原理</b>：8 轮历史打包归档，调用 LLM 生成 1 条全景摘要</div>
+          <div style="margin-bottom:4px;"><b>• 用户体验</b>：<b>中等细节丢失，保留全局主线</b></div>
+          <div><b>• 针对对象</b>：连续多轮历史消息链（4200 ➔ 350 Token）</div>
+        </div>
+      </div>
+
+      <div class="card c4" style="display:block; padding:14px 16px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;">
+          <div class="card-icon" style="margin-top:0; background:rgba(220,38,38,0.1); color:var(--danger);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h4 style="font-size:14px; font-weight:800; color:var(--text); margin:0;">4. 紧急 (AutoCompact) · 95% 触发</h4>
+        </div>
+        <div style="font-size:12px; color:var(--sub); line-height:1.6;">
+          <div style="margin-bottom:4px;"><b>• 实现原理</b>：硬核硬裁切：仅保留 System + 摘要 + 最新 3 轮</div>
+          <div style="margin-bottom:4px;"><b>• 用户体验</b>：<b>较高细节损失，但保住系统不崩</b></div>
+          <div><b>• 针对对象</b>：中间全部历史消息（18000 ➔ 2500 Token）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部一句话总结 (与全局 bottom-box 统一) -->
+    <div class="bottom-box">
+      <p>
+        💡 <b>对比与工程结论</b>：裁剪（0损失无感）➔ 微压缩（极低损失）➔ 折叠（主线保留）➔ 紧急（保底防崩）。<b>产品与工程团队应按水位阶梯式降级</b>，避免“满了就报错崩溃”的糟糕体验。
+      </p>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: Agent 核心落地场景全景图 -->
+  <section class="slide" data-slide="5">
     <header class="lesson-header">
       <h1>Agent 核心落地场景全景图</h1>
       <p class="subtitle">打破单纯对话框限制，在研发自愈、商业分析、企业合规审查与个人 Copilot 领域全面落地。</p>
@@ -1228,8 +1311,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 5: 黄金判定法则：你的业务适合做 AI Agent 吗？ -->
-  <section class="slide" data-slide="5">
+<!-- SLIDE 6: 黄金判定法则：你的业务适合做 AI Agent 吗？ -->
+  <section class="slide" data-slide="6">
     <header class="lesson-header">
       <h1>黄金判定法则：你的业务适合做 AI Agent 吗？</h1>
       <p class="subtitle">避免盲目套用概念！通过 <b>3 大关键维度</b> 与 <b>控制权归属矩阵</b> 精准评估落地可行性。</p>
