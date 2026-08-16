@@ -782,7 +782,14 @@ body {
 .slider-area{padding:6px 12px 4px;border-top:1px solid var(--border)}
 .slider-label{display:flex;justify-content:space-between;font-size:10px;color:var(--sub);margin-bottom:2px}
 .tank-slider{width:100%;accent-color:var(--cyan);cursor:pointer;height:24px}
-.ctrl-row{display:flex;gap:6px;padding:4px 12px 8px}
+/* ── 水箱控制栏精美按钮样式 ── */
+.ctrl-row { display:flex; gap:10px; align-items:center; padding:8px 12px 10px; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:7px 18px; border-radius:8px; font-size:13px; font-weight:800; border:none; cursor:pointer; font-family:inherit; transition:all .2s ease; min-height:36px; box-shadow:0 2px 4px rgba(0,0,0,0.05); }
+.btn-p { background:var(--accent); color:#ffffff; }
+.btn-p:hover { filter:brightness(1.12); transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,102,255,0.25); }
+.btn-p.playing { background:var(--amber,#d97706); color:#ffffff; box-shadow:0 4px 12px rgba(217,119,6,0.3); }
+.btn-r { background:var(--card,#ffffff); color:var(--text,#1f2937); border:1.5px solid var(--border,#e5e7eb); }
+.btn-r:hover { border-color:var(--accent); color:var(--accent); background:rgba(0,102,255,0.04); transform:translateY(-1px); }
 .layers-col{min-width:0;display:flex;flex-direction:column;gap:8px}
 .layers-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .layers-title{font-size:13px;font-weight:800;color:var(--text)}
@@ -2852,15 +2859,15 @@ try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.
   };
 
   window.onSlider = function(val) {
-    if (autoId) { cancelAnimationFrame(autoId); autoId = null; var btn = document.getElementById('autoBtn'); if (btn) btn.textContent = '▶ 自动演示'; }
+    if (autoId) { cancelAnimationFrame(autoId); autoId = null; var btn = document.getElementById('autoBtn'); if (btn) { btn.textContent = '▶ 自动演示'; btn.classList.remove('playing'); } }
     updateTank(val);
   };
 
   var autoId = null;
   window.autoPlay = function() {
     var btn = document.getElementById('autoBtn');
-    if (autoId) { cancelAnimationFrame(autoId); autoId = null; if (btn) btn.textContent = '▶ 自动演示'; return; }
-    if (btn) btn.textContent = '⏸ 暂停';
+    if (autoId) { cancelAnimationFrame(autoId); autoId = null; if (btn) { btn.textContent = '▶ 自动演示'; btn.classList.remove('playing'); } return; }
+    if (btn) { btn.textContent = '⏸ 暂停'; btn.classList.add('playing'); }
     var v = 0;
     var compIdx = 0;
     var pauseUntil = 0;
@@ -2885,7 +2892,7 @@ try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.
         v = 500;
         updateTank(v);
         autoId = null;
-        if (btn) btn.textContent = '▶ 重播';
+        if (btn) { btn.textContent = '▶ 重播'; btn.classList.remove('playing'); }
         return;
       }
       updateTank(v);
@@ -2897,7 +2904,7 @@ try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.
 
   window.resetAll = function() {
     if (autoId) { cancelAnimationFrame(autoId); autoId = null; }
-    var btn = document.getElementById('autoBtn'); if (btn) btn.textContent = '▶ 自动演示';
+    var btn = document.getElementById('autoBtn'); if (btn) { btn.textContent = '▶ 自动演示'; btn.classList.remove('playing'); }
     updateTank(0);
   };
 
