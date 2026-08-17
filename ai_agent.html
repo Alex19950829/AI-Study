@@ -1558,8 +1558,94 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 6: 上下文窗口拆解与各框架 Message List 存储位置 -->
+<!-- SLIDE 6: Agent 工程全景图：四大支柱与 14 个核心知识地图 -->
   <section class="slide" data-slide="6">
+    <header class="lesson-header">
+      <h1>Agent 工程全景图：四大支柱与 14 个核心知识地图</h1>
+      <p class="subtitle">工具、记忆、执行、工程四大支柱全景架构 · 从单兵能力到企业级生产治理闭环。</p>
+    </header>
+
+    <!-- 四大支柱 4-Col Grid -->
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-bottom:8px;">
+      <!-- 1. 工具支柱 -->
+      <div style="background:rgba(8,145,178,0.04); border:1.5px solid rgba(8,145,178,0.22); border-radius:8px; padding:8px 9px;">
+        <div style="display:flex; align-items:center; gap:5px; margin-bottom:6px;">
+          <span style="background:var(--cyan); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">1</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--cyan); margin:0;">🔧 工具 (Tools)</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text); display:flex; flex-direction:column; gap:4px;">
+          <div><b>• Function Calling</b><br><span style="color:var(--sub);">模型出 JSON ➔ 框架执行 ➔ 结果注入</span></div>
+          <div><b>• 工具描述 (Schema)</b><br><span style="color:var(--sub);">描述质量决定命中率，带 One-shot</span></div>
+          <div><b>• 多工具编排</b><br><span style="color:var(--sub);">并发 / 串行 / 依赖智能分批</span></div>
+          <div><b>• MCP 协议</b><br><span style="color:var(--sub);">工具界 USB 跨平台通用开放标准</span></div>
+        </div>
+      </div>
+
+      <!-- 2. 记忆支柱 -->
+      <div style="background:rgba(22,163,74,0.04); border:1.5px solid rgba(22,163,74,0.22); border-radius:8px; padding:8px 9px;">
+        <div style="display:flex; align-items:center; gap:5px; margin-bottom:6px;">
+          <span style="background:var(--success); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">2</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--success); margin:0;">🧠 记忆 (Memory)</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text); display:flex; flex-direction:column; gap:4px;">
+          <div><b>• 上下文窗口</b><br><span style="color:var(--sub);">128K 工作台，Prompt/工具定义挤占</span></div>
+          <div><b>• 四层压缩防线</b><br><span style="color:var(--sub);">60% ➔ 75% ➔ 85% ➔ 95% 阶梯消减</span></div>
+          <div><b>• 长期记忆 (Memory)</b><br><span style="color:var(--sub);">Flush 刷盘落盘 + 向量检索跨会话</span></div>
+          <div><b>• 与知识库/向量库协同</b><br><span style="color:var(--sub);">主观经验 vs 客观参考 vs 底层存储</span></div>
+        </div>
+      </div>
+
+      <!-- 3. 执行支柱 -->
+      <div style="background:rgba(124,58,237,0.04); border:1.5px solid rgba(124,58,237,0.22); border-radius:8px; padding:8px 9px;">
+        <div style="display:flex; align-items:center; gap:5px; margin-bottom:6px;">
+          <span style="background:var(--purple); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">3</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--purple); margin:0;">⚡ 执行 (Execution)</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text); display:flex; flex-direction:column; gap:4px;">
+          <div><b>• ReAct / PAO 闭环</b><br><span style="color:var(--sub);">思考 ➔ 行动 ➔ 观察 ➔ 再思考迭代</span></div>
+          <div><b>• 5 大故障模式</b><br><span style="color:var(--sub);">盲猜、幻觉、死循环、盲目脑补、超时</span></div>
+          <div><b>• 权限与安全门禁</b><br><span style="color:var(--sub);">只读放行 / 破坏性拦截 / 人机协同</span></div>
+          <div><b>• 步数预算 (Budget)</b><br><span style="color:var(--sub);">限制单任务步数，遇阻立即向人求助</span></div>
+        </div>
+      </div>
+
+      <!-- 4. 工程支柱 -->
+      <div style="background:rgba(217,119,6,0.04); border:1.5px solid rgba(217,119,6,0.22); border-radius:8px; padding:8px 9px;">
+        <div style="display:flex; align-items:center; gap:5px; margin-bottom:6px;">
+          <span style="background:var(--amber); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">4</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--amber); margin:0;">🏗️ 工程 (Engineering)</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text); display:flex; flex-direction:column; gap:4px;">
+          <div><b>• Skill 经验封装</b><br><span style="color:var(--sub);">SOP 流程固化，效率 3x 提速</span></div>
+          <div><b>• 5 道工程护栏</b><br><span style="color:var(--sub);">迭代/截断/超时/Abort/急救兜底</span></div>
+          <div><b>• 多 Agent 协同</b><br><span style="color:var(--sub);">Manager 拆解 + Worker 上下文隔离</span></div>
+          <div><b>• 全链路追踪 (Trace)</b><br><span style="color:var(--sub);">Hook 切面 + TraceID / TaskID 耗时</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部黄金公式与关键指标 -->
+    <div class="bottom-box" style="display:block; padding:10px 16px; margin-top:6px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+        <div style="font-size:12.5px; color:var(--text); font-weight:700;">
+          🧩 <b>Agent 黄金总公式</b>：
+          <span style="color:var(--accent);">LLM (智能)</span> + 
+          <span style="color:var(--cyan);">工具 (能力)</span> + 
+          <span style="color:var(--success);">记忆 (连续性)</span> + 
+          <span style="color:var(--purple);">循环 (自主性)</span> + 
+          <span style="color:var(--amber);">工程 (稳定性)</span>
+        </div>
+        <div style="font-size:11px; color:var(--sub);">
+          五者缺一不可 · 80% 工程脚手架决定系统成败
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<!-- SLIDE 7: 上下文窗口拆解与各框架 Message List 存储位置 -->
+  <section class="slide" data-slide="7">
     <header class="lesson-header">
       <h1>上下文窗口拆解与各框架 Message List 存储位置</h1>
       <p class="subtitle">从算力物理硬伤到主流 Agent 框架（OpenClaw / LangChain / AutoGen / Claude Code）的内存与持久态存储机制。</p>
@@ -1625,8 +1711,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 7: Agent 长期记忆全景：各主流框架记录机制与作用 -->
-  <section class="slide" data-slide="7">
+<!-- SLIDE 8: Agent 长期记忆全景：各主流框架记录机制与作用 -->
+  <section class="slide" data-slide="8">
     <header class="lesson-header">
       <h1>Agent 长期记忆全景：各主流框架记录机制与作用</h1>
       <p class="subtitle">跨越会话生命周期：从 OpenClaw 的 Memory Flush 到 Claude Code 的 CLAUDE.md 与 Mem0 图谱记忆。</p>
@@ -1686,8 +1772,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 8: 长期记忆 vs 知识库 (RAG) vs 向量数据库三维辨析 -->
-  <section class="slide" data-slide="8">
+<!-- SLIDE 9: 长期记忆 vs 知识库 (RAG) vs 向量数据库三维辨析 -->
+  <section class="slide" data-slide="9">
     <header class="lesson-header">
       <h1>长期记忆 vs 知识库 (RAG) vs 向量数据库</h1>
       <p class="subtitle">理清核心概念边界：主观经验、客观知识与底层存储基础设施的三维协同架构。</p>
@@ -1748,8 +1834,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
 
 
 
-<!-- SLIDE 9: OpenClaw /compact 自动压缩与写回全流程 -->
-  <section class="slide" data-slide="9">
+<!-- SLIDE 10: OpenClaw /compact 自动压缩与写回全流程 -->
+  <section class="slide" data-slide="10">
     <header class="lesson-header">
       <h1>OpenClaw /compact 自动压缩与写回全流程</h1>
       <p class="subtitle">解剖 OpenClaw 上下文警示与 <code>/compact</code> 斜杠指令：从消息分割、后台摘要到持久化覆盖写回。</p>
@@ -1807,8 +1893,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 10: Claude Code 自动压缩与代码状态锁定 -->
-  <section class="slide" data-slide="10">
+<!-- SLIDE 11: Claude Code 自动压缩与代码状态锁定 -->
+  <section class="slide" data-slide="11">
     <header class="lesson-header">
       <h1>Claude Code 自动压缩与代码状态锁定</h1>
       <p class="subtitle">解剖 Anthropic 官方 CLI Agent：160K 警戒线、Git 与文件修改锁定、<code>.jsonl</code> 追加存储。</p>
@@ -1862,8 +1948,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 11: OpenClaw vs Claude Code 上下文治理全景对比 -->
-  <section class="slide" data-slide="11">
+<!-- SLIDE 12: OpenClaw vs Claude Code 上下文治理全景对比 -->
+  <section class="slide" data-slide="12">
     <header class="lesson-header">
       <h1>OpenClaw vs Claude Code 上下文治理全景对比</h1>
       <p class="subtitle">通用 Agent 框架与代码重构 Agent 框架在<b>存储介质、压缩侧重、代码保护与报文清洗</b>四大维度的深度对比。</p>
@@ -1912,8 +1998,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
 
 
 
-<!-- SLIDE 12: 通用 Agent 消息列表 4 大压缩算法与四层防线 -->
-  <section class="slide" data-slide="12">
+<!-- SLIDE 13: 通用 Agent 消息列表 4 大压缩算法与四层防线 -->
+  <section class="slide" data-slide="13">
     <header class="lesson-header">
       <h1>通用 Agent 消息列表 4 大压缩算法与四层防线</h1>
       <p class="subtitle">从基础滑动窗口到向量 RAG 检索，结合<b>水位阶梯式防线</b>实现极端长对话不中断崩溃。</p>
@@ -1972,8 +2058,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 13: 上下文压缩：四层防线动态水箱演练实验室 -->
-  <section class="slide" data-slide="13">
+<!-- SLIDE 14: 上下文压缩：四层防线动态水箱演练实验室 -->
+  <section class="slide" data-slide="14">
     <header class="lesson-header">
       <h1>上下文压缩：四层防线动态水箱演练实验室</h1>
       <p class="subtitle">拖动下方滑块模拟对话 Token 持续增长，实时观察四层防线如何自动“泄洪”延长上下文寿命。</p>
@@ -2137,8 +2223,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 14: MCP (Model Context Protocol) 架构解耦与跨平台工具标准 -->
-  <section class="slide" data-slide="14">
+<!-- SLIDE 15: MCP (Model Context Protocol) 架构解耦与跨平台工具标准 -->
+  <section class="slide" data-slide="15">
     <header class="lesson-header">
       <h1>MCP (Model Context Protocol) 架构解耦与跨平台工具标准</h1>
       <p class="subtitle">从“混乱工具调用 (N×M)”到“开放标准协议 (N+M)”：Client 与 Server 的彻底解耦与生态互通。</p>
@@ -2198,8 +2284,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 15: OpenClaw 与 Agent 运行卡死剖析与破局实战 -->
-  <section class="slide" data-slide="15">
+<!-- SLIDE 16: OpenClaw 与 Agent 运行卡死剖析与破局实战 -->
+  <section class="slide" data-slide="16">
     <header class="lesson-header">
       <h1>OpenClaw 与 Agent 运行卡死剖析与破局实战</h1>
       <p class="subtitle">解剖“查网页/系统卡死十多分钟”背后的过度自主死锁，筑牢权限阻断、步数预算与超时熔断 4 级防御。</p>
@@ -2255,8 +2341,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 16: Agent 权限控制与企业级安全门禁架构 -->
-  <section class="slide" data-slide="16">
+<!-- SLIDE 17: Agent 权限控制与企业级安全门禁架构 -->
+  <section class="slide" data-slide="17">
     <header class="lesson-header">
       <h1>Agent 权限控制与企业级安全门禁架构</h1>
       <p class="subtitle">从底层沙箱黑白名单、业务读写隔离到智能置信度与人机审批（Human-in-the-loop）。</p>
@@ -2314,8 +2400,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 17: Skill 的本质与现代演进：从 SOP 到 MCP/Subagent -->
-  <section class="slide" data-slide="17">
+<!-- SLIDE 18: Skill 的本质与现代演进：从 SOP 到 MCP/Subagent -->
+  <section class="slide" data-slide="18">
     <header class="lesson-header">
       <h1>Skill 的本质与现代演进：从 SOP 经验包到 MCP 与 Subagent</h1>
       <p class="subtitle">解密 Skill vs Tools 的层级差异，以及 Skill 如何向 MCP Server、子智能体与 Rules 演进。</p>
@@ -2370,8 +2456,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 18: 5 道生产级工程护栏（1:1 动态交互实验室） -->
-  <section class="slide" data-slide="18">
+<!-- SLIDE 19: 5 道生产级工程护栏（1:1 动态交互实验室） -->
+  <section class="slide" data-slide="19">
     <header class="lesson-header">
       <h1>5 道生产级工程护栏：让 Agent 从试验品走向工业可用</h1>
       <p class="subtitle">没有护栏的 Agent = 没有刹车的跑车。点击左侧每道护栏，交互查看真实场景还原与有无护栏对比。</p>
@@ -2402,8 +2488,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 19: 多 Agent 协同架构 vs 单 Agent 多 Tools 选型 -->
-  <section class="slide" data-slide="19">
+<!-- SLIDE 20: 多 Agent 协同架构 vs 单 Agent 多 Tools 选型 -->
+  <section class="slide" data-slide="20">
     <header class="lesson-header">
       <h1>多 Agent 协同架构 vs 单 Agent 多 Tools 选型</h1>
       <p class="subtitle">解耦复杂任务：从单兵全能到专职分工，多 Agent 的上下文隔离、混合模型与防套娃治理。</p>
@@ -2461,8 +2547,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 20: 全链路追踪与耗时可观测：Hook、TraceID 与 TaskID -->
-  <section class="slide" data-slide="20">
+<!-- SLIDE 21: 全链路追踪与耗时可观测：Hook、TraceID 与 TaskID -->
+  <section class="slide" data-slide="21">
     <header class="lesson-header">
       <h1>全链路追踪与耗时可观测：Hook、TraceID 与 TaskID</h1>
       <p class="subtitle">打破黑箱：通过生命周期切面与分布式 Trace，毫秒级定位性能瓶颈与 Token 账单。</p>
