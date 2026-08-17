@@ -2598,6 +2598,124 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
+<!-- SLIDE 22: Workflow vs Agent 本质辨析：代码控流程 vs 模型定路径 -->
+  <section class="slide" data-slide="22">
+    <header class="lesson-header">
+      <h1>Workflow vs Agent 本质辨析：代码控流程 vs 模型定路径</h1>
+      <p class="subtitle">Anthropic 权威定义：生产环境中 80%+ 业务适合确定性 Workflow；只有开放探索任务才需要自主 Agent。</p>
+    </header>
+
+    <div class="cw-panorama" style="margin-bottom:8px;">
+      <!-- 左栏：Workflow -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); display:flex; align-items:center; gap:5px;">
+          <span>⚙️ Workflow（工作流流水线）</span>
+          <span style="font-size:10px; background:rgba(0,102,255,0.1); color:var(--accent); padding:1px 6px; border-radius:4px;">代码控制流程</span>
+        </div>
+
+        <div style="background:rgba(0,102,255,0.04); border:1.5px solid rgba(0,102,255,0.2); border-radius:8px; padding:8px 10px; font-size:11px; line-height:1.5; color:var(--text);">
+          <b>• 核心本质</b>：开发者在写代码时就已经焊死了执行路径（步骤 A ➔ 质量门禁 Gate ➔ 步骤 B ➔ 步骤 C）。<br>
+          <b>• 核心优势</b>：<b>高确定性、低成本、高并发、易调试</b>，单测覆盖率 100%。<br>
+          <b>• 适用场景</b>：质检评分、常规审核、标准化线索申诉、文案排版流水线。<br>
+          <b>• 5 大经典模式</b>：Prompt Chaining / Routing / Parallelization / Orchestrator / Evaluator-Optimizer。
+        </div>
+      </div>
+
+      <!-- 右栏：Agent -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--purple); display:flex; align-items:center; gap:5px;">
+          <span>🤖 True Agent（自主智能体）</span>
+          <span style="font-size:10px; background:rgba(124,58,237,0.1); color:var(--purple); padding:1px 6px; border-radius:4px;">模型决定路径</span>
+        </div>
+
+        <div style="background:rgba(124,58,237,0.04); border:1.5px solid rgba(124,58,237,0.2); border-radius:8px; padding:8px 10px; font-size:11px; line-height:1.5; color:var(--text);">
+          <b>• 核心本质</b>：给定目标后，大模型在每一步**自主思考、自主挑选工具、根据物理返回动态决策下一步**。<br>
+          <b>• 核心优势</b>：<b>擅长处理未知输入、复杂排查、开放探索与自适应纠错</b>。<br>
+          <b>• 伴生代价</b>：调用次数不确定、循环存在死磕风险、难以精准复现调试。<br>
+          <b>• 核心闭环</b>：ReAct 控制循环（Goal ➔ Think ➔ Action ➔ Observe ➔ Think ➔ Done）。
+        </div>
+      </div>
+    </div>
+
+    <!-- 复杂度黄金阶梯 -->
+    <div class="bottom-box" style="display:block; padding:8px 14px;">
+      <div style="font-size:11.5px; font-weight:800; color:var(--text); margin-bottom:4px;">
+        🪜 <b>Anthropic 复杂度控制黄金阶梯（拒绝过度设计）</b>：
+      </div>
+      <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; font-size:10.5px; line-height:1.4;">
+        <div style="background:rgba(0,0,0,0.03); padding:4px 6px; border-radius:4px;"><b>1. 单次 Prompt</b><br><span style="color:var(--sub);">调优提示词能解决就到此为止</span></div>
+        <div style="background:rgba(0,0,0,0.03); padding:4px 6px; border-radius:4px;"><b>2. 检索增强 (RAG)</b><br><span style="color:var(--sub);">需要外部业务知识库才加检索</span></div>
+        <div style="background:rgba(0,102,255,0.06); padding:4px 6px; border-radius:4px; border:1px solid rgba(0,102,255,0.2);"><b>3. Workflow 流水线</b><br><span style="color:var(--accent); font-weight:700;">80% 业务场景的最佳归宿</span></div>
+        <div style="background:rgba(124,58,237,0.06); padding:4px 6px; border-radius:4px; border:1px solid rgba(124,58,237,0.2);"><b>4. 自主 Agent</b><br><span style="color:var(--purple); font-weight:700;">只给充满未知的探索性任务！</span></div>
+      </div>
+    </div>
+  </section>
+
+<!-- SLIDE 23: 企业级 AgentHub「真 Agent」三大落地场景实战 -->
+  <section class="slide" data-slide="23">
+    <header class="lesson-header">
+      <h1>企业级 AgentHub「真 Agent」三大高价值场景实战</h1>
+      <p class="subtitle">打破固定流程束缚 · 聚焦异常根因排查、脚手架自主构建、红蓝安全对抗三大核心阵地。</p>
+    </header>
+
+    <!-- 三大真 Agent 场景卡片 -->
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-bottom:8px;">
+      
+      <!-- 场景 1: 业务异常根因排查 -->
+      <div style="background:rgba(8,145,178,0.04); border:1.5px solid rgba(8,145,178,0.25); border-radius:8px; padding:8px 10px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; align-items:center; gap:5px;">
+          <span style="background:var(--cyan); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">1</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--cyan); margin:0;">🔍 业务异常根因排查 Agent</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text);">
+          <b>• 为什么 Workflow 不行？</b><br>
+          <span style="color:var(--sub);">申诉驳回突增/质检评分暴跌的原因成百上千，根本无法提前穷举固定步骤。</span><br>
+          <b>• 真 Agent 自主排查闭环：</b><br>
+          ① 目标：排查昨日申诉异常 ➔ ② 调 SQL 工具查城市分布 ➔ ③ 锁定北京车商 A/B ➔ ④ 调抽检工具抓取录音与质检日志 ➔ ⑤ 发现新型敏感词规避话术 ➔ ⑥ 输出《根因诊断全案》。
+        </div>
+      </div>
+
+      <!-- 场景 2: AgentHub 元构建 Meta-Agent -->
+      <div style="background:rgba(217,119,6,0.04); border:1.5px solid rgba(217,119,6,0.25); border-radius:8px; padding:8px 10px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; align-items:center; gap:5px;">
+          <span style="background:var(--amber); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">2</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--amber); margin:0;">🏗️ AgentHub 元构建 Meta-Agent</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text);">
+          <b>• 为什么 Workflow 不行？</b><br>
+          <span style="color:var(--sub);">业务方提需求千差万别，写脚手架、配权限和代码 Debug 必须具备自愈能力。</span><br>
+          <b>• 真 Agent 自主构建闭环：</b><br>
+          ① 接收需求：“做个过户违约金核算 Agent” ➔ ② 自主阅读过户 SOP 规范 ➔ ③ 自主生成 <code>tools.allow.json</code> 与 Python 工具 ➔ ④ 沙箱中跑单测，遇报错<b>自主 Debug 修复代码</b> ➔ ⑤ 一键发布上线。
+        </div>
+      </div>
+
+      <!-- 场景 3: 红蓝对抗安全渗透 Agent -->
+      <div style="background:rgba(220,38,38,0.04); border:1.5px solid rgba(220,38,38,0.25); border-radius:8px; padding:8px 10px; display:flex; flex-direction:column; gap:5px;">
+        <div style="display:flex; align-items:center; gap:5px;">
+          <span style="background:var(--danger); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">3</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--danger); margin:0;">🛡️ 红蓝对抗安全渗透 Agent</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text);">
+          <b>• 为什么 Workflow 不行？</b><br>
+          <span style="color:var(--sub);">黑产攻击手段动态多变，必须用攻击型 Agent 主动探索平台数十个 Agent 的漏洞。</span><br>
+          <b>• 真 Agent 对抗闭环：</b><br>
+          ① 扮演刁钻车商黑产（红队）➔ ② 自主构造角色逃逸、符号截断、Few-Shot 污染提示词 ➔ ③ 动态探测试探质检/审核 Agent 的防御底线 ➔ ④ 输出《AgentHub 安全体检与漏洞补丁》。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 底部架构总结 -->
+    <div class="bottom-box" style="display:block; padding:8px 14px;">
+      <div style="font-size:11.5px; color:var(--text); line-height:1.5;">
+        💡 <b>AgentHub 平台顶级工程治理架构</b>：
+        <span style="color:var(--accent); font-weight:700;">80% 确定性业务流水线由 Workflow 兜底</span>（保证合规、极致成本与高吞吐）+ 
+        <span style="color:var(--purple); font-weight:700;">20% 探索性/自愈性场景由真 Agent 突破</span>（解决复杂未知与自进化），实现企业级生产力的完美闭环！
+      </div>
+    </div>
+  </section>
+
+
   </main>
 
 <!-- 底栏翻页控制 -->
