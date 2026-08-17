@@ -2072,6 +2072,121 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
+<!-- SLIDE 16: Agent 权限控制与企业级安全门禁架构 -->
+  <section class="slide" data-slide="16">
+    <header class="lesson-header">
+      <h1>Agent 权限控制与企业级安全门禁架构</h1>
+      <p class="subtitle">从底层沙箱黑白名单、业务读写隔离到智能置信度与人机审批（Human-in-the-loop）。</p>
+    </header>
+
+    <div class="cw-panorama" style="margin-bottom:10px;">
+      <!-- 左栏：3 层立体安全门禁 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:2px;">🛡️ 1. 企业级 3 层权限安全防线</div>
+
+        <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--accent);">第 1 层：工具沙箱黑白名单 (Tool Sandbox)</b><br>
+          • <code>tools.allow.json</code>：白名单放行（如 browser, read, exec 等安全工具）。<br>
+          • <code>tools.deny.json</code>：黑名单禁令（底层绝对拦截敏感或破坏性命令）。
+        </div>
+
+        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--amber);">第 2 层：业务读写隔离 (Business Write Gating)</b><br>
+          • 标记 <code>isReadOnly</code> 与 <code>isDestructive</code>。<br>
+          • 生产写开关（<code>dry_run: false</code>），仅指定工具（如 <code>write_tools: ["do-audit-pass"]</code>）允许写库。
+        </div>
+
+        <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--purple);">第 3 层：智能置信度门禁 (Smart Gate)</b><br>
+          设定 <code>confidence_threshold: 0.7</code>，高置信度自动化放行，低置信度强制降级留人工。
+        </div>
+      </div>
+
+      <!-- 右栏：运行时 3 种交互模式与人机协同 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--purple); margin-bottom:2px;">⚙️ 2. 运行时交互模式与人机协同</div>
+
+        <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--success);">① 确认模式 (Confirmation Mode)</b><br>
+          只读自动放行，所有非只读或敏感写操作弹出确认窗口（Human-in-the-loop）。
+        </div>
+
+        <div style="background:rgba(8,145,178,0.04); border:1px solid rgba(8,145,178,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--cyan);">② 自动模式 (Auto / Bypass Mode)</b><br>
+          除黑名单外全部放行，0 打扰提效（适合受信任的只读巡检与内部只读分析）。
+        </div>
+
+        <div style="background:rgba(234,88,12,0.04); border:1px solid rgba(234,88,12,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--orange);">③ 不对称审批最佳实践 (Asymmetric Review)</b><br>
+          <b>通过件自动提交 (auto_audit_pass) 极大提效，驳回件/敏感件强制留人工复核！</b>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部架构总结 -->
+    <div class="bottom-box" style="display:block; padding:12px 18px; margin-top:10px;">
+      <div style="font-size:12.5px; color:var(--text); line-height:1.6;">
+        💡 <b>安全核心法则</b>：权限设计的本质是在安全与效率之间寻找平衡——**低风险只读操作自动放行提效，高风险不可逆写操作留痕审批，黑白名单筑牢底层安全防线**。
+      </div>
+    </div>
+  </section>
+
+<!-- SLIDE 17: Skill 的本质与现代演进：从 SOP 到 MCP/Subagent -->
+  <section class="slide" data-slide="17">
+    <header class="lesson-header">
+      <h1>Skill 的本质与现代演进：从 SOP 经验包到 MCP 与 Subagent</h1>
+      <p class="subtitle">解密 Skill vs Tools 的层级差异，以及 Skill 如何向 MCP Server、子智能体与 Rules 演进。</p>
+    </header>
+
+    <div class="cw-panorama" style="margin-bottom:10px;">
+      <!-- 左栏：Skill VS Tools 关系辨析 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:2px;">🧩 1. Skill VS Tools 的本质区别</div>
+
+        <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
+          <b style="color:var(--accent);">• Tools（原子工具 / 零件）</b><br>
+          解决 <b>“能不能做”</b> 的物理能力问题。粒度细、单一功能（如 <code>read_file</code>、<code>exec_bash</code>、<code>http_post</code>）。
+        </div>
+
+        <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.18); border-radius:8px; padding:7px 10px; font-size:11px; line-height:1.5;">
+          <b style="color:var(--purple);">• Skill（复合技能包 / 施工指南）</b><br>
+          解决 <b>“怎么按标准步骤做好”</b> 的业务经验问题。包含 <code>SKILL.md</code> SOP 指南 + 多个 Tools 调度顺序 + 本地并发脚本（如 <code>parallel_collect.sh</code>）+ 判责铁律。
+        </div>
+
+        <div style="background:rgba(22,163,74,0.04); border:1px dashed rgba(22,163,74,0.3); border-radius:8px; padding:6px 9px; font-size:11px; color:var(--text); line-height:1.45;">
+          🔗 <b>核心关系</b>：<b>一个 Skill 包含并编排多个 Tools 的执行！</b>
+        </div>
+      </div>
+
+      <!-- 右栏：为什么现在提 Skill 变少了？3 大现代演进形态 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--purple); margin-bottom:2px;">🚀 2. Skill 的 3 大现代演进形态</div>
+
+        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--amber);">① 演进为 MCP Server（协议标准化）</b><br>
+          将带数据、带流程的工具包统一封装为跨平台 <b>MCP Server</b>，全生态即插即用。
+        </div>
+
+        <div style="background:rgba(234,88,12,0.04); border:1px solid rgba(234,88,12,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--orange);">② 演进为 Subagents（拟人化子智能体）</b><br>
+          将复合技能拟人化为“子专家”（如 ReviewerAgent, CoderAgent），由主 Agent 委派。
+        </div>
+
+        <div style="background:rgba(8,145,178,0.04); border:1px solid rgba(8,145,178,0.15); border-radius:6px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--cyan);">③ 演进为 CLAUDE.md / .cursorrules（极简规则）</b><br>
+          将文字 SOP 直接放在项目根目录，配合 Prompt Caching 实现极简且零损耗的规则注入。
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部架构总结 -->
+    <div class="bottom-box" style="display:block; padding:12px 18px; margin-top:10px;">
+      <div style="font-size:12.5px; color:var(--text); line-height:1.6;">
+        💡 <b>演进结论</b>：Skill 的叫法在变（演进为 MCP、Subagent 和 Rules），但**“把资深专家的 SOP 经验与多工具链封装传承给 Agent”** 的底层灵魂永恒不变！
+      </div>
+    </div>
+  </section>
+
   </main>
 
 <!-- 底栏翻页控制 -->
