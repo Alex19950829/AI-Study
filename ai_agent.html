@@ -2715,6 +2715,121 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
+<!-- SLIDE 24: 长运行 Agent 困局与破解：为什么长任务总会烂尾？ -->
+  <section class="slide" data-slide="24">
+    <header class="lesson-header">
+      <h1>长运行 Agent 困局与破解：为什么长任务总会烂尾？</h1>
+      <p class="subtitle">Anthropic 权威研究：长任务失败的核心不是大模型智商不够，而是上下文断裂时的换班交接机制做崩了。</p>
+    </header>
+
+    <div class="cw-panorama" style="margin-bottom:8px;">
+      <!-- 左栏：两大失败死穴 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--danger); display:flex; align-items:center; gap:5px;">
+          <span>💥 长任务 Agent 两大致命死穴</span>
+        </div>
+
+        <div style="background:rgba(220,38,38,0.04); border:1.5px solid rgba(220,38,38,0.22); border-radius:8px; padding:7px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--danger);">① One-shotting（一口气全干导致上下文雪崩）</b><br>
+          试图在单次会话完成几十个功能，做到 40% 时 128K 窗口爆满；压缩后丢失关键变量，下一个 Agent 接手面对半成品代码，80% 时间在瞎猜和修 Bug，项目陷入停滞。
+        </div>
+
+        <div style="background:rgba(217,119,6,0.04); border:1.5px solid rgba(217,119,6,0.22); border-radius:8px; padding:7px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--amber);">② Premature Completion（过早宣布完工）</b><br>
+          才写完几个基础文件就误以为“全部做完了”，缺乏端到端自动化测试验证，实际完成度不到 30%。
+        </div>
+      </div>
+
+      <!-- 右栏：Claude Code 官方破局方案 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--success); display:flex; align-items:center; gap:5px;">
+          <span>🌟 Claude Code 官方破局之道（200+ 功能成功构建）</span>
+        </div>
+
+        <div style="background:rgba(22,163,74,0.04); border:1.5px solid rgba(22,163,74,0.22); border-radius:8px; padding:7px 9px; font-size:11px; line-height:1.45;">
+          <b>• Initializer Agent（只跑第 1 轮）</b>：搭脚手架、把宏大目标拆解为结构化 <code>progress.json</code> 清单、做第 1 次 clean commit。<br>
+          <b>• Coding Agent（轮转接力）</b>：每次启动<b>全新空白会话</b>，一次只做 1 个功能点（仅耗 10K Token，永远处于极度清醒区）！<br>
+          <b>• E2E 浏览器真机测试</b>：通过 Playwright 模拟点击测通才打勾，严禁修改/降低已有测试标准！
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部类比 -->
+    <div class="bottom-box" style="display:block; padding:8px 14px;">
+      <div style="font-size:11.5px; color:var(--text); line-height:1.5;">
+        💡 <b>本质类比</b>：单 Agent 傻干就像换班工程师<b>完全失忆</b>；Claude Code 的破局核心是<b>“状态外置给文件与 Git，让每轮接力的 Agent 永远在干净上下文中单点突破”</b>！
+      </div>
+    </div>
+  </section>
+
+<!-- SLIDE 25: 现代长任务工业级解法：/superpower 插件与 Spec-Driven 多 Agent 接力 -->
+  <section class="slide" data-slide="25">
+    <header class="lesson-header">
+      <h1>现代长任务工业级解法：/superpower 插件与 Spec-Driven 多 Agent 接力</h1>
+      <p class="subtitle">头脑风暴 ➔ 计划拆解 ➔ 工兵独立执行 · 彻底实现上下文物理隔离、状态外置落盘与零歧义交接。</p>
+    </header>
+
+    <!-- 3 阶段流水线卡片 -->
+    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-bottom:8px;">
+      
+      <!-- 阶段 1: /brainstorm -->
+      <div style="background:rgba(0,102,255,0.04); border:1.5px solid rgba(0,102,255,0.25); border-radius:8px; padding:8px 10px; display:flex; flex-direction:column; gap:4px;">
+        <div style="display:flex; align-items:center; gap:5px;">
+          <span style="background:var(--accent); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">1</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--accent); margin:0;">/brainstorm (架构师)</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text);">
+          <b>• 核心职责</b>：与用户澄清模糊需求、评估技术选型与风险。<br>
+          <b>• 交付成果</b>：输出磁盘规范文档 <code>design_spec.md / json</code>。<br>
+          <b>• 🔥 关键动作</b>：方案达成后<b>上下文完全丢弃退出</b>！不给后续留任何历史废话负担。
+        </div>
+      </div>
+
+      <!-- 阶段 2: /writer-plans -->
+      <div style="background:rgba(217,119,6,0.04); border:1.5px solid rgba(217,119,6,0.25); border-radius:8px; padding:8px 10px; display:flex; flex-direction:column; gap:4px;">
+        <div style="display:flex; align-items:center; gap:5px;">
+          <span style="background:var(--amber); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">2</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--amber); margin:0;">/writer-plans (项目经理)</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text);">
+          <b>• 核心职责</b>：读取 design_spec，将项目原子化拆解为几十个微任务。<br>
+          <b>• 交付成果</b>：输出结构化 <code>plan.json</code> 与每个任务的单测命令。<br>
+          <b>• 🔥 关键动作</b>：使用严格 JSON 结构防止模型重写，<b>生成完立即退出</b>！
+        </div>
+      </div>
+
+      <!-- 阶段 3: /execute -->
+      <div style="background:rgba(22,163,74,0.04); border:1.5px solid rgba(22,163,74,0.25); border-radius:8px; padding:8px 10px; display:flex; flex-direction:column; gap:4px;">
+        <div style="display:flex; align-items:center; gap:5px;">
+          <span style="background:var(--success); color:#fff; width:20px; height:20px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">3</span>
+          <h4 style="font-size:12.5px; font-weight:800; color:var(--success); margin:0;">/execute (工兵 Worker 循环)</h4>
+        </div>
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text);">
+          <b>• 核心机制</b>：针对每个 Task <b>唤起全新独立子 Agent</b>（仅 5K~10K Token）。<br>
+          <b>• 闭环流程</b>：写代码 ➔ 跑自动化测试 ➔ Git Commit ➔ 更新 plan.json。<br>
+          <b>• 🔥 关键动作</b>：单任务完成后<b>子 Agent 物理销毁</b>，下一个子 Agent 干净接力！
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 底部架构总结对比 -->
+    <div class="bottom-box" style="display:block; padding:8px 14px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; font-size:11px; color:var(--text);">
+        <div>
+          🚀 <b>长任务终极黄金法则</b>：
+          <span style="color:var(--accent); font-weight:700;">大目标切小片</span> + 
+          <span style="color:var(--amber); font-weight:700;">记忆外置落盘 (JSON + Git)</span> + 
+          <span style="color:var(--success); font-weight:700;">子 Agent 极简上下文独立执行与销毁</span>
+        </div>
+        <div style="color:var(--sub);">
+          支持数百文件/长达数小时任务 100% 稳定交付
+        </div>
+      </div>
+    </div>
+  </section>
+
+
 
   </main>
 
