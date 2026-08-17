@@ -2402,6 +2402,125 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
+<!-- SLIDE 19: 多 Agent 协同架构 vs 单 Agent 多 Tools 选型 -->
+  <section class="slide" data-slide="19">
+    <header class="lesson-header">
+      <h1>多 Agent 协同架构 vs 单 Agent 多 Tools 选型</h1>
+      <p class="subtitle">解耦复杂任务：从单兵全能到专职分工，多 Agent 的上下文隔离、混合模型与防套娃治理。</p>
+    </header>
+
+    <div class="cw-panorama" style="margin-bottom:10px;">
+      <!-- 左栏：架构形态与上下文隔离对比 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:2px;">🔄 1. 单 Agent 多 Tools VS 多 Agent 协作</div>
+
+        <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--accent);">• 单 Agent + 多个 Tools（全能单兵）</b><br>
+          一个大脑自己规划、依次调工具。适合<b>线性简单任务</b>。缺点是多轮工具大报文全部堆在同一个上下文，极易<b>Context 污染与超长遗忘</b>。
+        </div>
+
+        <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--purple);">• 多 Agent 协同体系（项目经理 + 专职专家）</b><br>
+          <b>Manager Agent</b> 负责目标拆解与分派；<b>Worker Agent</b>（如 WebAgent, E2EAgent）独立执行。<br>
+          🌟 <b>核心价值</b>：<b>上下文彻底隔离！</b>子 Agent 读完 50 个网页只向主 Agent 汇报 300 字摘要，大幅降低 Token 开销与延迟。
+        </div>
+
+        <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--success);">• 异构模型混合搭配</b><br>
+          Manager 用顶配 Claude 3.7 / GPT-4o 掌舵决策；Search/爬虫 Worker 用轻量极速模型打杂，性价比提升 5 倍！
+        </div>
+      </div>
+
+      <!-- 右栏：OpenClaw 真实配置与防套娃治理 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--purple); margin-bottom:2px;">⚙️ 2. OpenClaw 生产多 Agent 配置与防套娃</div>
+
+        <div style="background:rgba(8,145,178,0.04); border:1px solid rgba(8,145,178,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--cyan);">① 底层并发引擎支持</b><br>
+          <code>defaults.subagents.maxConcurrent: 8</code> ➔ 全局原生支持最多 8 个子 Agent 并发执行。
+        </div>
+
+        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--amber);">② 末端 Worker 防套娃治理 (最小权限)</b><br>
+          在 E2E 测试等专职 Worker 中，配置 <code>deny: ["subagents", "sessions_spawn"]</code>，<b>严禁末端打工人继续分裂子 Agent</b>，防止无限套娃与死循环！
+        </div>
+
+        <div style="background:rgba(234,88,12,0.04); border:1px solid rgba(234,88,12,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--orange);">③ 选型黄金法则</b><br>
+          • 步骤简单、单人能干 ➔ <b>单 Agent 多 Tools</b>；<br>
+          • 流程长、需独立规划、需隔离上下文 ➔ <b>多 Agent</b>。
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部架构总结 -->
+    <div class="bottom-box" style="display:block; padding:12px 18px; margin-top:10px;">
+      <div style="font-size:12.5px; color:var(--text); line-height:1.6;">
+        💡 <b>架构决策</b>：多 Tools 解决的是**“执行能力的供给”**，多 Agent 解决的是**“认知负载的分担与上下文污染的物理隔离”**！
+      </div>
+    </div>
+  </section>
+
+<!-- SLIDE 20: 全链路追踪与耗时可观测：Hook、TraceID 与 TaskID -->
+  <section class="slide" data-slide="20">
+    <header class="lesson-header">
+      <h1>全链路追踪与耗时可观测：Hook、TraceID 与 TaskID</h1>
+      <p class="subtitle">打破黑箱：通过生命周期切面与分布式 Trace，毫秒级定位性能瓶颈与 Token 账单。</p>
+    </header>
+
+    <div class="cw-panorama" style="margin-bottom:10px;">
+      <!-- 左栏：Hook 拦截机制与核心 ID -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:2px;">🔍 1. Hook 切面拦截与 TraceID 体系</div>
+
+        <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--accent);">• TRACEID（全局链路唯一 ID）</b><br>
+          贯穿一次任务的完整生命周期。无论经过多少轮对话、调度了多少个子 Agent，全部通过 <b>TraceID 串联成完整调用树</b>。
+        </div>
+
+        <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--purple);">• TASKID（局部 Span 节点 ID）</b><br>
+          标识某一次具体的单步动作（如某一个 ASR 转写脚本或一次数据库查询）。
+        </div>
+
+        <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--success);">• 4 大生命周期 Hook 拦截点</b><br>
+          • <code>tool.before_call</code>：捕获入参 Payload 与开始时间戳；<br>
+          • <code>tool.after_call</code>：捕获返回值与结束时间戳；<br>
+          • <code>llm.input / output</code>：监控模型首字延迟 (TTFT) 与 Token 消耗。
+        </div>
+      </div>
+
+      <!-- 右栏：精准耗时计算与慢查瓶颈定位 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--purple); margin-bottom:2px;">⏱️ 2. 精准耗时计算与慢查定位</div>
+
+        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--amber);">① 物理耗时毫秒级精确计算</b><br>
+          $$\Delta t = \text{tool.after\_call.ts} - \text{tool.before\_call.ts}$$
+          后台做 Span 时间差相减，毫秒级统计每个脚本与 API 的真实网络执行时间。
+        </div>
+
+        <div style="background:rgba(234,88,12,0.04); border:1px solid rgba(234,88,12,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--orange);">② 瀑布图一眼识别“卡死元凶”</b><br>
+          任务变慢时，按 TraceID 筛选 Event 日志，瞬间辨别是 <b>“大模型推理排队慢”</b> 还是 <b>“音频转写/爬虫脚本挂起慢”</b>！
+        </div>
+
+        <div style="background:rgba(8,145,178,0.04); border:1px solid rgba(8,145,178,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--cyan);">③ 证据留痕与合规审计 (Audit Trail)</b><br>
+          记录操作员、Workspace、入参出参，发生错误判责时可 100% 还原现场证据。
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部架构总结 -->
+    <div class="bottom-box" style="display:block; padding:12px 18px; margin-top:10px;">
+      <div style="font-size:12.5px; color:var(--text); line-height:1.6;">
+        💡 <b>可观测性真谛</b>：没有可观测性的 Agent 是黑箱，**拥有 Hook 拦截与 TraceID 体系的 Agent 才是可运营、可优化、可审计的工业级生产系统**！
+      </div>
+    </div>
+  </section>
+
   </main>
 
 <!-- 底栏翻页控制 -->

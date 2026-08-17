@@ -2,7 +2,7 @@
 
 > 本项目包含全套大模型底层原理与工程实操 HTML 全景 PPT 项目：
 > - 📄 **全景主课程 PPT**：[ai_course_ppt.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_course_ppt.html) (包含 38 页精美卡片与丰富交互组件)
-> - 🤖 **AI Agent 独立专题 PPT**：[ai_agent.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_agent.html) (精选 18 页 Lilian Weng 拓扑、P-A-O 循环演练、多工具并发编排、黄金判定法则、落地场景全景图、框架 Message List 存储位置、各框架长期记忆机制、长期记忆 vs 知识库 vs 向量数据库、OpenClaw 压缩写回、Claude Code 压缩与代码锁定、两框架全景对比、4 大通用算法防线、7-3b 动态水箱、MCP 架构解耦标准、OpenClaw 卡死破局、Agent 权限三层安全门禁架构、Skill 本质与现代演进及 7-6a 生产级 5 道工程护栏 1:1 动态交互实验室)
+> - 🤖 **AI Agent 独立专题 PPT**：[ai_agent.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_agent.html) (精选 20 页 Lilian Weng 拓扑、P-A-O 循环演练、多工具并发编排、黄金判定法则、落地场景全景图、框架 Message List 存储位置、各框架长期记忆机制、长期记忆 vs 知识库 vs 向量数据库、OpenClaw 压缩写回、Claude Code 压缩与代码锁定、两框架全景对比、4 大通用算法防线、7-3b 动态水箱、MCP 架构解耦标准、OpenClaw 卡死破局、Agent 权限三层安全门禁架构、Skill 本质与现代演进、7-6a 5道工程护栏交互实验室、多 Agent 协同 vs 单 Agent 多 Tools 选型及全链路追踪与耗时可观测 TraceID/TaskID)
 
 ---
 
