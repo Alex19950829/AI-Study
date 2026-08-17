@@ -816,6 +816,189 @@ body {
 @keyframes pulse-red{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0)}50%{box-shadow:0 0 16px 4px rgba(220,38,38,.25)}}
 .tank-outer.danger{animation:pulse-red 1.2s ease infinite;border-color:var(--danger)}
 
+
+/* === Slide 18: 5 道工程护栏 1:1 交互样式 === */
+.gh-wrap {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.gh-left {
+  display: flex;
+  flex-direction: column;
+}
+.gh-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.gh-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+}
+.gh-item:hover {
+  background: rgba(217,119,6,0.04);
+  border-color: rgba(217,119,6,0.3);
+}
+.gh-item.active {
+  background: rgba(217,119,6,0.08);
+  border-color: var(--amber);
+}
+.gh-item-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--sub);
+  background: rgba(0,0,0,0.04);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.gh-item.active .gh-item-num {
+  background: var(--amber);
+  color: #fff;
+}
+.gh-item-info {
+  flex: 1;
+  min-width: 0;
+}
+.gh-item-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1px;
+}
+.gh-item-desc {
+  font-size: 10.5px;
+  color: var(--sub);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gh-item-val {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--sub);
+  background: rgba(0,0,0,0.04);
+  padding: 2px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+.gh-item.active .gh-item-val {
+  background: rgba(217,119,6,0.15);
+  color: var(--amber);
+}
+
+.gh-right {
+  min-width: 0;
+}
+.gh-bar {
+  padding: 6px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  margin-bottom: 8px;
+}
+.gh-bar-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--text);
+}
+.gh-hint {
+  margin-left: auto;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--amber);
+  background: rgba(217,119,6,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+.gh-detail-area {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.gh-section {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  overflow: hidden;
+  animation: ghFadeUp 0.3s ease forwards;
+}
+@keyframes ghFadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.gh-sec-head {
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.02);
+}
+.gh-sec-body {
+  padding: 7px 12px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.gh-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px 10px;
+}
+.gh-cmp {
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 11px;
+  line-height: 1.45;
+}
+.gh-cmp-bad {
+  background: rgba(220,38,38,0.04);
+  border: 1.5px solid rgba(220,38,38,0.18);
+}
+.gh-cmp-good {
+  background: rgba(22,163,74,0.04);
+  border: 1.5px solid rgba(22,163,74,0.18);
+}
+.gh-cmp-label {
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.gh-cmp-bad .gh-cmp-label { color: var(--danger); }
+.gh-cmp-good .gh-cmp-label { color: var(--success); }
+.gh-decision {
+  background: rgba(217,119,6,0.04);
+  border: 1.5px solid rgba(217,119,6,0.18);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--text);
+  line-height: 1.5;
+}
 </style>
 
 <style>
@@ -2187,6 +2370,38 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
+<!-- SLIDE 18: 5 道生产级工程护栏（1:1 动态交互实验室） -->
+  <section class="slide" data-slide="18">
+    <header class="lesson-header">
+      <h1>5 道生产级工程护栏：让 Agent 从试验品走向工业可用</h1>
+      <p class="subtitle">没有护栏的 Agent = 没有刹车的跑车。点击左侧每道护栏，交互查看真实场景还原与有无护栏对比。</p>
+    </header>
+
+    <div class="gh-wrap" style="margin-bottom:8px;">
+      <!-- 左栏：5 道护栏交互列表 -->
+      <div class="gh-left">
+        <div style="font-size:12px; font-weight:800; color:var(--accent); margin-bottom:6px;">🛡️ 点击选择工程护栏</div>
+        <div class="gh-list" id="ghList"></div>
+      </div>
+
+      <!-- 右栏：动态详情与场景对比 -->
+      <div class="gh-right">
+        <div class="gh-bar" id="ghBar">
+          <span class="gh-bar-name" id="ghName">护栏 1：迭代上限</span>
+          <span class="gh-hint" id="ghHint">50 轮</span>
+        </div>
+        <div class="gh-detail-area" id="ghDetailArea"></div>
+      </div>
+    </div>
+
+    <!-- 底部架构总结 -->
+    <div class="bottom-box" style="display:block; padding:10px 16px; margin-top:6px;">
+      <div style="font-size:12px; color:var(--text); line-height:1.55;">
+        💡 <b>Takeaway 核心结论</b>：Agent 的核心智力来自 LLM，但**工业级稳定性 100% 来自工程护栏**。迭代上限防死循环、输出截断防撑爆、超时控制防卡死、中断恢复防报废、上下文急救防崩溃！
+      </div>
+    </div>
+  </section>
+
   </main>
 
 <!-- 底栏翻页控制 -->
@@ -3376,6 +3591,107 @@ try{if(localStorage.getItem('xa_auth')!=='1')document.documentElement.classList.
     positionLines();
     updateTank(0);
   }, 300);
+})();
+
+// === Slide 18 护栏交互逻辑 ===
+(function() {
+  var GUARDS_DATA = [
+    {
+      name: '迭代上限', val: '50 轮', desc: '防止无限 ReAct 循环',
+      scenario: '用户让 Agent 删除项目中所有 console.log 并跑测试。Agent 进入 ReAct 循环：搜索 ➔ 编辑 ➔ 测试 ➔ 发现新问题 ➔ 再搜索…',
+      bad: 'Agent 陷入「修了 A 坏了 B，修了 B 坏了 C」死循环，反复调用工具数百次，消耗 10 万 Token（约 ¥0.6），卡死 5 分钟只能强制杀死。',
+      good: '到第 50 轮自动熔断停止，优雅返回已完成部分：「已处理 12 个文件中的 47 个 log，剩余 2 个测试未过，是否继续？」，主动权交回用户。',
+      decision: '<b>📌 设计决策：</b>50 轮是实践中的黄金平衡点：覆盖 95% 复杂任务又防止失控。客服 Bot 设 10 轮，代码助手可设 50~80 轮。'
+    },
+    {
+      name: '输出截断', val: '20 万字', desc: '防止单工具吃满上下文',
+      scenario: 'Agent 需要分析一个系统日志文件，调用 read_file 读取了一个 5MB 的 error.log。',
+      bad: '5MB 文本 ≈ 500 万字符 ≈ 250 万 Token。直接塞进上下文，128K 窗口瞬间撑爆，后续所有对话报错 context_length_exceeded，会话彻底报废。',
+      good: '工具输出被自动截断至 20 万字符（保留头尾各 10 万字），附注「[已截断，原文 500 万字符]」。Agent 获得关键上下文，空间仍然充裕。',
+      decision: '<b>📌 设计决策：</b>截断是在保护工作区。类比：去图书馆查书不需要把整个书架搬到桌上。支持策略：保留头尾、关键词过滤、或先摘要再注回。'
+    },
+    {
+      name: '超时控制', val: '5s + 重试', desc: '防止卡死阻塞全局',
+      scenario: 'Agent 调用外部天气或数据库 API，但该服务今天响应异常缓慢。',
+      bad: 'Agent 发出请求后无限挂起，用户干等 60 秒毫无反应，整个会话被一个挂起的网络请求彻底阻塞死锁。',
+      good: '5 秒超时自动重试 1 次，仍超时后由框架注入友好提示：「服务超时，请换备选方案」。模型自动切到备用 search 工具，12 秒顺利完成！',
+      decision: '<b>📌 设计决策：</b>外部 API 挂起是常态。「5s 超时 + 2 次重试」总耗时 15 秒，远优于「60 秒死等」。更重要的是把决策权及时还给模型。'
+    },
+    {
+      name: '中断恢复', val: 'AbortSignal', desc: '用户随时可以按停止',
+      scenario: 'Agent 正在批量编辑 20 个文件，已经改了 8 个。用户发现方向不对，按下「停止 / 中断」按钮。',
+      bad: '中断后，消息列表中有 8 个 tool_call 但只有 5 个 tool_result（3 个被强杀）。消息链结构损坏，下次发给 API 直接报 400 语法错误报废。',
+      good: '中断信号通过 AbortSignal 广播终止执行，框架自动为未完成工具补齐 "[Interrupted by user]" 结果。消息合法完整，用户可随时无缝继续对话！',
+      decision: '<b>📌 设计决策：</b>「停止」是高频操作。框架必须保证：中断后消息链绝对完整（每个 tool_call 必须严格配对 tool_result），否则会话必崩。'
+    },
+    {
+      name: '上下文急救', val: '紧急压缩', desc: '最后一道防线',
+      scenario: '经过 30 轮深度对话，上下文达到 95% 满水位。模型再调用一次工具，底层直接触发 context_length_exceeded。',
+      bad: '会话直接崩溃，弹出报错「Error: context_length_exceeded」，30 轮对话的所有上下文与中间进度全部灰飞烟灭。',
+      good: '框架底层捕获溢出错误，触发紧急急救：瞬间清洗抛弃所有历史中间工具的原始大报文，仅保留关键结论与最近 3 轮，占用骤降至 40% 满血复活！',
+      decision: '<b>📌 设计决策：</b>这是终极防线。设计铁律：<b>残缺的记忆好过完全失忆</b>。保留最近对话和关键结论，牺牲中间过程细节。'
+    }
+  ];
+
+  var curActiveGuard = 0;
+
+  function renderGuardList() {
+    var listEl = document.getElementById('ghList');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    GUARDS_DATA.forEach(function(g, i) {
+      var item = document.createElement('div');
+      item.className = 'gh-item' + (i === curActiveGuard ? ' active' : '');
+      item.innerHTML = 
+        '<div class="gh-item-num">' + (i + 1) + '</div>' +
+        '<div class="gh-item-info">' +
+          '<div class="gh-item-name">' + g.name + '</div>' +
+          '<div class="gh-item-desc">' + g.desc + '</div>' +
+        '</div>' +
+        '<span class="gh-item-val">' + g.val + '</span>';
+      item.onclick = function() { selectGuard(i); };
+      listEl.appendChild(item);
+    });
+  }
+
+  window.selectGuard = function(idx) {
+    curActiveGuard = idx;
+    renderGuardList();
+    var g = GUARDS_DATA[idx];
+    var nameEl = document.getElementById('ghName');
+    var hintEl = document.getElementById('ghHint');
+    var areaEl = document.getElementById('ghDetailArea');
+    if (nameEl) nameEl.textContent = '护栏 ' + (idx + 1) + '：' + g.name;
+    if (hintEl) hintEl.textContent = g.val;
+    if (areaEl) {
+      areaEl.innerHTML = 
+        '<div class="gh-section">' +
+          '<div class="gh-sec-head">🔍 场景还原</div>' +
+          '<div class="gh-sec-body">' + g.scenario + '</div>' +
+        '</div>' +
+        '<div class="gh-section">' +
+          '<div class="gh-sec-head">⚖️ 效果对比：有护栏 vs 没有护栏</div>' +
+          '<div class="gh-compare">' +
+            '<div class="gh-cmp gh-cmp-bad">' +
+              '<div class="gh-cmp-label">❌ 没有这道护栏</div>' +
+              '<div class="gh-cmp-text">' + g.bad + '</div>' +
+            '</div>' +
+            '<div class="gh-cmp gh-cmp-good">' +
+              '<div class="gh-cmp-label">✅ 有这道护栏</div>' +
+              '<div class="gh-cmp-text">' + g.good + '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="gh-decision">' + g.decision + '</div>';
+    }
+  };
+
+  // Init on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { selectGuard(0); });
+  } else {
+    selectGuard(0);
+  }
 })();
 </script>
 
