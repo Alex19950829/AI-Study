@@ -2015,6 +2015,67 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
+<!-- SLIDE 15: Agent 生产卡死的 5 种典型模式与防御破局 -->
+  <section class="slide" data-slide="15">
+    <header class="lesson-header">
+      <h1>Agent 生产卡死的 5 种典型模式与防御破局</h1>
+      <p class="subtitle">从参数盲猜、工具幻觉到无限死循环：工程落地中的五大经典死锁与防御对策。</p>
+    </header>
+
+    <div class="cw-panorama" style="margin-bottom:10px;">
+      <!-- 左栏：前 3 种模式 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--danger); margin-bottom:2px;">🚨 常见故障模式 (1 ~ 3) 与防御对策</div>
+
+        <div style="background:rgba(220,38,38,0.04); border:1px solid rgba(220,38,38,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--danger);">1. 📋❌ 参数格式盲猜</b><br>
+          • <b>故障</b>：模型不知道入参格式，在黑暗中反复盲猜重试烧光 Token。<br>
+          • <b>破解</b>：<b>工具描述必须带 One-shot 示例</b>（如 <code>city: 全小写拼音，如 beijing</code>）。
+        </div>
+
+        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--amber);">2. 👻🔧 幻觉不存在的工具</b><br>
+          • <b>故障</b>：模型脑补了不存在的工具名，框架只回 404，模型继续连猜。<br>
+          • <b>破解</b>：<b>引导式报错 (Guided Error)</b>，返回可用工具清单并推荐替代工具。
+        </div>
+
+        <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--purple);">3. 🔄♾️ 读改验死循环</b><br>
+          • <b>故障</b>：陷入“读文件 ➔ 改 ➔ 验 ➔ 又改回”的无限死循环，直到达到 50 轮上限崩溃。<br>
+          • <b>破解</b>：<b>循环检测器 (Loop Detector)</b>，同一文件重复操作 $\ge 3$ 次强制熔断！
+        </div>
+      </div>
+
+      <!-- 右栏：后 2 种模式与黄金法则 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--danger); margin-bottom:2px;">🚨 常见故障模式 (4 ~ 5) 与防御对策</div>
+
+        <div style="background:rgba(234,88,12,0.04); border:1px solid rgba(234,88,12,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--orange);">4. 🤷❓ 缺信息盲目脑补</b><br>
+          • <b>故障</b>：用户指令模糊，模型不问就猜，执行发错邮件、删库等不可逆灾难。<br>
+          • <b>破解</b>：<b>不可逆操作主动追问 (Human-in-the-loop)</b>，缺关键参数必须暂停确认！
+        </div>
+
+        <div style="background:rgba(8,145,178,0.04); border:1px solid rgba(8,145,178,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--cyan);">5. ⏱️💥 外部 API 超时级联</b><br>
+          • <b>故障</b>：外部接口挂起，重试 3 次等 90 秒，大段错误堆栈撑爆上下文。<br>
+          • <b>破解</b>：<b>分级超时 (读10s/写30s) + 优雅降级 (Fallback)</b>，返回友好提示并清洗长堆栈。
+        </div>
+
+        <div style="background:rgba(22,163,74,0.05); border:1px dashed rgba(22,163,74,0.25); border-radius:8px; padding:7px 9px; font-size:11px; color:var(--text); line-height:1.45;">
+          💡 <b>防御核心</b>：不可逆操作必须确认，可逆操作大胆探索；错误带引导，超时有兜底。
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部架构总结 -->
+    <div class="bottom-box">
+      <p>
+        🛡️ <b>工程黄金法则</b>：避免卡死的核心不是寄希望于模型变聪明，而是在框架层筑牢 5 道确定性防线：<b>参数带示例、报错带引导、重复带熔断、不可逆带确认、超时带降级</b>！
+      </p>
+    </div>
+  </section>
+
   </main>
 
 <!-- 底栏翻页控制 -->
