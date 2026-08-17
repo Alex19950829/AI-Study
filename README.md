@@ -1,61 +1,94 @@
-# 🤖 AI 从入门到精通 · 交互式全景课程 PPT & 工程指南
+# 🤖 AI 从入门到精通 · 交互式全景课程 PPT & AI Agent 架构工程指南
 
-> 本项目包含全套大模型底层原理与工程实操 HTML 全景 PPT 项目：
-> - 📄 **全景主课程 PPT**：[ai_course_ppt.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_course_ppt.html) (包含 39 页精美卡片、大模型五层立体成本优化体系与丰富交互组件)
-> - 🤖 **AI Agent 独立专题 PPT**：[ai_agent.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_agent.html) (精选 25 页 Lilian Weng 拓扑、P-A-O 循环演练、多工具并发编排、黄金判定法则、落地场景全景图、Agent 工程全景图四大支柱与 14 个知识地图、框架 Message List 存储位置、各框架长期记忆机制、长期记忆 vs 知识库 vs 向量数据库、OpenClaw 压缩写回、Claude Code 压缩与代码锁定、两框架全景对比、4 大通用算法防线、7-3b 动态水箱、MCP 架构解耦标准、OpenClaw 卡死破局、Agent 权限三层安全门禁架构、Skill 本质与现代演进、7-6a 5道工程护栏交互实验室、多 Agent 协同 vs 单 Agent 多 Tools 选型、全链路追踪与耗时可观测 TraceID/TaskID、Workflow vs Agent 本质辨析、企业级 AgentHub 真 Agent 三大场景实战、长运行 Agent 困局与 Claude Code 破解及 /superpower 插件 Spec-Driven 多 Agent 接力流水线)
+> 本项目包含全套大模型底层物理机制、提示词与成本工程、以及工业级 AI Agent 架构治理的双 HTML 交互式 PPT 项目：
+> - 📄 **大模型全景主课程 PPT**：[ai_course_ppt.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_course_ppt.html) (共 39 页精美卡片、大模型五层立体成本优化体系与丰富交互组件)
+> - 🤖 **AI Agent 独立专题 PPT**：[ai_agent.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_agent.html) (共 25 页 Lilian Weng 拓扑、P-A-O 循环、全景脑图、四层动态水箱、卡死破局、三层安全门禁、多 Agent 协同、全链路追踪、Workflow vs Agent 辨析、AgentHub 真 Agent 三大场景、长任务困局破局与 /superpower 接力流水线)
 
 ---
 
-## ✨ 核心亮点与特色
+## ✨ 核心亮点与特色组件
 
-- 🎨 **现代 UI 设计 & 主题切换**：基于 Apple / GitHub 原生质感设计，支持浅色 / 深色（Dark Mode）一键无缝切换。
+- 🎨 **现代 UI 设计 & 主题切换**：基于 Apple / GitHub 原生质感设计，纯原生前端技术栈构建，支持浅色 / 深色（Dark Mode）一键无缝切换。
 - 🧮 **全交互式实操工具箱（无需后端，纯前端闭环）**：
-  - **提示词废话费用放大器**：动态拖拽提示词字数与日调用量，精算一年白白浪费的资金。
-  - **2D 向量激活空间与提示词锁定地图**：高精中文示意图与坐标矩阵剖析 Prompt 生效物理本质。
-  - **P-A-O 智能体控制循环演练（独立 PPT `ai_agent.html`）**：分步模拟 Agent 规划（Plan）➔ 行动（Act）➔ 观察（Observe）自愈闭环。
-  - **豆包 / DeepSeek 深度思考全景**：1:1 动态排座实测对比、**System 1 直觉 vs System 2 理性算力图景**、GRPO 强化学习 64 路径试错与隐层向量高熵碰撞机制。
-  - **1:1 动态显存计算器**：支持 NVIDIA 独显（RTX 4090 / 5090D）与 Apple Silicon 统一内存（75% 可用上限打折换算），实时精算 INT4 / INT8 / FP16 显存硬开销与匹配度。
-  - **1:1 动态 Tokenizer 分词实验室**：实时体验 Trie 前缀树最长贪婪匹配、BPE 算法合并与切词 ID 生成。
-  - **1:1 动态 Token 逐字生成与概率实时更新动画**：复现 Base 模型「紫霞捧着月光宝盒」自回归连续采样推演过程。
-  - **4 代 AI 算法瓶颈与演进交互体验**：切切换比对 CNN 近视眼、RNN 遗忘症、BERT 完形填空与 GPT/ChatGPT 通用跃进。
-  - **RAG 知识库与幻觉治理全景模块**：沉浸式剖析 4 大幻觉物理根因、Temperature 陡峭化与 Top-P 杂音剪枝、HyDE / Reranker 4 大进阶招式。
-  - **全课终章小结与 30 问自测入口**：全景 40 页认知闭环与在线测评跳转链接。
-- ⌨️ **极佳的演示操纵体验**：支持键盘左右方向键 `←` / `→` 翻页、`M` 键一键唤出全局大图目录。
+  - **1:1 动态放射状 SVG Agent 知识脑图（`ai_agent.html` 第 6 页）**：工具、记忆、执行、工程四大支柱 14 个节点动态悬浮 Tooltip 与点击详情联动。
+  - **1:1 动态水箱演练实验室（`ai_agent.html` 第 14 页）**：拖拽滑块模拟上下文水位上涨，动态观察 60% ➔ 75% ➔ 85% ➔ 95% 四层压缩防线阶梯式消减。
+  - **1:1 生产级 5 道工程护栏实验室（`ai_agent.html` 第 19 页）**：交互式模拟迭代上限、输出截断、5s 超时重试、AbortSignal 优雅中断与上下文急救。
+  - **2D 向量激活空间与提示词锁定地图（`ai_course_ppt.html` 第 5 页）**：高精中文示意图与坐标矩阵剖析 Prompt 生效物理本质。
+  - **豆包 / DeepSeek 深度思考全景（`ai_course_ppt.html` 第 13~16 页）**：1:1 动态排座实测对比、`<think>` 草稿纸机制、GRPO 强化学习试错与隐层向量高熵碰撞机制。
+  - **1:1 动态显存计算器（`ai_course_ppt.html` 第 28 页）**：支持 NVIDIA 独显（RTX 4090 / 5090D）与 Apple Silicon 统一内存（75% 可用上限换算），精算 INT4 / INT8 / FP16 显存硬开销。
+  - **1:1 动态 Tokenizer 分词实验室（`ai_course_ppt.html` 第 33 页）**：实时体验 Trie 前缀树最长贪婪匹配、BPE 算法合并与切词 ID 生成。
+  - **1:1 动态 Token 逐字生成与概率实时更新动画（`ai_course_ppt.html` 第 34 页）**：复现 Base 模型「紫霞捧着月光宝盒」自回归连续采样推演过程。
+  - **4 代 AI 算法演进比对（`ai_course_ppt.html` 第 35 页）**：动态切换比对 CNN 近视眼、RNN 遗忘症、BERT 完形填空与 GPT/ChatGPT 通用跃进。
+- ⌨️ **极佳的演示操纵体验**：支持键盘左右方向键 `←` / `→` 翻页、`M` 键一键唤出全局大图目录、`Esc` 退出。
 
 ---
 
-## 📑 40 页主课程大纲目录 (`ai_course_ppt.html`)
+## 📑 模块一：AI 从入门到精通 · 39 页主课程大纲 (`ai_course_ppt.html`)
 
 | 页码 | 模块主题 | 核心内容 / 动态交互组件 |
 | :--- | :--- | :--- |
-| **01 ~ 02** | **AI 工程化统一本质** | Message List 核心论断、SFT 有监督微调物理机制与场景判别 |
+| **01 ~ 02** | **AI 工程化统一本质** | Message List 核心论断、SFT 有监督微调物理机制与 Loss 扣分惩罚全景 |
 | **03 ~ 05** | **提示词工程与物理本质** | “背景+要求+限制”万能骨架、废话费用计算器、**2D 向量激活空间中文地图与逻辑锁定矩阵** |
-| **27** | **本地显存与硬件选型** | **1:1 动态显存计算器**、NVIDIA 独显（拼速度）vs Mac 统一内存（拼容量）全景总结 |
-| **28** | **随机性与结果控制** | **“带权掷骰子”机理**、场景分级与 4 种消除答案漂移的硬核手段 (`Temperature=0`, `Seed=42`) |
-| **29** | **AI 客服变迁与自建指南** | **传统规则客服 vs 现代 LLM+RAG 智能体对比**、5 步自建落地方案与选型框架 (Dify/FastGPT) |
-| **30** | **大模型限流与用量治理** | **传统 QPS 滑动窗口 vs 现代 LLM 多维限流 (RPM+TPM)**、预扣返还、3h/5h 滑动重置与 GPU 显存级调度 |
-| **31** | **训练 vs 推理物理全景** | **对话非学习/参数只读冻结**、4 步物理训练流（载入二进制文件 ➔ GPU 梯度算 Loss ➔ 导出新 safetensors 文件），全量 vs LoRA 差异 |
-| **32** | **Token 与词表底层原理** | **分词器 (Tokenizer) 翻译官**、Trie 前缀树最长贪婪匹配、BPE (字节对编码) 算法与中英文 Token 效率压缩率对比 |
-| **33** | **Base 模型自回归预测** | **1:1 动态 Token 逐字生成与概率实时更新动画**、从 Context 上下文接续推演 (`「紫霞捧着月光宝盒」` ➔ `「，你说你喜欢我」`) |
-| **34** | **4 代 AI 算法演进** | **CNN 近视眼 vs RNN 记忆衰减串行瓶颈 vs BERT 填空局限 vs GPT/ChatGPT 通用跃进** (动态 4-Tab 模型体验) |
-| **35 ~ 36** | **AI PM 架构选型决策** | **4 大典型认知避坑清单与 4 维架构选型决策矩阵** (Prompt vs RAG vs 微调 vs HITL) |
-| **37** | **课程全景终章总结** | **37 页全景核心认知闭环与「大模型基础 30 问」在线自测跳转链接** |
+| **06 ~ 09** | **Prompt 进阶与安全红线** | 4 个实战杀招、JSON/MD/XML 输出格式取舍、Prompt 注入攻击与防御图鉴、企业 AI 4 条安全红线 |
+| **10** | **语法结构降本与排版** | **Token 瘦身实战**：HTML 导致费用暴涨 3~4 倍，Markdown 纯文本结构实现输出层极致降本 |
+| **11** | **Prompt Caching 底层原理** | 厂商 Prompt Caching 节约算力原理：**单向注意力 (Causal Attention)** 为什么能跳过前向传播计算 |
+| **12** | **大模型五层立体成本优化** | **从系统角度降本 70~90%**：模型路由、语法瘦身 (YAML/CSV)、语义压缩 (Few-Shot/LLMLingua)、输出约束与 KV 缓存 |
+| **13 ~ 16** | **深度思考与推理模型全景** | 同一道排座题秒答 vs 深度思考、`<think>` 草稿纸物理机制、自发探索 3 大机制、隐层向量高熵碰撞 |
+| **17 ~ 20** | **大模型幻觉与治理攻防** | 幻觉产生的 4 大物理根因、**Temperature 陡峭化与 Top-P 杂音剪枝**、RAG 检索增强架构、HyDE/Reranker 进阶 |
+| **21 ~ 26** | **大模型参数与微调原理** | 模型参数量物理意义、LoRA 低秩矩阵微调数学原理、RLHF 人类反馈强化学习与对齐安全 |
+| **27 ~ 28** | **本地显存与硬件选型** | **1:1 动态显存计算器**、NVIDIA 独显（拼速度）vs Mac 统一内存（拼容量）全景对比 |
+| **29** | **随机性与结果控制** | **“带权掷骰子”机理**、场景分级与 4 种消除答案漂移的硬核手段 (`Temperature=0`, `Seed=42`) |
+| **30** | **AI 客服变迁与自建指南** | **传统规则客服 vs 现代 LLM+RAG 智能体对比**、5 步自建落地方案与选型框架 (Dify/FastGPT) |
+| **31** | **大模型限流与用量治理** | **传统 QPS 滑动窗口 vs 现代 LLM 多维限流 (RPM+TPM)**、预扣返还、3h/5h 滑动重置与 GPU 显存级调度 |
+| **32** | **训练 vs 推理物理全景** | **对话非学习/参数只读冻结**、4 步物理训练流（载入二进制 ➔ GPU 梯度算 Loss ➔ 导出 safetensors 文件） |
+| **33** | **Token 与词表底层原理** | **分词器 (Tokenizer) 翻译官**、Trie 前缀树最长贪婪匹配、BPE 算法与中英文 Token 效率压缩率对比 |
+| **34** | **Base 模型自回归预测** | **1:1 动态 Token 逐字生成与概率实时更新动画**、从上下文推演 (`「紫霞捧着月光宝盒」` ➔ `「，你说你喜欢我」`) |
+| **35** | **4 代 AI 算法演进** | **CNN 近视眼 vs RNN 记忆衰减 vs BERT 填空局限 vs GPT/ChatGPT 通用跃进** (动态 4-Tab 模型体验) |
+| **36 ~ 37** | **AI PM 架构选型决策** | **4 大典型认知避坑清单与 4 维架构选型决策矩阵** (Prompt vs RAG vs 微调 vs HITL) |
+| **38 ~ 39** | **课程全景终章总结** | **39 页全景核心认知闭环与「大模型基础 30 问」在线自测跳转链接** |
 
 ---
 
-## 🚀 本地快速预览
+## 🤖 模块二：AI Agent 独立专题 · 25 页架构指南 (`ai_agent.html`)
 
-1. **直接打开**：
-   下载本仓库后，使用任何浏览器直接双击打开 [ai_course_ppt.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_course_ppt.html) 即可流畅播放演示。
-
-2. **快捷键控制**：
-   - **`→` / `Space` / `PageDown`**：下一页
-   - **`←` / `PageUp`**：上一页
-   - **`M`**：打开 / 关闭全局 35 页目录缩略图
-   - **`Esc`**：关闭目录缩略图
+| 页码 | 模块主题 | 核心内容 / 动态交互组件 |
+| :--- | :--- | :--- |
+| **01 ~ 02** | **Agent 拓扑与控制闭环** | **Lilian Weng 经典拓扑**（LLM + Planning + Memory + Tools）、**Planning-Action-Observe (ReAct) 闭环演练** |
+| **03** | **多工具并发与编排** | **并发 vs 串行 vs 依赖图智能分批**，如何降低 3 倍等待延迟与 Token 消耗 |
+| **04 ~ 05** | **业务判定法则与场景全景** | **黄金判定法则**：什么时候该用 Agent，什么时候坚决不用；**Agent 核心落地场景全景图** |
+| **06** | **Agent 工程全景图 (脑图)** | **四大支柱与 14 个知识地图 (1:1 动态 SVG 脑图)**：工具、记忆、执行、工程与黄金总公式 $\text{Agent} = \text{LLM} + \text{工具} + \text{记忆} + \text{循环} + \text{工程}$ |
+| **07 ~ 08** | **上下文拆解与长期记忆全景** | **128K 物理工作台**与各框架 Message List 存储位置；**OpenClaw, Claude Code, Antigravity, Codex, Mem0, Letta 长期记忆记录机制与作用** |
+| **09** | **三维辨析：记忆 vs 知识库** | **长期记忆 (主观经验) vs 知识库 RAG (客观参考) vs 向量数据库 (底层存储)** 三维本质对比 |
+| **10 ~ 12** | **主流框架压缩机制对比** | **OpenClaw `/compact` 自动压缩写回全流程**、**Claude Code 代码状态锁定**、**两框架全景深度对比** |
+| **13 ~ 14** | **通用压缩算法与动态水箱** | 4 大压缩算法与四层防线、**1:1 动态水箱演练实验室 (60%➔75%➔85%➔95% 阶梯式消减)** |
+| **15** | **MCP 协议与跨平台标准** | **MCP (Model Context Protocol) 架构解耦**：工具界的 USB 跨平台开放标准 |
+| **16** | **Agent 卡死剖析与破局** | **OpenClaw 5 大卡死模式**（403 权限阻断、死循环、盲目脑补）与 **4 级防御措施**（步数预算、10s 超时、错误注入） |
+| **17** | **三层安全门禁与权限架构** | **权限三层立体防线**（沙箱隔离、读写控制、不对称人机审批 Human-in-the-loop） |
+| **18** | **Skill 本质与现代演进** | **Skill SOP 经验包**与 Tools 的关系，向 **MCP / Subagents / Rules** 的 3 大现代演进 |
+| **19** | **生产级 5 道工程护栏** | **1:1 交互实验室**：迭代上限 (50轮)、输出截断 (200K)、超时控制 (5s)、AbortSignal 中断恢复、上下文急救 |
+| **20** | **多 Agent 协同 vs 单 Agent** | **多 Agent 上下文彻底隔离**、Manager 目标拆解 + Worker 专职执行、OpenClaw `deny: ["subagents"]` 防套娃死循环 |
+| **21** | **全链路追踪与可观测性** | **tool.before/after_call Hook 切面拦截**、`TRACEID` 与 `TASKID` 毫秒级耗时计算与证据留痕审计 |
+| **22** | **Workflow vs Agent 本质辨析** | **代码决定流程 vs 模型决定路径**、Anthropic 复杂度控制黄金阶梯 (Prompt ➔ RAG ➔ Workflow ➔ Agent) |
+| **23** | **AgentHub 真 Agent 3 大场景** | **业务异常根因排查 Agent**、**平台元构建 Meta-Agent**、**红蓝对抗安全渗透 Agent** 实战落地 |
+| **24** | **长运行 Agent 困局与破局** | **为什么长任务总会烂尾？** One-shotting 上下文雪崩与换班失忆，**Claude Code Initializer + Coding 双 Agent 接力破局** |
+| **25** | **现代长任务工业级解法** | **/superpower 插件 Spec-Driven 多 Agent 接力流水线**：`/brainstorm` ➔ `/writer-plans` ➔ `/execute` 上下文物理隔离与状态外置 (JSON + Git) |
 
 ---
 
-## 📜 许可与贡献
+## 🚀 本地极速体验与播放指南
 
-本项目采用 Apache 2.0 许可证开源。欢迎 Fork、Star 或提交 Pull Request 一起丰富与完善课程内容！
+1. **一键打开**：
+   - 播放主课程 PPT：在浏览器中直接打开 [ai_course_ppt.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_course_ppt.html)
+   - 播放 AI Agent 专题 PPT：在浏览器中直接打开 [ai_agent.html](file:///Users/a58/Downloads/%E5%AD%A6%E4%B9%A0/AI-Study/AI-Study/ai_agent.html)
+
+2. **快捷键操纵**：
+   - **`→` / `Space` / `PageDown`**：向后翻页
+   - **`←` / `PageUp`**：向前翻页
+   - **`M`**：一键打开 / 关闭全景缩略图大纲目录
+   - **`Esc`**：关闭大纲弹窗
+
+---
+
+## 📜 开源许可与贡献
+
+本项目采用 Apache 2.0 许可证开源。欢迎 Fork、Star 或提交 Pull Request 一起丰富与完善全景课程内容！
