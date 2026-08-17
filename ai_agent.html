@@ -1442,8 +1442,131 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 7: OpenClaw /compact 自动压缩与写回全流程 -->
+<!-- SLIDE 7: Agent 长期记忆全景：各主流框架记录机制与作用 -->
   <section class="slide" data-slide="7">
+    <header class="lesson-header">
+      <h1>Agent 长期记忆全景：各主流框架记录机制与作用</h1>
+      <p class="subtitle">跨越会话生命周期：从 OpenClaw 的 Memory Flush 到 Claude Code 的 CLAUDE.md 与 Mem0 图谱记忆。</p>
+    </header>
+
+    <div class="cw-panorama" style="margin-bottom:10px;">
+      <!-- 左栏：4 大顶级工具记录方式 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--accent); margin-bottom:2px;">🛠️ 1. 主流代码/CLI Agent 长期记忆落地</div>
+
+        <div style="background:rgba(0,102,255,0.04); border:1px solid rgba(0,102,255,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--accent);">• OpenClaw (Memory Flush 刷盘)</b><br>
+          <b>存储载体</b>：<code>~/.openclaw/memory/</code> 文件夹。<br>
+          <b>作用与机制</b>：在上下文压缩前静默跑一轮，把重要架构决策与踩坑笔记<b>落盘持久化</b>，新会话启动自动加载。
+        </div>
+
+        <div style="background:rgba(124,58,237,0.04); border:1px solid rgba(124,58,237,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--purple);">• Claude Code (记忆即代码)</b><br>
+          <b>存储载体</b>：项目根目录 <code>CLAUDE.md</code> + <code>state.json</code>。<br>
+          <b>作用与机制</b>：与 Git 仓库共存。启动时自动读取构建命令与代码规范，并在交互中将用户新约束自动写回文件。
+        </div>
+
+        <div style="background:rgba(22,163,74,0.04); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--success);">• Antigravity (工件资产与规则)</b><br>
+          <b>存储载体</b>：<code>brain/artifacts/</code> 工件库 + <code>rules.md</code>。<br>
+          <b>作用与机制</b>：持久化保存架构图与代码 Diff；通过 <code>/learn</code> 将纠偏经验沉淀为全局规则，跨会话穿透引用。
+        </div>
+      </div>
+
+      <!-- 右栏：云端与前沿记忆框架 -->
+      <div class="cw-pane" style="display:flex; flex-direction:column; gap:6px;">
+        <div style="font-size:12.5px; font-weight:800; color:var(--purple); margin-bottom:2px;">🌐 2. 云端事实与专业 Agent 记忆框架</div>
+
+        <div style="background:rgba(217,119,6,0.04); border:1px solid rgba(217,119,6,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--amber);">• OpenAI ChatGPT / Codex (原子事实库)</b><br>
+          <b>存储载体</b>：云端 Key-Value 用户画像字典。<br>
+          <b>作用与机制</b>：后台静默抽取“用户偏好与技术栈”事实三元组，每次新会话作为隐藏 System Prompt 自动注入。
+        </div>
+
+        <div style="background:rgba(234,88,12,0.04); border:1px solid rgba(234,88,12,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--orange);">• Mem0 (向量 + 知识图谱 + KV 三合一)</b><br>
+          <b>作用与机制</b>：将对话拆为用户画像、会话记忆与 Agent 经验，通过图谱关系与向量混合召回，实现极精准记忆。
+        </div>
+
+        <div style="background:rgba(8,145,178,0.04); border:1px solid rgba(8,145,178,0.18); border-radius:8px; padding:6px 9px; font-size:11px; line-height:1.45;">
+          <b style="color:var(--cyan);">• Letta / MemGPT (OS 虚拟内存分页)</b><br>
+          <b>作用与机制</b>：将 Context 视为物理内存 (RAM)，外部向量库视为硬盘 (Disk)，由 Agent 自主换入换出调页。
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部架构总结 -->
+    <div class="bottom-box">
+      <p>
+        💡 <b>核心作用</b>：长期记忆彻底解决了大模型“每次新建会话都像失忆”的痛点，使 Agent 具备<b>跨越数周/数月的持续进化与个性化资产沉淀能力</b>。
+      </p>
+    </div>
+  </section>
+
+<!-- SLIDE 8: 长期记忆 vs 知识库 (RAG) vs 向量数据库三维辨析 -->
+  <section class="slide" data-slide="8">
+    <header class="lesson-header">
+      <h1>长期记忆 vs 知识库 (RAG) vs 向量数据库</h1>
+      <p class="subtitle">理清核心概念边界：主观经验、客观知识与底层存储基础设施的三维协同架构。</p>
+    </header>
+
+    <!-- 3 大核心概念网格 (.grid-3-col) -->
+    <div class="grid-3-col" style="margin-bottom:10px;">
+      <!-- 1. 长期记忆 -->
+      <div class="card c1" style="display:block; padding:12px 14px;">
+        <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+          <div class="card-icon" style="margin-top:0; background:rgba(0,102,255,0.1); color:var(--accent);">🧠</div>
+          <h4 style="font-size:13.5px; font-weight:800; color:var(--text); margin:0;">长期记忆 (Memory)</h4>
+        </div>
+        <div style="font-size:11px; color:var(--sub); line-height:1.5;">
+          • <b>通俗类比</b>：个人私人日记 / 经验档案<br>
+          • <b>数据性质</b>：<b>主观、动态、个性化</b><br>
+          • <b>存储内容</b>：用户习惯、已修复 Bug、架构决策、服务器 IP 配置<br>
+          • <b>产生机制</b>：Agent 对话中通过 Memory Flush <b>自主提炼并落盘写入</b>
+        </div>
+      </div>
+
+      <!-- 2. 知识库 -->
+      <div class="card c2" style="display:block; padding:12px 14px;">
+        <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+          <div class="card-icon" style="margin-top:0; background:rgba(22,163,74,0.1); color:var(--success);">📚</div>
+          <h4 style="font-size:13.5px; font-weight:800; color:var(--text); margin:0;">知识库 (Knowledge Base)</h4>
+        </div>
+        <div style="font-size:11px; color:var(--sub); line-height:1.5;">
+          • <b>通俗类比</b>：百科全书 / 企业参考资料<br>
+          • <b>数据性质</b>：<b>客观、权威、静态通用</b><br>
+          • <b>存储内容</b>：产品手册、API 文档、法律规章、企业制度 SOP<br>
+          • <b>产生机制</b>：管理员<b>自上而下批量上传</b>并切片入库
+        </div>
+      </div>
+
+      <!-- 3. 向量数据库 -->
+      <div class="card c3" style="display:block; padding:12px 14px;">
+        <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+          <div class="card-icon" style="margin-top:0; background:rgba(124,58,237,0.1); color:var(--purple);">🗄️</div>
+          <h4 style="font-size:13.5px; font-weight:800; color:var(--text); margin:0;">向量数据库 (Vector DB)</h4>
+        </div>
+        <div style="font-size:11px; color:var(--sub); line-height:1.5;">
+          • <b>通俗类比</b>：高速语义检索文件柜<br>
+          • <b>技术定位</b>：<b>底层的物理存储与计算引擎</b><br>
+          • <b>代表产品</b>：LanceDB / Chroma / Milvus / pgvector<br>
+          • <b>赋能角色</b>：同时为知识库与长期记忆提供<b>毫秒级 Top-K 语义召回</b>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部协同结论 -->
+    <div class="bottom-box">
+      <p>
+        💡 <b>三维协同闭环</b>：<b>知识库</b>确保回答专业权威（不出错），<b>长期记忆</b>确保交互懂你且连续（不失忆），<b>向量数据库</b>在底层为两者提供强劲的语义检索支撑！
+      </p>
+    </div>
+  </section>
+
+
+
+<!-- SLIDE 9: OpenClaw /compact 自动压缩与写回全流程 -->
+  <section class="slide" data-slide="9">
     <header class="lesson-header">
       <h1>OpenClaw /compact 自动压缩与写回全流程</h1>
       <p class="subtitle">解剖 OpenClaw 上下文警示与 <code>/compact</code> 斜杠指令：从消息分割、后台摘要到持久化覆盖写回。</p>
@@ -1501,8 +1624,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 8: Claude Code 自动压缩与代码状态锁定 -->
-  <section class="slide" data-slide="8">
+<!-- SLIDE 10: Claude Code 自动压缩与代码状态锁定 -->
+  <section class="slide" data-slide="10">
     <header class="lesson-header">
       <h1>Claude Code 自动压缩与代码状态锁定</h1>
       <p class="subtitle">解剖 Anthropic 官方 CLI Agent：160K 警戒线、Git 与文件修改锁定、<code>.jsonl</code> 追加存储。</p>
@@ -1556,8 +1679,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 9: OpenClaw vs Claude Code 上下文治理全景对比 -->
-  <section class="slide" data-slide="9">
+<!-- SLIDE 11: OpenClaw vs Claude Code 上下文治理全景对比 -->
+  <section class="slide" data-slide="11">
     <header class="lesson-header">
       <h1>OpenClaw vs Claude Code 上下文治理全景对比</h1>
       <p class="subtitle">通用 Agent 框架与代码重构 Agent 框架在<b>存储介质、压缩侧重、代码保护与报文清洗</b>四大维度的深度对比。</p>
@@ -1606,8 +1729,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
 
 
 
-<!-- SLIDE 10: 通用 Agent 消息列表 4 大压缩算法与四层防线 -->
-  <section class="slide" data-slide="10">
+<!-- SLIDE 12: 通用 Agent 消息列表 4 大压缩算法与四层防线 -->
+  <section class="slide" data-slide="12">
     <header class="lesson-header">
       <h1>通用 Agent 消息列表 4 大压缩算法与四层防线</h1>
       <p class="subtitle">从基础滑动窗口到向量 RAG 检索，结合<b>水位阶梯式防线</b>实现极端长对话不中断崩溃。</p>
@@ -1666,8 +1789,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 11: 上下文压缩：四层防线动态水箱演练实验室 -->
-  <section class="slide" data-slide="11">
+<!-- SLIDE 13: 上下文压缩：四层防线动态水箱演练实验室 -->
+  <section class="slide" data-slide="13">
     <header class="lesson-header">
       <h1>上下文压缩：四层防线动态水箱演练实验室</h1>
       <p class="subtitle">拖动下方滑块模拟对话 Token 持续增长，实时观察四层防线如何自动“泄洪”延长上下文寿命。</p>
@@ -1831,8 +1954,8 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
     </div>
   </section>
 
-<!-- SLIDE 12: MCP (Model Context Protocol) 架构解耦与跨平台工具标准 -->
-  <section class="slide" data-slide="12">
+<!-- SLIDE 14: MCP (Model Context Protocol) 架构解耦与跨平台工具标准 -->
+  <section class="slide" data-slide="14">
     <header class="lesson-header">
       <h1>MCP (Model Context Protocol) 架构解耦与跨平台工具标准</h1>
       <p class="subtitle">从“混乱工具调用 (N×M)”到“开放标准协议 (N+M)”：Client 与 Server 的彻底解耦与生态互通。</p>
