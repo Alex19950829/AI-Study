@@ -1661,61 +1661,71 @@ html.xa-locked .paywall-locked:not(.xa-peek){display:none!important}html.xa-lock
   </section>
 
 <!-- SLIDE 12: 深度思考物理机制：单次前向传播硬约束 vs &lt;think&gt; 草稿纸机制 -->
+  <!-- SLIDE 12: 深度思考物理机制：单次前向传播硬约束 vs <think> 草稿纸机制 -->
   <section class="slide" data-slide="12">
-<header class="lesson-header">
+    <header class="lesson-header">
       <h1>深度思考物理机制：单次前向传播硬约束 vs &lt;think&gt; 草稿纸机制</h1>
-      <p class="subtitle">单次前向传播物理瓶颈、网络深度计算步数硬约束与 <b>$a+b=10$ 的“无撤销锁死” vs “草稿自愈”实测剖析</b>。</p>
+      <p class="subtitle">单次前向传播物理瓶颈、网络深度计算步数硬约束与 <b>真实企业级坐席质检 &lt;think&gt; 纠错自愈实测</b>。</p>
     </header>
 
-    <!-- 💡 物理原理拆解：单次前向传播 vs 算力硬约束 -->
-    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:8px;">
+    <!-- 💡 物理原理拆解：单次前向传播 vs 算力硬约束 (2-Col Top) -->
+    <div class="duo-grid" style="grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:8px;">
       <!-- 左：单次前向传播 (One-Pass Forward) -->
-      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 12px; box-shadow:var(--shadow-card);">
-        <div style="font-size:12px; font-weight:800; color:var(--danger); margin-bottom:4px;">
-          🌊 单次前向传播 (One-Pass Forward Pass)
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:10px; padding:8px 10px; box-shadow:var(--shadow-card);">
+        <div style="font-size:11.5px; font-weight:800; color:var(--danger); margin-bottom:3px; display:flex; align-items:center; gap:4px;">
+          <span>🌊 单次前向传播 (One-Pass Forward Pass)</span>
         </div>
-        <div style="font-size:11px; line-height:1.5; color:var(--text);">
-          • <b>无回头路瀑布流</b>：生成每个 Token 时，数据从 1 层流到 128 层（输出层）只单向流动一次，<b>没有循环、没有撤销键 (Undo)</b>。<br>
-          • <b>自回归历史锁死</b>：吐出的字立刻变不可篡改的历史 (Context)。如果第一个字猜偏，后续注意力被错线锁死，导致盲目自信发乱编。
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text);">
+          • <b>无回头路瀑布流</b>：生成每个 Token 时，数据从 1 层流到 128 层只单向流动一次，<b>没有循环、没有撤销键 (Undo)</b>。<br>
+          • <b>自回归历史锁死</b>：吐出的字立刻变不可篡改的历史 (Context)。如果第一个字猜偏，后续注意力被错线锁死，导致盲目自信硬编。
         </div>
       </div>
 
       <!-- 右：网络深度计算步数硬约束 -->
-      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 12px; box-shadow:var(--shadow-card);">
-        <div style="font-size:12px; font-weight:800; color:var(--purple); margin-bottom:4px;">
-          📏 网络深度计算步数硬约束
+      <div style="background:var(--card); border:1.5px solid var(--border); border-radius:10px; padding:8px 10px; box-shadow:var(--shadow-card);">
+        <div style="font-size:11.5px; font-weight:800; color:var(--purple); margin-bottom:3px; display:flex; align-items:center; gap:4px;">
+          <span>📏 网络深度计算步数硬约束</span>
         </div>
-        <div style="font-size:11px; line-height:1.5; color:var(--text);">
-          • <b>逻辑深度 > 神经网络层数</b>：128 层 Transformer 在预测单字时最多做 128 步矩阵推演。面对需 500 步的复杂推理，物理上根本算不完！<br>
-          • <b>“用 Token 换时间步”突破</b>：深度思考模型在 <code>&lt;think&gt;</code> 中吐千字草稿，把逻辑深度转译为多时间步连续演推。
-        </div>
-      </div>
-    </div>
-
-    <!-- 🎯 经典案例对比：a + b = 10 (要求 b = 3) -->
-    <div style="background:var(--card); border:1.5px solid var(--border); border-radius:12px; padding:10px 12px; margin-bottom:8px; box-shadow:var(--shadow-card);">
-      <div style="font-size:12px; font-weight:800; color:var(--accent); margin-bottom:6px;">
-        📌 经典例题物理图景对比：已知 $a+b=10$，要求 $b=3$
-      </div>
-      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; font-size:11px; line-height:1.5;">
-        <div style="background:rgba(229,62,62,0.05); border:1px solid rgba(229,62,62,0.18); border-radius:8px; padding:8px 10px;">
-          <b style="color:var(--danger);">⚡ 秒答模式 (无草稿纸，必死锁)：</b><br>
-          1. 盲猜误吐 <code>a = 8</code> ➔ 锁死在 Context 无法擦除；<br>
-          2. 接着吐 <code>b = 3</code> ➔ 面对绝境（无法擦掉 8）；<br>
-          3. 迫于自回归只能硬编：<code>“8 + 3 = 10”</code> (无法自我纠错！)。
-        </div>
-        <div style="background:rgba(22,163,74,0.05); border:1px solid rgba(22,163,74,0.18); border-radius:8px; padding:8px 10px;">
-          <b style="color:var(--success);">🧠 深度思考模式 (&lt;think&gt; 草稿自愈)：</b><br>
-          1. <code>&lt;think&gt; 假设 a=8 ➔ 8+3=11≠10 ➔ 矛盾！</code><br>
-          2. <b>触发反思 Token：<code>"Wait... 排除 a=8！"</code></b> (划掉重来)<br>
-          3. 重试假设 <code>a=7 ➔ 7+3=10</code> ➔ 正文输出：<code>a = 7, b = 3</code>。
+        <div style="font-size:10.5px; line-height:1.45; color:var(--text);">
+          • <b>逻辑深度 > 神经网络层数</b>：128 层 Transformer 预测单字时最多做 128 步推演。面对需 500 步的复杂逻辑，单步物理上根本算不完！<br>
+          • <b>“用 Token 换时间步”突破</b>：深度思考模型在 <code>&lt;think&gt;</code> 中吐千字草稿，把逻辑深度转译为多时间步连续推演与自纠。
         </div>
       </div>
     </div>
 
-    <div class="infer-formula-box" style="margin-top:2px; border-color:var(--accent); background:rgba(79,123,255,0.04);">
-      <b>💡 物理本质：</b><br>
-      • <b>深度思考模型不是变得更“聪明”了</b>，而是通过长文本 Token 展开，把神经网络有限的逻辑深度，转译为了多个时间步的自回归演推！
+    <!-- 🎯 真实企业级实战案例：坐席质检多轮假设、自纠与判定全景 (Code Card) -->
+    <div style="background:#1e1e24; border:1.5px solid rgba(255,255,255,0.12); border-radius:10px; padding:8px 12px; margin-bottom:8px; box-shadow:0 4px 16px rgba(0,0,0,0.25); color:#e0e0e0;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:4px;">
+        <div style="display:flex; align-items:center; gap:6px;">
+          <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#ff5f56;"></span>
+          <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#ffbd2e;"></span>
+          <span style="display:inline-block; width:9px; height:9px; border-radius:50%; background:#27c93f;"></span>
+          <span style="font-size:11px; font-weight:700; color:#9ca3af; font-family:monospace; margin-left:4px;">
+            📌 真实业务实测：二手车坐席质检产品与承诺识别 &lt;think&gt; 思考链
+          </span>
+        </div>
+        <span style="font-size:9.5px; background:rgba(79,123,255,0.25); color:#93c5fd; padding:1px 6px; border-radius:4px; font-weight:700;">自回归草稿自愈</span>
+      </div>
+
+      <div style="font-family:monospace; font-size:10px; line-height:1.45; max-height:120px; overflow-y:auto; padding-right:4px;">
+        <div style="color:#60a5fa; font-weight:700;">&lt;think&gt;</div>
+        <div style="color:#d1d5db; padding-left:10px;">
+          我现在处理用户的请求，先识别产品和承诺。首先看产品里的，提到了优先（Priority）还有刷新（Refresh）对吧？<span style="color:#f87171; font-weight:700;">哦还有优惠券？不对</span>，先看产品的触发词：原文里有“优先刷新资源点”，优先对应Priority，刷新对应Refresh...<br>
+          <span style="color:#fbbf24; font-weight:700;">不对，产品里没有优惠券，优惠券是承诺类型里的</span>。然后看承诺类型，坐席说“把套餐详细内容给您发一下”...<span style="color:#f87171; font-weight:700;">哦等下</span>，坐席说的发内容有没有对应？<span style="color:#fbbf24; font-weight:700;">排除是纯告知、客户自操作、已完成、拒绝</span>，这里都不是，是将要给的...<br>
+          <span style="color:#34d399; font-weight:700;">再检查产品</span>：产品Priority/Refresh命中，优惠券属于承诺Coupon，最终收敛输出。
+        </div>
+        <div style="color:#60a5fa; font-weight:700;">&lt;/think&gt;</div>
+        <div style="color:#4ade80; font-weight:700; margin-top:2px;">{"products": ["Priority", "Refresh"], "promise_types": ["Coupon"]}</div>
+      </div>
+    </div>
+
+    <!-- 底部物理本质总结 -->
+    <div class="bottom-box" style="display:block; padding:7px 14px;">
+      <div style="font-size:11px; color:var(--text); line-height:1.5;">
+        💡 <b>物理本质揭秘</b>：
+        如果用秒答模型，它在第一句话就把“优惠券”误当成产品输出，导致**历史锁死、无法撤销**；
+        而深度思考模型通过在 <code>&lt;think&gt;</code> 中吐出 <span style="color:var(--danger); font-weight:700;">“不对”</span>、<span style="color:var(--amber); font-weight:700;">“哦等下”</span> 等反思 Token，<b>在草稿纸上完成了 4 次假设检验与自我纠偏</b>，最终吐出 100% 准确的业务 JSON！
+      </div>
     </div>
   </section>
 
